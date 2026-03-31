@@ -1,0 +1,17 @@
+{
+  "name": "Club Atlético Cercedense",
+  "short_name": "At. Cercedense",
+  "description": "App oficial del Club Atlético Cercedense. Resultados, directos y toda la información del club.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#e11d48",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
