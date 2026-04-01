@@ -3,9 +3,12 @@
 import { Radio, Youtube, Bell, Share2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/mobile/layout/AppProvider";
+import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Directo() {
   const { theme } = useTheme();
+  const { data } = useContent();
+  const content = data.directoContent!;
 
   return (
     <div className={`flex flex-col gap-10 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${
@@ -54,23 +57,23 @@ export default function Directo() {
             <div className="flex flex-col items-center gap-2">
                 <h3 className={`text-xl font-black tracking-tight uppercase italic transition-colors duration-1000 ${
                   theme === 'day' ? 'text-slate-900' : 'text-white'
-                }`}>FÓRA DE EMISIÓN</h3>
+                }`}>{content.statusText}</h3>
                 <p className={`max-w-[200px] text-center text-[10px] font-bold leading-relaxed uppercase tracking-widest transition-colors duration-1000 ${
                   theme === 'day' ? 'text-slate-400' : 'text-white/30'
                 }`}>
-                    NON HAI NINGUNHA RETRANSMISIÓN ACTIVA NO MOMENTO.
+                    {content.description}
                 </p>
             </div>
         </div>
 
-        <button className={`relative z-10 flex items-center gap-3 rounded-full px-8 py-4 text-[11px] font-black tracking-[0.2em] active:scale-95 transition-all uppercase ${
+        <a href={content.youtubeUrl} target="_blank" rel="noopener noreferrer" className={`relative z-10 flex items-center gap-3 rounded-full px-8 py-4 text-[11px] font-black tracking-[0.2em] active:scale-95 transition-all uppercase ${
           theme === 'day' 
             ? "bg-slate-900 text-white shadow-xl shadow-slate-300/50" 
             : "bg-white text-black"
         }`}>
           CANLE DE YOUTUBE
           <Youtube size={16} />
-        </button>
+        </a>
       </section>
 
       {/* Upcoming Event Info */}
@@ -86,8 +89,8 @@ export default function Directo() {
         <div className="flex flex-col gap-1">
             <h4 className={`text-lg font-black tracking-tight uppercase italic transition-colors duration-1000 ${
               theme === 'day' ? 'text-slate-900' : 'text-white'
-            }`}>CERCEDENSE vs ORDES CF</h4>
-            <span className="text-[10px] font-bold text-primary tracking-widest uppercase mt-1">DOMINGO 5 ABRIL · 17:00H</span>
+            }`}>{content.nextEventTitle}</h4>
+            <span className="text-[10px] font-bold text-primary tracking-widest uppercase mt-1">{content.nextEventDate}</span>
         </div>
       </section>
     </div>

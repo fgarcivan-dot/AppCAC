@@ -3,6 +3,7 @@ import { Inter, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/mobile/layout/BottomNav";
 import { AppProvider } from "@/components/mobile/layout/AppProvider";
+import { ContentProvider } from "@/components/mobile/layout/ContentProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const robotoCondensed = Roboto_Condensed({
@@ -34,7 +35,11 @@ export default function RootLayout({
         className={`${inter.variable} ${robotoCondensed.variable} font-sans bg-background text-foreground antialiased`}
       >
         <AppProvider>
-          <main className="min-h-screen pb-32 overflow-x-hidden">{children}</main>
+          <main className="min-h-screen pb-32 overflow-x-hidden">
+            <ContentProvider>
+              {children}
+            </ContentProvider>
+          </main>
           <BottomNav />
         </AppProvider>
       </body>

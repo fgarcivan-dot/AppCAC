@@ -21,57 +21,49 @@ export function SocialPost({ imageUrl, caption, postUrl, date, theme = "night" }
       animate={{ opacity: 1, y: 0 }}
       className="block w-full group overflow-hidden"
     >
-      <div className={`relative rounded-[2.5rem] border overflow-hidden active:scale-[0.98] transition-all duration-1000 ${
-        theme === 'day' ? "bg-slate-100 border-slate-200 shadow-none" : "bg-white/[0.02] border-white/5 shadow-2xl"
+      <div className={`relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden active:scale-[0.98] transition-all duration-1000 ${
+        theme === 'day' ? "shadow-[0_20px_40px_-15px_rgba(218,41,28,0.2)]" : "shadow-3xl shadow-black/80"
       }`}>
         
-        {/* Header-less Instagram Style (Minimalist) */}
-        <div className="relative aspect-[4/5] w-full overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src={imageUrl} 
-            alt="Instagram Post" 
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          
-          {/* Subtle Overlay Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-          
-          {/* Instagram Icon Badge */}
-          <div className={`absolute top-6 right-6 p-3 rounded-2xl border transition-colors ${
-            theme === 'day' ? "bg-slate-100/80 border-slate-100 group-hover:bg-primary" : "bg-white/10 border-white/10 group-hover:bg-primary"
-          }`}>
-            <Instagram size={18} className={theme === 'day' ? "text-slate-900 group-hover:text-white" : "text-white"} />
-          </div>
+        {/* Full Bleed Image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img 
+          src={imageUrl} 
+          alt="Instagram Post" 
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        />
+        
+        {/* Deep Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity duration-1000 group-hover:opacity-100" />
+        
+        {/* Instagram Floating Icon */}
+        <div className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-xl border border-white/20 text-white transition-all duration-500 group-hover:bg-primary group-hover:border-primary group-hover:scale-110">
+          <Instagram size={20} />
         </div>
 
-        {/* Content Area */}
-        <div className="p-8 flex flex-col gap-6">
+        {/* Floating Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-5 text-white">
           <div className="flex items-center justify-between">
-            <div className={`flex items-center gap-2 transition-colors duration-1000 ${theme === 'day' ? "text-slate-400" : "text-white/40"}`}>
-              <Calendar size={12} />
-              <span className="text-[10px] font-bold tracking-widest uppercase" style={{ fontFamily: 'NeueMontreal' }}>{date}</span>
-            </div>
-            <div className="flex items-center gap-2 text-primary">
-              <span className="text-[10px] font-bold tracking-widest uppercase" style={{ fontFamily: 'NeueMontreal' }}>INSTAGRAM</span>
-              <ExternalLink size={12} />
+            <div className="flex items-center gap-2 text-white/70">
+              <Calendar size={12} className="text-primary" />
+              <span className="text-[10px] font-black tracking-widest uppercase" style={{ fontFamily: 'NeueMontreal' }}>{date}</span>
             </div>
           </div>
 
-          <p className={`text-sm font-medium leading-relaxed line-clamp-3 italic transition-colors duration-1000 ${
-            theme === 'day' ? "text-slate-700" : "text-white/80"
-          }`}>
+          <p className="text-xl sm:text-2xl font-bold leading-[1.2] line-clamp-3 text-white drop-shadow-md">
             "{caption}"
           </p>
 
-          <div className={`h-px w-full transition-colors duration-1000 ${theme === 'day' ? "bg-slate-100" : "bg-white/5"}`} />
+          <div className="flex items-center justify-between w-full mt-2">
+             <span className="text-[10px] font-black text-white/50 tracking-[0.4em] uppercase transition-colors group-hover:text-white" style={{ fontFamily: 'NeueMontreal' }}>
+                VER EN INSTAGRAM
+             </span>
+             <ExternalLink size={14} className="text-white/30 group-hover:text-primary transition-colors" />
+          </div>
 
-          <div className="flex items-center justify-center py-2">
-            <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
-              theme === 'day' ? "text-slate-300 group-hover:text-slate-900" : "text-white/20 group-hover:text-white"
-            }`} style={{ fontFamily: 'NeueMontreal' }}>
-              Pulsar para ver la publicación
-            </span>
+          {/* Interactive Progress Bar Hint */}
+          <div className="w-full h-[2px] bg-white/20 rounded-full overflow-hidden mt-1">
+            <div className="h-full bg-primary w-0 group-hover:w-full transition-all duration-1000 ease-out" />
           </div>
         </div>
       </div>

@@ -48,6 +48,46 @@ export interface HomeContent {
   };
 }
 
+export interface ResultRow {
+  id: number | string;
+  home: string;
+  away: string;
+  score: string;
+  date: string;
+  category: string;
+  result: "VITORIA" | "DERROTA" | "EMPATE";
+}
+
+export interface DirectoContent {
+  isLive: boolean;
+  statusText: string;
+  description: string;
+  youtubeUrl: string;
+  nextEventTitle: string;
+  nextEventDate: string;
+}
+
+export interface ContactoContent {
+  address: string;
+  email: string;
+  phone: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  twitterUrl: string;
+}
+
+export interface PartidosContent {
+  matches: {
+    id: number | string;
+    home: string;
+    away: string;
+    date: string;
+    time: string;
+    category: string;
+    venue: string;
+  }[];
+}
+
 export interface AppData {
   masculino: {
     posicion: string;
@@ -74,6 +114,18 @@ export interface AppData {
     };
   };
   homeContent?: HomeContent;
+  resultadosContent?: {
+    results: ResultRow[];
+    maleSeasonWins: number;
+    maleSeasonDraws: number;
+    maleSeasonLosses: number;
+    femaleSeasonWins: number;
+    femaleSeasonDraws: number;
+    femaleSeasonLosses: number;
+  };
+  directoContent?: DirectoContent;
+  contactoContent?: ContactoContent;
+  partidosContent?: PartidosContent;
 }
 
 // Tu URL real de Gist configurada para actualizaciones en tiempo real

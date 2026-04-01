@@ -20,7 +20,7 @@ export function MembershipBanner({ theme, data }: MembershipBannerProps) {
       </div>
 
       <div className={`w-full max-w-[100%] lg:max-w-md mx-auto relative overflow-hidden flex flex-col items-center px-6 py-10 rounded-[2.5rem] backdrop-blur-3xl shadow-xl transition-all duration-1000 ${
-        isDay ? 'bg-slate-100 border border-slate-300/50' : 'bg-gradient-to-b from-zinc-900 to-black border border-white/5 shadow-black/80'
+        isDay ? 'bg-white border border-primary/10 shadow-[0_10px_30px_-15px_rgba(218,41,28,0.1)]' : 'bg-[#050505] border border-white/5 shadow-2xl'
       }`}>
       {/* Background Accent */}
       <div
@@ -44,21 +44,21 @@ export function MembershipBanner({ theme, data }: MembershipBannerProps) {
 
       {/* Benefits */}
       <div className="w-full flex flex-col gap-4 mb-8 relative z-10">
-        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white shadow-sm' : 'bg-white/5'}`}>
+        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white border border-primary/5 shadow-sm' : 'bg-black border border-white/5'}`}>
           <div className="w-10 h-10 min-w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary">
             <Ticket size={18} />
           </div>
           <span className={`text-[13px] md:text-sm font-semibold tracking-wide ${isDay ? 'text-slate-800' : 'text-white/90'}`}>{data?.benefit1 || "Acceso a todos os partidos na casa"}</span>
         </div>
         
-        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white shadow-sm' : 'bg-white/5'}`}>
+        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white border border-primary/5 shadow-sm' : 'bg-black border border-white/5'}`}>
           <div className="w-10 h-10 min-w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary">
             <ShoppingBag size={18} />
           </div>
           <span className={`text-[13px] md:text-sm font-semibold tracking-wide ${isDay ? 'text-slate-800' : 'text-white/90'}`}>{data?.benefit2 || "Descontos en merchandising oficial"}</span>
         </div>
 
-        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white shadow-sm' : 'bg-white/5'}`}>
+        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white border border-primary/5 shadow-sm' : 'bg-black border border-white/5'}`}>
           <div className="w-10 h-10 min-w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary">
             <Users size={18} />
           </div>

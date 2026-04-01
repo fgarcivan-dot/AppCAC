@@ -3,21 +3,24 @@
 import { MapPin, Mail, Phone, Instagram, Facebook, Twitter, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/mobile/layout/AppProvider";
-
-const infoItems = [
-  { icon: MapPin, title: "DIRECCIÓN", value: "CAMPO O ROXO, CERCEDA" },
-  { icon: Mail, title: "EMAIL", value: "c.a.cercedense@gmail.com" },
-  { icon: Phone, title: "TELÉFONO", value: "+34 600 000 000" },
-];
-
-const socials = [
-  { icon: Instagram, name: "Instagram" },
-  { icon: Facebook, name: "Facebook" },
-  { icon: Twitter, name: "Twitter" },
-];
+import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Contacto() {
   const { theme } = useTheme();
+  const { data } = useContent();
+  const content = data.contactoContent!;
+
+  const infoItems = [
+    { icon: MapPin, title: "DIRECCIÓN", value: content.address },
+    { icon: Mail, title: "EMAIL", value: content.email },
+    { icon: Phone, title: "TELÉFONO", value: content.phone },
+  ];
+
+  const socials = [
+    { icon: Instagram, name: "Instagram", url: content.instagramUrl },
+    { icon: Facebook, name: "Facebook", url: content.facebookUrl },
+    { icon: Twitter, name: "Twitter", url: content.twitterUrl },
+  ];
 
   return (
     <div className={`flex flex-col gap-10 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${
@@ -72,18 +75,21 @@ export default function Contacto() {
             }`}>SÍGUENOS</h3>
             <div className="flex gap-8">
                 {socials.map((social) => (
-                    <motion.div 
+                    <motion.a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         key={social.name}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className={`flex h-14 w-14 items-center justify-center rounded-full border transition-all ${
                           theme === 'day' 
-                            ? "bg-slate-200 border-slate-300 text-slate-600 active:text-primary" 
-                            : "bg-black/60 border-white/10 text-white active:text-primary"
+                            ? "bg-slate-200 border-slate-300 text-slate-600 hover:text-primary" 
+                            : "bg-black/60 border-white/10 text-white hover:text-primary"
                         }`}
                     >
                         <social.icon size={24} />
-                    </motion.div>
+                    </motion.a>
                 ))}
             </div>
         </div>

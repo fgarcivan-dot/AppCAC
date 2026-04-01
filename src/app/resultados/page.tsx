@@ -5,15 +5,14 @@ import { motion } from "framer-motion";
 import { SeasonStats } from "@/components/mobile/sections/SeasonStats";
 import { useTheme } from "@/components/mobile/layout/AppProvider";
 
-const results = [
-  { id: 1, home: "CERCEDENSE", away: "PONTECARREIRA", score: "1 - 0", date: "MAR 22", category: "SENIOR MASCULINO", result: "VITORIA" },
-  { id: 2, home: "AT. ARTEIXO", away: "CERCEDENSE", score: "2 - 1", date: "MAR 21", category: "SENIOR FEMININO", result: "DERROTA" },
-  { id: 3, home: "CERCEDENSE", away: "SD FISTERRA", score: "3 - 2", date: "MAR 21", category: "XUVENIL", result: "VITORIA" },
-  { id: 4, home: "BERGANTIÑOS", away: "CERCEDENSE", score: "1 - 1", date: "MAR 20", category: "CADETE", result: "EMPATE" },
-  { id: 5, home: "CERCEDENSE", away: "VICTORIA CF", score: "0 - 2", date: "MAR 20", category: "INFANTIL", result: "DERROTA" },
-];
+import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Resultados() {
+  const { theme } = useTheme();
+  const { data } = useContent();
+  const resContent = data.resultadosContent!;
+  const results = resContent.results || [];
+
   const [activeTab, setActiveTab] = useState(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
@@ -21,7 +20,6 @@ export default function Resultados() {
     }
     return 'SENIORS';
   });
-  const { theme } = useTheme();
 
   const maleResult = results.find(r => r.category === "SENIOR MASCULINO");
   const femaleResult = results.find(r => r.category === "SENIOR FEMININO");
@@ -76,7 +74,7 @@ export default function Resultados() {
             <div className={`mb-4 rounded-[2rem] border transition-colors duration-1000 ${
               theme === 'day' ? 'bg-slate-100 border-slate-200' : 'bg-white/[0.02] border-white/5'
             }`}>
-              <SeasonStats wins={14} draws={4} losses={6} title="BALANCE SENIOR MASCULINO" />
+              <SeasonStats wins={resContent.maleSeasonWins} draws={resContent.maleSeasonDraws} losses={resContent.maleSeasonLosses} title="BALANCE SENIOR MASCULINO" />
             </div>
 
             {/* Senior Feminino */}
@@ -84,7 +82,7 @@ export default function Resultados() {
             <div className={`mb-4 rounded-[2rem] border transition-colors duration-1000 ${
               theme === 'day' ? 'bg-slate-100 border-slate-200' : 'bg-white/[0.02] border-white/5'
             }`}>
-              <SeasonStats wins={10} draws={2} losses={3} title="BALANCE SENIOR FEMININO" />
+              <SeasonStats wins={resContent.femaleSeasonWins} draws={resContent.femaleSeasonDraws} losses={resContent.femaleSeasonLosses} title="BALANCE SENIOR FEMININO" />
             </div>
           </>
         )}

@@ -96,26 +96,24 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                 ref={i === 1 ? centerCardRef : null}
                 className="flex-none w-screen max-w-full px-6 snap-center"
               >
-                {/* Stadium Atmosphere Backdrop: Dynamic styling for Day/Night */}
+                {/* Stadium Atmosphere Backdrop: White & Red Passion */}
                 <div className={`w-full h-[320px] relative transition-all duration-1000
-                  rounded-[2.5rem] overflow-hidden border transition-all ${theme === 'day'
-                    ? "bg-slate-100 border-slate-300/40 shadow-none"
-                    : "bg-gradient-to-b from-zinc-900 via-black to-black border-white/5 shadow-2xl shadow-black/80"
+                  rounded-[2.5rem] overflow-hidden border ${theme === 'day'
+                    ? "bg-white border-primary/10 shadow-[0_20px_40px_-15px_rgba(218,41,28,0.15)]"
+                    : "bg-black border-primary/20 shadow-[0_0_40px_-5px_rgba(218,41,28,0.25)]"
                   }
                 `}>
 
-                  {/* Spotlight Radial Gradient - Disabled in Day Mode for maximum clarity */}
+                  {/* Spotlight Radial Gradient - Heroic Red Flare */}
                   <div
-                    className="absolute inset-0 transition-opacity duration-1000"
+                    className="absolute inset-0 transition-opacity duration-1000 pointer-events-none mix-blend-plus-lighter"
                     style={{
                       background: isActive && mounted
                         ? (theme === 'day'
-                          ? `none`
-                          : `radial-gradient(circle at center, rgba(218, 41, 28, 0.25) 0%, transparent 70%)`)
-                        : (theme === 'day'
-                          ? `none`
-                          : `radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%)`),
-                      opacity: theme === 'day' ? 0 : 0.4
+                          ? `radial-gradient(circle at center, rgba(218, 41, 28, 0.05) 0%, transparent 70%)`
+                          : `radial-gradient(circle at center, rgba(218, 41, 28, 0.4) 0%, transparent 70%)`)
+                        : `none`,
+                      opacity: 1
                     }}
                   />
 
@@ -125,16 +123,16 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                     {match.status === "DESCANSO" ? (
                       /* Minimalist Rest Day Mode: Show title + "DESCANSO" centered */
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
-                        <span className={`absolute top-10 text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-400" : "text-white/40"
+                        <span className={`absolute top-10 text-[9px] font-black tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/60"
                           }`} style={{ fontFamily: 'NeueMontreal' }}>
                           {match.title}
                         </span>
                         <motion.span
                           animate={{
                             scale: isActive ? 1 : 0.8,
-                            opacity: isActive ? (theme === 'day' ? 0.6 : 0.3) : 0.1,
+                            opacity: isActive ? 1 : 0.3,
                           }}
-                          className={`text-3xl sm:text-4xl font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.4)]"
+                          className={`text-3xl sm:text-4xl font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900 drop-shadow-sm" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.8)]"
                             }`}
                           style={{ fontFamily: 'NeueMontreal' }}
                         >
@@ -145,13 +143,13 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                       <>
                         {/* Top Row: Info */}
                         <div className="flex justify-between items-start">
-                          <span className={`text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-400" : "text-white/50"
+                          <span className={`text-[9px] font-black tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/60"
                             }`} style={{ fontFamily: 'NeueMontreal' }}>
                             {match.title}
                           </span>
-                          <div className={`flex items-center gap-2 transition-colors duration-1000 ${theme === 'day' ? "text-slate-300" : "text-white/40"
+                          <div className={`flex items-center gap-2 transition-colors duration-1000 ${theme === 'day' ? "text-slate-700" : "text-white/60"
                             }`}>
-                            <Calendar size={10} className="text-primary/60" />
+                            <Calendar size={10} className="text-primary/80" />
                             <span className="text-[9px] font-bold uppercase tracking-[0.4em]" style={{ fontFamily: 'NeueMontreal' }}>
                               {match.date}
                             </span>
@@ -218,20 +216,21 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                         </div>
 
                         {/* Bottom Row: Teams */}
-                        <div className="flex justify-between items-end gap-10">
-                          <div className="flex flex-col gap-1">
-                            <span className="text-[8px] font-bold text-primary tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
-                            <span className={`text-sm font-bold uppercase tracking-wider transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
-                                ? "text-primary"
+                        <div className="flex justify-between items-end gap-10 relative z-20">
+                          <div className="flex flex-col gap-1 w-[45%]">
+                            <span className="text-[8px] font-black text-primary tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
+                            <span className={`text-base font-black uppercase tracking-widest leading-none break-words transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
+                                ? "text-primary drop-shadow-sm"
                                 : (theme === 'day' ? "text-slate-900" : "text-white")
                               }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
                           </div>
 
                           {/* Venue in bottom right info - Hidden if DESCANSO */}
                           {match.away !== "DESCANSO" && (
-                            <div className="flex flex-col items-end gap-1">
-                              <span className={`text-sm font-bold uppercase tracking-wider text-right transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
-                                  ? "text-primary"
+                            <div className="flex flex-col items-end gap-1 w-[45%] text-right">
+                              <span className="text-[8px] font-black text-primary/70 tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>VISITANTE</span>
+                              <span className={`text-base font-black uppercase tracking-widest leading-none break-words transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
+                                  ? "text-primary drop-shadow-sm"
                                   : (theme === 'day' ? "text-slate-900" : "text-white")
                                 }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
                             </div>

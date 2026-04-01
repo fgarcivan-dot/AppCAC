@@ -5,15 +5,12 @@ import { MatchListCard } from "@/components/mobile/ui/MatchListCard";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/mobile/layout/AppProvider";
 
-const matches = [
-  { id: 1, home: "CERCEDENSE", away: "ORDES CF", date: "5 Abr", time: "17:00H", category: "SENIOR MASCULINO", venue: "CAMPO O ROXO" },
-  { id: 2, home: "BETANZOS CF", away: "CERCEDENSE", date: "5 Abr", time: "12:00H", category: "SENIOR FEMININO", venue: "CAMPO DEP. BETANZOS" },
-  { id: 3, home: "CERCEDENSE", away: "SD FISTERRA", date: "4 Abr", time: "16:30H", category: "XUVENIL", venue: "CAMPO O ROXO" },
-  { id: 4, home: "BERGANTIÑOS FC", away: "CERCEDENSE", date: "4 Abr", time: "11:00H", category: "CADETE", venue: "CAMPO AS EIROAS" },
-  { id: 5, home: "CERCEDENSE", away: "VICTORIA CF", date: "4 Abr", time: "10:30H", category: "INFANTIL", venue: "CAMPO O ROXO" },
-];
+import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Partidos() {
+  const { data } = useContent();
+  const matches = data.partidosContent?.matches || [];
+  
   const [activeTab, setActiveTab] = useState("SENIORS");
   const { theme } = useTheme();
 

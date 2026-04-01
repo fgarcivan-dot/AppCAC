@@ -23,7 +23,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
 
       {/* Canteira Header Block */}
       <div className={`w-full p-6 rounded-[2rem] backdrop-blur-3xl shadow-lg border transition-all duration-1000 mb-6 flex flex-col items-center text-center ${
-        isDay ? 'bg-white border-slate-300/50' : 'bg-gradient-to-b from-zinc-900 to-black border-white/5 shadow-black/80'
+        isDay ? 'bg-white border-primary/10 shadow-[0_10px_30px_-15px_rgba(218,41,28,0.1)]' : 'bg-black border-white/5 shadow-2xl'
       }`}>
         
         <h3 className={`text-[20px] sm:text-2xl font-extrabold uppercase tracking-widest mb-4 leading-snug ${
@@ -56,7 +56,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
           
           {/* Tecnificación */}
           <div className={`p-4 rounded-[1.5rem] flex flex-col items-center text-center border transition-all duration-1000 ${
-            isDay ? 'bg-white border-slate-200 shadow-sm' : 'bg-white/5 border-white/5'
+            isDay ? 'bg-white border-primary/5 shadow-sm hover:border-primary/20' : 'bg-[#050505] border-white/5 hover:border-primary/20'
           }`}>
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
               <Crosshair size={14} />
@@ -67,7 +67,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
 
           {/* Metodoloxía */}
           <div className={`p-4 rounded-[1.5rem] flex flex-col items-center text-center border transition-all duration-1000 ${
-            isDay ? 'bg-white border-slate-200 shadow-sm' : 'bg-white/5 border-white/5'
+            isDay ? 'bg-white border-primary/5 shadow-sm hover:border-primary/20' : 'bg-[#050505] border-white/5 hover:border-primary/20'
           }`}>
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
               <Brain size={14} />
@@ -78,7 +78,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
 
           {/* Área CAFYD */}
           <div className={`p-4 rounded-[1.5rem] flex flex-col items-center text-center border transition-all duration-1000 ${
-            isDay ? 'bg-white border-slate-200 shadow-sm' : 'bg-white/5 border-white/5'
+            isDay ? 'bg-white border-primary/5 shadow-sm hover:border-primary/20' : 'bg-[#050505] border-white/5 hover:border-primary/20'
           }`}>
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
               <Activity size={14} />
@@ -89,7 +89,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
 
           {/* Dirección */}
           <div className={`p-4 rounded-[1.5rem] flex flex-col items-center text-center border transition-all duration-1000 ${
-            isDay ? 'bg-white border-slate-200 shadow-sm' : 'bg-white/5 border-white/5'
+            isDay ? 'bg-white border-primary/5 shadow-sm hover:border-primary/20' : 'bg-[#050505] border-white/5 hover:border-primary/20'
           }`}>
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
               <Shield size={14} />
@@ -103,7 +103,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
 
       {/* Join Canteira CTA */}
       <Link href={data?.uneteLink || "/contacto"} className={`w-full p-6 rounded-[2rem] backdrop-blur-3xl shadow-lg flex items-center justify-between transition-all duration-1000 relative overflow-hidden active:scale-[98%] ${
-        isDay ? 'bg-white border border-slate-200' : 'bg-white/5 border border-white/10'
+        isDay ? 'bg-white border border-primary/20' : 'bg-[#050505] border border-primary/20'
       }`}>
         {/* Glow */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-[50px] pointer-events-none" />

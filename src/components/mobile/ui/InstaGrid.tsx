@@ -28,7 +28,7 @@ export function InstaGrid({ theme, data }: InstaGridProps) {
       </div>
 
       <p className={`w-full text-center text-sm font-medium mb-6 leading-relaxed ${
-        theme === 'day' ? 'text-slate-600' : 'text-slate-400'
+        theme === 'day' ? 'text-slate-800' : 'text-white/70'
       }`}>
         {data?.description || "Momentos de paixón. Xogadores, afección e canteira unidos por un mesmo sentimento."}
       </p>
@@ -37,7 +37,7 @@ export function InstaGrid({ theme, data }: InstaGridProps) {
       <div className="grid grid-cols-2 gap-3 w-full mb-6 relative">
         {(data?.images?.length === 6 ? data.images : INSTA_IMAGES).map((src, i) => (
           <a key={i} href={data?.instagramUrl || "https://www.instagram.com/cacercedense/"} target="_blank" rel="noopener noreferrer" 
-             className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-slate-800 shadow-sm active:scale-95 transition-all group">
+             className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-[#0a0a0a] shadow-md border border-white/5 active:scale-95 transition-all group">
             <img src={src} key={i} alt={`Cercedense Instagram ${i+1}`} className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
             
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
@@ -63,10 +63,10 @@ export function InstaGrid({ theme, data }: InstaGridProps) {
         href={data?.instagramUrl || "https://www.instagram.com/cacercedense/"}
         target="_blank"
         rel="noopener noreferrer"
-        className={`flex items-center justify-center gap-3 w-full py-4 rounded-full text-sm font-bold uppercase tracking-widest transition-all active:scale-95 ${
+        className={`flex items-center justify-center gap-3 w-full py-4 rounded-[1.5rem] font-bold uppercase tracking-widest transition-all active:scale-95 ${
           theme === 'day' 
-            ? 'bg-slate-200 text-slate-900 border border-slate-300' 
-            : 'bg-white/5 text-white border border-white/10'
+            ? 'bg-white text-slate-900 border border-primary/20 hover:border-primary shadow-sm' 
+            : 'bg-[#050505] text-white border border-primary/20 hover:border-primary shadow-2xl'
         }`}
       >
         <Instagram size={18} />
