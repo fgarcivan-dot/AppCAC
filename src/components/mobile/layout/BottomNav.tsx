@@ -20,7 +20,7 @@ export function BottomNav() {
   const { theme } = useTheme();
 
   return (
-    <nav className={`fixed bottom-0 left-0 right-0 z-50 border-t backdrop-blur-xl transition-all duration-1000 ${
+    <nav className={`fixed bottom-0 left-0 right-0 z-50 h-bottom-nav pb-safe border-t backdrop-blur-xl transition-all duration-1000 ${
       theme === 'day' ? "bg-slate-100/80 border-slate-200 shadow-lg" : "bg-black/90 border-white/5"
     }`}>
       <div className="flex h-20 items-center justify-around px-2">

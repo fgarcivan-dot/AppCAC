@@ -68,7 +68,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         theme === 'day' ? "bg-slate-200 text-slate-900" : "bg-black text-white"
       } ${isLoading ? "hidden" : "block animate-in fade-in duration-1000"}`}>
         {!isLoading && <Header theme={theme} toggleTheme={toggleTheme} />}
-        <div className={isLoading ? "" : "pt-20"}>
+        <div className={isLoading ? "" : "pt-header"}>
           {children}
         </div>
       </div>

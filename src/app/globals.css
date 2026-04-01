@@ -37,6 +37,10 @@
   /* Safe Area Variables */
   --safe-area-top: env(safe-area-inset-top, 0px);
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  
+  /* Safe Area Heights */
+  --header-height: calc(5rem + var(--safe-area-top));
+  --bottom-nav-height: calc(5rem + var(--safe-area-bottom));
 }
 
 body {
@@ -73,4 +77,15 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  
+  /* Safe Area Utilities */
+  .pt-safe { padding-top: var(--safe-area-top); }
+  .pb-safe { padding-bottom: var(--safe-area-bottom); }
+  .mt-safe { margin-top: var(--safe-area-top); }
+  .mb-safe { margin-bottom: var(--safe-area-bottom); }
+  .min-h-safe-top { min-height: var(--header-height); }
+  .h-header { height: var(--header-height); }
+  .h-bottom-nav { height: var(--bottom-nav-height); }
+  .pt-header { padding-top: var(--header-height); }
+  .pb-bottom-nav { padding-bottom: var(--bottom-nav-height); }
 }

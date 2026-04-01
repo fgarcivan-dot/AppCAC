@@ -12,10 +12,10 @@ interface HeaderProps {
 
 export function Header({ theme, toggleTheme, pullDistance = 0, isRefreshing = false }: HeaderProps) {
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 w-full h-20 border-b transition-colors duration-1000 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full h-header pt-safe border-b transition-colors duration-1000 ${
       theme === 'day' ? 'bg-slate-200 border-slate-300/40' : 'bg-black border-white/5'
     }`}>
-      <div className="relative w-full h-full flex items-center justify-center safe-area-top">
+      <div className="relative w-full h-full flex items-center justify-center">
         
         {/* Theme Toggle Button (Always floats on the right) */}
         <button
