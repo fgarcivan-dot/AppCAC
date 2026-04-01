@@ -159,7 +159,7 @@ export default function Home() {
       >
 
       {/* Elite Category Selector (Tabs) */}
-      <div className={`w-full max-w-[340px] mt-0 relative backdrop-blur-3xl rounded-full p-1 border flex items-center shadow-2xl transition-all duration-1000 ${
+      <div className={`w-full max-w-[340px] mt-5 relative backdrop-blur-3xl rounded-full p-1 border flex items-center shadow-2xl transition-all duration-1000 ${
         theme === 'day' ? 'bg-slate-200/50 border-slate-300/50' : 'bg-white/[0.03] border-white/5'
       }`}>
         <motion.div 
@@ -194,7 +194,7 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: activeTab === "masculino" ? 20 : -20 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="w-full flex flex-col gap-8 pb-32"
+            className="w-full flex flex-col gap-4 pb-32"
           >
             {/* Header / Info */}
             <div className="flex items-center justify-between px-2">
