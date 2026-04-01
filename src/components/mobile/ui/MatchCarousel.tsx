@@ -233,9 +233,9 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                           <div className="flex flex-col gap-1">
                             <span className="text-[8px] font-bold text-primary tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
                             <span className={`text-sm font-bold uppercase tracking-wider transition-colors duration-1000 ${
-                               (match.home.toUpperCase().includes("CERCEDENSE") || !match.away.toUpperCase().includes("CERCEDENSE"))
-                                 ? (theme === 'day' ? "text-slate-900" : "text-white")
-                                 : (theme === 'day' ? "text-slate-300" : "text-white/40")
+                               match.home.toUpperCase().includes("CERCEDENSE")
+                                 ? "text-primary"
+                                 : (theme === 'day' ? "text-slate-900" : "text-white")
                              }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
                           </div>
 
@@ -243,9 +243,9 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                           {match.away !== "DESCANSO" && (
                             <div className="flex flex-col items-end gap-1">
                                <span className={`text-sm font-bold uppercase tracking-wider text-right transition-colors duration-1000 ${
-                                 (match.away.toUpperCase().includes("CERCEDENSE") || !match.home.toUpperCase().includes("CERCEDENSE"))
-                                   ? (theme === 'day' ? "text-slate-900" : "text-white")
-                                   : (theme === 'day' ? "text-slate-300" : "text-white/40")
+                                 match.away.toUpperCase().includes("CERCEDENSE")
+                                   ? "text-primary"
+                                   : (theme === 'day' ? "text-slate-900" : "text-white")
                                }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
                             </div>
                           )}
