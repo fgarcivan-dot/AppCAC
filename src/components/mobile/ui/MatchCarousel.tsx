@@ -218,8 +218,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                         {/* Bottom Row: Teams */}
                         <div className="flex justify-between items-end gap-10 relative z-20">
                           <div className="flex flex-col gap-1 w-[45%]">
-                            <span className="text-[8px] font-black text-primary tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
-                            <span className={`text-base font-black uppercase tracking-widest leading-none break-words transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
+                            <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
                                 ? "text-primary drop-shadow-sm"
                                 : (theme === 'day' ? "text-slate-900" : "text-white")
                               }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
@@ -228,8 +227,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                           {/* Venue in bottom right info - Hidden if DESCANSO */}
                           {match.away !== "DESCANSO" && (
                             <div className="flex flex-col items-end gap-1 w-[45%] text-right">
-                              <span className="text-[8px] font-black text-primary/70 tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>VISITANTE</span>
-                              <span className={`text-base font-black uppercase tracking-widest leading-none break-words transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
+                              <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
                                   ? "text-primary drop-shadow-sm"
                                   : (theme === 'day' ? "text-slate-900" : "text-white")
                                 }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
