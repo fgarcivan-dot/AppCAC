@@ -112,15 +112,15 @@ export function SplashScreen() {
             CLUB ATLÉTICO
           </motion.h1>
           
-          <div className="relative mt-2">
-            <h2 className="text-5xl font-black tracking-tighter text-white/5 uppercase italic" style={{ fontFamily: 'Quakerhack' }}>
+          <div className="relative mt-2 px-4 flex items-center justify-center">
+            <h2 className="text-5xl font-black tracking-tighter text-white/5 uppercase italic whitespace-nowrap" style={{ fontFamily: 'Quakerhack' }}>
               CERCEDENSE
             </h2>
             <motion.h2 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              animate={{ clipPath: "inset(0 -30% 0 0)" }}
+              animate={{ clipPath: "inset(0 -50% 0 -50%)" }}
               transition={{ duration: 3, delay: 1.5, ease: "easeInOut" }}
-              className="absolute inset-0 text-5xl font-black tracking-tighter text-white uppercase italic"
+              className="absolute inset-0 text-5xl font-black tracking-tighter text-white uppercase italic whitespace-nowrap flex items-center justify-center"
               style={{ fontFamily: 'Quakerhack' }}
             >
               CERCEDENSE
