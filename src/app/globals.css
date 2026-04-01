@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Quakerhack';
+  src: url('/fonts/Quakerhack.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeueMontreal';
+  src: url('/fonts/Neue Montreal Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 @theme inline {
   --color-background: #000000;
   --color-foreground: #ffffff;
@@ -18,6 +32,7 @@
 
   --font-sans: var(--font-inter);
   --font-heading: var(--font-roboto-condensed);
+  --font-neue: 'NeueMontreal', sans-serif;
 }
 
 body {

@@ -2,75 +2,143 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function SplashScreen() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Particle generator for the "Light Motes" effect
+  const particles = Array.from({ length: 20 });
+
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
+      exit={{ 
+        opacity: 0,
+        transition: { duration: 1.2, ease: "easeInOut" }
+      }}
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black overflow-hidden"
     >
-      {/* Red Aura/Glow */}
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1.2, opacity: 0.4 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute h-64 w-64 rounded-full bg-primary blur-[80px]"
-      />
+      {/* 🌫️ LAYER 1: Stadium Mist / Fog Atmosphere */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div 
+          animate={{ 
+            x: [-100, 100, -100],
+            y: [-50, 50, -50],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-1/2 -left-1/2 w-full h-full bg-primary blur-[160px] rounded-full"
+        />
+        <motion.div 
+          animate={{ 
+            x: [100, -100, 100],
+            y: [50, -50, 50],
+            opacity: [0.05, 0.15, 0.05]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-red-900 blur-[140px] rounded-full"
+        />
+      </div>
 
-      {/* Shield & Text Content */}
-      <div className="relative z-10 flex flex-col items-center gap-6">
+      {/* ✨ LAYER 2: Particle Motes (Floating Dust) */}
+      {mounted && particles.map((_, i) => (
         <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, ease: "backOut" }}
-          className="relative h-32 w-32 drop-shadow-[0_0_25px_rgba(218,41,28,0.6)]"
-        >
-          <Image
-            src="/escudo.png"
-            alt="Club Atlético Cercedense Logo"
-            fill
-            className="object-contain"
-          />
-        </motion.div>
+          key={i}
+          initial={{ 
+            x: Math.random() * 100 - 50 + "%", 
+            y: Math.random() * 100 - 50 + "%",
+            opacity: 0 
+          }}
+          animate={{ 
+            y: ["-10%", "10%"],
+            opacity: [0, 0.3, 0],
+            scale: [0.5, 1, 0.5]
+          }}
+          transition={{ 
+            duration: 5 + Math.random() * 5, 
+            repeat: Infinity, 
+            delay: Math.random() * 5,
+            ease: "easeInOut" 
+          }}
+          className="absolute h-1 w-1 bg-white rounded-full blur-[1px]"
+        />
+      ))}
 
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          className="flex flex-col items-center gap-2"
-        >
-          <div className="flex flex-col items-center -gap-1">
-            <h1 className="text-[12px] font-black tracking-[0.6em] text-white/50 uppercase">
-              CLUB ATLÉTICO
-            </h1>
-            <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic">
+      {/* 🛡️ LAYER 3: Shield & Spotlight Reveal */}
+      <div className="relative z-10 flex flex-col items-center gap-4">
+        
+        {/* Soft cenital spotlight */}
+        <motion.div 
+           initial={{ opacity: 0, scale: 0.5 }}
+           animate={{ opacity: 0.3, scale: 1 }}
+           transition={{ duration: 2, ease: "easeOut" }}
+           className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-64 h-32 bg-white blur-[80px] rounded-full"
+        />
+
+        <div className="relative">
+          {/* 🛡️ NEW HD SHIELD - Maximum sharpness 4K */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
+            className="relative h-48 w-48"
+          >
+            <Image
+              src="/escudo_hd.png"
+              alt="Club Atlético Cercedense Logo HD"
+              fill
+              className="object-contain"
+              priority
+              unoptimized={true}
+              quality={100}
+            />
+          </motion.div>
+        </div>
+
+        {/* 🎭 LAYER 4: Hero Reveal Typography */}
+        <div className="flex flex-col items-center mt-6">
+          <motion.h1 
+             initial={{ opacity: 0, letterSpacing: "1.2em" }}
+             animate={{ opacity: 0.4, letterSpacing: "0.8em" }}
+             transition={{ duration: 2.5, delay: 0.8 }}
+             className="text-[10px] font-black text-white uppercase"
+             style={{ fontFamily: 'NeueMontreal' }}
+          >
+            CLUB ATLÉTICO
+          </motion.h1>
+          
+          <div className="relative mt-2">
+            <h2 className="text-5xl font-black tracking-tighter text-white/5 uppercase italic" style={{ fontFamily: 'Quakerhack' }}>
               CERCEDENSE
             </h2>
+            <motion.h2 
+              initial={{ clipPath: "inset(0 100% 0 0)" }}
+              animate={{ clipPath: "inset(0 -30% 0 0)" }}
+              transition={{ duration: 3, delay: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0 text-5xl font-black tracking-tighter text-white uppercase italic"
+              style={{ fontFamily: 'Quakerhack' }}
+            >
+              CERCEDENSE
+            </motion.h2>
           </div>
-
-          {/* Three Loading Dots */}
-          <div className="mt-8 flex gap-2">
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                animate={{
-                  opacity: [0.2, 1, 0.2],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                  ease: "easeInOut",
-                }}
-                className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(218,41,28,0.6)]"
-              />
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </div>
+
+      {/* Subtle Loading Progress Info */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.2 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-16 flex flex-col items-center gap-1"
+      >
+        <span className="text-[7px] font-black tracking-[0.4em] text-white uppercase">ESTADIO O ROXO</span>
+        <div className="w-8 h-[1px] bg-primary" />
+      </motion.div>
     </motion.div>
   );
 }

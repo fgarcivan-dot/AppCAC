@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { MatchCarousel } from "@/components/mobile/ui/MatchCarousel";
 import { ClassificationTable } from "@/components/mobile/ui/ClassificationTable";
 import { SocialPost } from "@/components/mobile/ui/SocialPost"; // Import social post
+import { RefreshIndicator } from "@/components/mobile/ui/RefreshIndicator";
+import { Sun, Moon } from "lucide-react";
 import { fetchAppData, AppData } from "@/lib/dataService";
+import { useTheme } from "@/components/mobile/layout/AppProvider";
 
 const INITIAL_DATA: AppData = {
   masculino: {
@@ -13,7 +16,7 @@ const INITIAL_DATA: AppData = {
     matches: [
       { title: "XORNADA ANTERIOR", date: "MAR 22", home: "CERCEDENSE", away: "BOIRO", score: "3 - 0", venue: "CAMPO O ROXO" },
       { title: "ESTA XORNADA", date: "MAR 29", home: "CERCEDENSE", away: "PONTECARREIRA", score: "1 - 0", venue: "CAMPO O ROXO" },
-      { title: "VINDEIRO PARTIDO", date: "ABR 5", home: "ORDES CF", away: "CERCEDENSE", score: "vs", venue: "CAMPO DEP. ORDES" }
+      { title: "PRÓXIMO", date: "POR DEFINIR", home: "ORDES CF", away: "CERCEDENSE", score: "POR DEFINIR", venue: "CAMPO DEP. ORDES" }
     ],
     standings: [
       { pos: 1, team: "VISANTOÑA C.F.", pts: 58, pj: 24 },
@@ -35,7 +38,7 @@ const INITIAL_DATA: AppData = {
     matches: [
       { title: "XORNADA ANTERIOR", date: "MAR 15", home: "CERCEDENSE", away: "SP. MEICENDE", score: "3 - 3", venue: "CAMPO O ROXO" },
       { title: "ESTA XORNADA", date: "MAR 22", home: "AD CULLEREDO", away: "CERCEDENSE", score: "1 - 8", venue: "CAMPO ALEGRET" },
-      { title: "VINDEIRO PARTIDO", date: "ABR 12", home: "CERCEDENSE", away: "C.C.D. CURTIS", score: "vs", venue: "CAMPO O ROXO" }
+      { title: "PRÓXIMO", date: "POR DEFINIR", home: "CERCEDENSE", away: "C.C.D. CURTIS", score: "POR DEFINIR", venue: "CAMPO O ROXO" }
     ],
     standings: [
       { pos: 1, team: "ATLÉTICO CERCEDENSE", pts: 47, pj: 17, highlighted: true },
@@ -57,34 +60,108 @@ const INITIAL_DATA: AppData = {
 export default function Home() {
   const [data, setData] = useState<AppData>(INITIAL_DATA);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"masculino" | "femenino">("femenino"); 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const [activeTab, setActiveTab] = useState<"masculino" | "femenino">("masculino"); 
+  
+  const [refreshKey, setRefreshKey] = useState(0);
+  
+  // Motion values for pull-to-refresh
+  const yPosition = useMotionValue(0);
+  const [pullDistance, setPullDistance] = useState(0);
+
+  const initData = async () => {
+    // Explicitly fetching new data
+    const remoteData = await fetchAppData();
+    if (remoteData) {
+       setData(remoteData);
+       setRefreshKey(prev => prev + 1); // Forcing re-render of components
+    }
+    setLoading(false);
+  };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await initData();
+    // Simulate a tiny bit of loading just for feel, then reset instantly
+    setTimeout(() => {
+      setIsRefreshing(false);
+      yPosition.set(0);
+      setPullDistance(0);
+    }, 200);
+  };
 
   useEffect(() => {
-    async function init() {
-      const remoteData = await fetchAppData();
-      if (remoteData) setData(remoteData);
-      setTimeout(() => setLoading(false), 600);
-    }
-    init();
+    initData();
   }, []);
+
+  useEffect(() => {
+    let startY = 0;
+    
+    const handleTouchStart = (e: TouchEvent) => {
+      if (window.scrollY <= 5) {
+        startY = e.touches[0].pageY;
+      } else {
+        startY = 0;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isRefreshing || startY === 0) return;
+      
+      const currentY = e.touches[0].pageY;
+      const diff = currentY - startY;
+      
+      if (diff > 0 && window.scrollY <= 5) {
+        setPullDistance(diff);
+        yPosition.set(diff * 1.0); // Total 1:1 response (no resistance)
+        
+        // Prevent default scrolling when pulling to refresh
+        if (diff > 10 && e.cancelable) e.preventDefault();
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (isRefreshing) return;
+      
+      if (pullDistance > 30) { // Hyper-sensitive threshold (was 50)
+        handleRefresh();
+      } else {
+        setPullDistance(0);
+        yPosition.set(0);
+      }
+      startY = 0;
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isRefreshing, pullDistance]);
 
   const currentData = data[activeTab];
 
   return (
-    <div className={`flex min-h-screen flex-col bg-background p-6 items-center justify-start gap-8 transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
+    <div className={`flex min-h-screen flex-col items-center justify-start relative overflow-x-hidden ${loading ? 'opacity-0' : 'opacity-100'}`}>
       
-      {/* Branding Header */}
-      <header className="flex flex-col items-center mt-8 w-full text-center">
-        <h1 className="text-[10px] font-black tracking-[0.6em] text-white/30 uppercase mb-1">
-          CLUB ATLÉTICO
-        </h1>
-        <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic">
-          CERCEDENSE
-        </h2>
-      </header>
+      {/* Background Indicator */}
+      <RefreshIndicator isRefreshing={isRefreshing} pullDistance={pullDistance} theme={theme} />
+
+      {/* Main Content Area (Native Scroll Restored) */}
+      <motion.div 
+        style={{ y: yPosition }}
+        className="w-full flex flex-col items-center p-6  gap-8 z-10"
+      >
 
       {/* Elite Category Selector (Tabs) */}
-      <div className="w-full max-w-[340px] mt-4 relative bg-white/[0.03] backdrop-blur-3xl rounded-full p-1 border border-white/5 flex items-center shadow-2xl">
+      <div className={`w-full max-w-[340px] mt-4 relative backdrop-blur-3xl rounded-full p-1 border flex items-center shadow-2xl transition-all duration-1000 ${
+        theme === 'day' ? 'bg-slate-200/50 border-slate-300/50' : 'bg-white/[0.03] border-white/5'
+      }`}>
         <motion.div 
           animate={{ x: activeTab === "masculino" ? 0 : "100%" }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -92,13 +169,17 @@ export default function Home() {
         />
         <button 
           onClick={() => setActiveTab("masculino")}
-          className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-300 ${activeTab === "masculino" ? 'text-white' : 'text-white/40'}`}
+          className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
+            activeTab === "masculino" ? 'text-white' : (theme === 'day' ? 'text-slate-400' : 'text-white/40')
+          }`}
         >
           Masculino
         </button>
         <button 
           onClick={() => setActiveTab("femenino")}
-          className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-300 ${activeTab === "femenino" ? 'text-white' : 'text-white/40'}`}
+          className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
+            activeTab === "femenino" ? 'text-white' : (theme === 'day' ? 'text-slate-400' : 'text-white/40')
+          }`}
         >
           Femenino
         </button>
@@ -108,7 +189,7 @@ export default function Home() {
       <div className="w-full flex-1 relative overflow-visible mt-4">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
+            key={`${activeTab}-${refreshKey}`}
             initial={{ opacity: 0, x: activeTab === "masculino" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: activeTab === "masculino" ? 20 : -20 }}
@@ -117,38 +198,47 @@ export default function Home() {
           >
             {/* Header / Info */}
             <div className="flex items-center justify-between px-2">
-              <span className="text-[10px] font-black tracking-[0.3em] text-white/20 uppercase">
+              <span className={`text-[10px] font-bold tracking-[0.3em] uppercase transition-colors duration-1000 ${
+                theme === 'day' ? 'text-slate-400' : 'text-white/20'
+              }`} style={{ fontFamily: 'NeueMontreal' }}>
                 {activeTab === "masculino" ? "SÉNIOR MASC." : "SÉNIOR FEM."}
               </span>
               <div className="flex items-center gap-2">
                 {activeTab === "femenino" && <div className="h-1 w-1 rounded-full bg-success animate-pulse" />}
-                <span className={`text-[10px] font-black tracking-[0.3em] uppercase ${activeTab === "femenino" ? 'text-success' : 'text-primary'}`}>
+                <span className={`text-[10px] font-bold tracking-[0.3em] uppercase transition-colors duration-1000 ${
+                  activeTab === "femenino" ? 'text-success' : 'text-primary'
+                }`} style={{ fontFamily: 'NeueMontreal' }}>
                   {currentData.posicion}
                 </span>
               </div>
             </div>
 
             {/* Dynamic Interactive Widgets */}
-            <MatchCarousel matches={currentData.matches} />
+            <MatchCarousel matches={currentData.matches} theme={theme} />
             
             <div className="flex items-center gap-3 px-2">
-              <div className="h-px flex-1 bg-white/5" />
-              <span className="text-[10px] font-black tracking-[0.4em] text-white/20 uppercase">Clasificación</span>
-              <div className="h-px flex-1 bg-white/5" />
+              <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
+              <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
+                theme === 'day' ? 'text-slate-400' : 'text-white/20'
+              }`} style={{ fontFamily: 'NeueMontreal' }}>Clasificación</span>
+              <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
             </div>
 
             <ClassificationTable 
               standings={currentData.standings} 
               externalUrl={currentData.externalUrl} 
+              theme={theme}
             />
 
             {/* News / Social Post */}
             <div className="flex items-center gap-3 px-2 mt-4">
-              <div className="h-px flex-1 bg-white/5" />
-              <span className="text-[10px] font-black tracking-[0.4em] text-white/20 uppercase">Novedades</span>
-              <div className="h-px flex-1 bg-white/5" />
+              <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
+              <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
+                theme === 'day' ? 'text-slate-400' : 'text-white/20'
+              }`} style={{ fontFamily: 'NeueMontreal' }}>Novedades</span>
+              <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
             </div>
-            <SocialPost {...currentData.socialPost} />
+            <SocialPost {...currentData.socialPost} theme={theme} />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -157,6 +247,8 @@ export default function Home() {
       <div className="fixed bottom-24 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none z-0">
         <div className="h-1 w-12 rounded-full bg-white/40 shadow-2xl" />
       </div>
+      
+      </motion.div>
     </div>
   );
 }
