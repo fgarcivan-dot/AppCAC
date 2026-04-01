@@ -37,7 +37,7 @@ export function InstaGrid({ theme, data }: InstaGridProps) {
       <div className="grid grid-cols-2 gap-3 w-full mb-6 relative">
         {(data?.images?.length === 6 ? data.images : INSTA_IMAGES).map((src, i) => (
           <a key={i} href={data?.instagramUrl || "https://www.instagram.com/cacercedense/"} target="_blank" rel="noopener noreferrer" 
-             className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-[#0a0a0a] shadow-md border border-white/5 active:scale-95 transition-all group">
+             className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-[#0a0a0a] shadow-md border border-white/5 active:scale-95 transition-all group">
             <img src={src} key={i} alt={`Cercedense Instagram ${i+1}`} className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
             
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
