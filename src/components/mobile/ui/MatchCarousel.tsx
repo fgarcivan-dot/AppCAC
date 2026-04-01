@@ -231,6 +231,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                         {/* Bottom Row: Teams */}
                         <div className="flex justify-between items-end gap-10">
                           <div className="flex flex-col gap-1">
+                            <span className="text-[8px] font-bold text-primary tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
                             <span className={`text-sm font-bold uppercase tracking-wider transition-colors duration-1000 ${
                                (match.home.toUpperCase().includes("CERCEDENSE") || !match.away.toUpperCase().includes("CERCEDENSE"))
                                  ? (theme === 'day' ? "text-slate-900" : "text-white")
