@@ -14,7 +14,13 @@ const results = [
 ];
 
 export default function Resultados() {
-  const [activeTab, setActiveTab] = useState("SENIORS");
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('tab') === 'canteira') return 'CANTEIRA';
+    }
+    return 'SENIORS';
+  });
   const { theme } = useTheme();
 
   const maleResult = results.find(r => r.category === "SENIOR MASCULINO");

@@ -5,6 +5,9 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-mo
 import { MatchCarousel } from "@/components/mobile/ui/MatchCarousel";
 import { ClassificationTable } from "@/components/mobile/ui/ClassificationTable";
 import { SocialPost } from "@/components/mobile/ui/SocialPost"; // Import social post
+import { InstaGrid } from "@/components/mobile/ui/InstaGrid";
+import { EscolasSection } from "@/components/mobile/ui/EscolasSection";
+import { MembershipBanner } from "@/components/mobile/ui/MembershipBanner";
 import { RefreshIndicator } from "@/components/mobile/ui/RefreshIndicator";
 import { Sun, Moon } from "lucide-react";
 import { fetchAppData, AppData } from "@/lib/dataService";
@@ -239,6 +242,32 @@ export default function Home() {
               <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
             </div>
             <SocialPost {...currentData.socialPost} theme={theme} />
+
+            {/* O Noso Manifesto */}
+            <div className="mt-8 mb-6 px-4 flex flex-col items-start justify-center text-left w-full pl-6 overflow-hidden">
+              <span className={`text-xs font-bold tracking-widest uppercase mb-4 transition-colors duration-1000 text-primary`} style={{ fontFamily: 'NeueMontreal' }}>
+                {data.homeContent?.manifesto?.line1 || "O Noso Manifesto"}
+              </span>
+              
+              <h2 className={`text-[26px] sm:text-4xl md:text-5xl font-bold leading-[1.4] tracking-wider uppercase whitespace-nowrap transition-colors duration-1000 ${
+                theme === 'day' ? 'text-slate-900' : 'text-white'
+              }`} style={{ fontFamily: 'NeueMontreal' }}>
+                {data.homeContent?.manifesto?.line2 || "Non somos só un club."}<br/>
+                <span className="text-primary">{data.homeContent?.manifesto?.highlight || "Somos familia."}</span><br/>
+                {data.homeContent?.manifesto?.line3 || "Somos esforzo."}<br/>
+                <span className="text-primary">{data.homeContent?.manifesto?.line1 ? "" : "Somos Cerceda."}</span>
+              </h2>
+            </div>
+
+            {/* Escolas / Canteira */}
+            <EscolasSection theme={theme} data={data.homeContent?.escolas} />
+
+            {/* Instagram Grid */}
+            <InstaGrid theme={theme} data={data.homeContent?.instaGrid} />
+
+            {/* Membership Banner (Socios) */}
+            <MembershipBanner theme={theme} data={data.homeContent?.membership} />
+            
           </motion.div>
         </AnimatePresence>
       </div>

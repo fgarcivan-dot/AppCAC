@@ -3,6 +3,50 @@
 import { Match } from "@/components/mobile/ui/MatchCarousel";
 import { StandingRow } from "@/components/mobile/ui/ClassificationTable";
 
+export interface HomeContent {
+  manifesto?: {
+    line1?: string;
+    line2?: string;
+    line3?: string;
+    highlight?: string;
+  };
+  escolas?: {
+    headerTitle?: string;
+    title?: string;
+    description?: string;
+    btnText?: string;
+    btnLink?: string;
+    modeloFormativoTitle?: string;
+    tecnificacion?: { title: string; desc: string };
+    metodoloxia?: { title: string; desc: string };
+    cafyd?: { title: string; desc: string };
+    direccion?: { title: string; desc: string };
+    uneteTitle?: string;
+    uneteDesc?: string;
+    uneteLink?: string;
+  };
+  instaGrid?: {
+    title1?: string;
+    title2Highlight?: string;
+    description?: string;
+    images?: string[];
+    btnText?: string;
+    instagramUrl?: string;
+  };
+  membership?: {
+    smallTitle?: string;
+    mainTitleLine1?: string;
+    mainTitleHighlight?: string;
+    description?: string;
+    benefit1?: string;
+    benefit2?: string;
+    benefit3?: string;
+    btnText?: string;
+    btnLink?: string;
+    footerNote?: string;
+  };
+}
+
 export interface AppData {
   masculino: {
     posicion: string;
@@ -28,6 +72,7 @@ export interface AppData {
       date: string;
     };
   };
+  homeContent?: HomeContent;
 }
 
 // Tu URL real de Gist configurada para actualizaciones en tiempo real
