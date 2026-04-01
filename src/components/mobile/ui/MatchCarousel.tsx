@@ -75,14 +75,14 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   };
 
   return (
-    <div className={`relative w-full py-10 overflow-hidden transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="flex flex-col gap-10">
+    <div className={`relative w-full py-4 overflow-hidden transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="flex flex-col gap-4">
 
         {/* Full-Bleed Panoramic Swiper Container */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-8 ${
+          className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-4 ${
             mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
           }`}
         >
