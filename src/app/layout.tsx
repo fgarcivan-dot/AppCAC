@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/mobile/layout/BottomNav";
@@ -14,6 +14,13 @@ const robotoCondensed = Roboto_Condensed({
 export const metadata: Metadata = {
   title: "Club Atlético Cercedense",
   description: "Orgullo de Cerceda",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
