@@ -9,7 +9,7 @@ const upcomingMatches = [
     team: "Senior Masculino",
     competition: "Preferente Galicia",
     home: "Cercedense",
-    away: "Visitante FC",
+    away: "Rival FC",
     date: "28",
     month: "Mar",
     time: "17:00H",
