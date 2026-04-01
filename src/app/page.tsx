@@ -155,7 +155,7 @@ export default function Home() {
       {/* Main Content Area (Native Scroll Restored) */}
       <motion.div 
         style={{ y: yPosition }}
-        className="w-full flex flex-col items-center px-4 pb-8 pt-0 gap-6 z-10"
+        className="w-full flex flex-col items-center px-4 pb-8 pt-5 gap-6 z-10"
       >
 
       {/* Elite Category Selector (Tabs) */}
