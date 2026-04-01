@@ -31,7 +31,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   useEffect(() => {
     let attempts = 0;
     const maxAttempts = 20; // 2 seconds total (100ms * 20)
-    
+
     const forceCenter = () => {
       const centerCard = document.getElementById('match-card-1');
       if (centerCard && scrollRef.current) {
@@ -40,7 +40,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
           inline: 'center',
           block: 'nearest'
         });
-        
+
         // Final verification: Is the card actually visible/centered?
         if (attempts > 2) {
           setMounted(true);
@@ -53,10 +53,10 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
     const timer = setInterval(() => {
       attempts++;
       forceCenter();
-      
+
       // Safety fallback
       if (attempts > 10) setMounted(true);
-      
+
       if (attempts >= maxAttempts) clearInterval(timer);
     }, 100);
 
@@ -65,7 +65,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (!mounted) return;
-    
+
     const container = e.currentTarget;
     const cardWidth = container.clientWidth || 375;
     const index = Math.round(container.scrollLeft / cardWidth);
@@ -75,16 +75,15 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   };
 
   return (
-    <div className={`relative w-full py-10 overflow-hidden transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="flex flex-col gap-10">
+    <div className={`relative w-full py-2 overflow-hidden transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="flex flex-col gap-0">
 
         {/* Full-Bleed Panoramic Swiper Container */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-8 ${
-            mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
-          }`}
+          className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-8 ${mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
+            }`}
         >
           {matches.map((match, i) => {
             const isActive = activeIndex === i;
@@ -98,10 +97,9 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
               >
                 {/* Stadium Atmosphere Backdrop: Dynamic styling for Day/Night */}
                 <div className={`w-full h-[320px] relative transition-all duration-1000
-                  rounded-[2.5rem] overflow-hidden border transition-all ${
-                    theme === 'day' 
-                      ? "bg-slate-100 border-slate-300/40 shadow-none" 
-                      : "bg-gradient-to-b from-zinc-900 via-black to-black border-white/5 shadow-2xl shadow-black/80"
+                  rounded-[2.5rem] overflow-hidden border transition-all ${theme === 'day'
+                    ? "bg-slate-100 border-slate-300/40 shadow-none"
+                    : "bg-gradient-to-b from-zinc-900 via-black to-black border-white/5 shadow-2xl shadow-black/80"
                   }
                 `}>
 
@@ -110,12 +108,12 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                     className="absolute inset-0 transition-opacity duration-1000"
                     style={{
                       background: isActive && mounted
-                        ? (theme === 'day' 
-                            ? `none`
-                            : `radial-gradient(circle at center, rgba(218, 41, 28, 0.25) 0%, transparent 70%)`)
+                        ? (theme === 'day'
+                          ? `none`
+                          : `radial-gradient(circle at center, rgba(218, 41, 28, 0.25) 0%, transparent 70%)`)
                         : (theme === 'day'
-                            ? `none`
-                            : `radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%)`),
+                          ? `none`
+                          : `radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%)`),
                       opacity: theme === 'day' ? 0 : 0.4
                     }}
                   />
@@ -126,9 +124,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                     {match.status === "DESCANSO" ? (
                       /* Minimalist Rest Day Mode: Show title + "DESCANSO" centered */
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
-                        <span className={`absolute top-10 text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
-                          theme === 'day' ? "text-slate-400" : "text-white/40"
-                        }`} style={{ fontFamily: 'NeueMontreal' }}>
+                        <span className={`absolute top-10 text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-400" : "text-white/40"
+                          }`} style={{ fontFamily: 'NeueMontreal' }}>
                           {match.title}
                         </span>
                         <motion.span
@@ -136,9 +133,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                             scale: isActive ? 1 : 0.8,
                             opacity: isActive ? (theme === 'day' ? 0.6 : 0.3) : 0.1,
                           }}
-                          className={`text-3xl sm:text-4xl font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
-                            theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.4)]"
-                          }`}
+                          className={`text-3xl sm:text-4xl font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.4)]"
+                            }`}
                           style={{ fontFamily: 'NeueMontreal' }}
                         >
                           DESCANSO
@@ -148,14 +144,12 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                       <>
                         {/* Top Row: Info */}
                         <div className="flex justify-between items-start">
-                          <span className={`text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
-                            theme === 'day' ? "text-slate-400" : "text-white/50"
-                          }`} style={{ fontFamily: 'NeueMontreal' }}>
+                          <span className={`text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-400" : "text-white/50"
+                            }`} style={{ fontFamily: 'NeueMontreal' }}>
                             {match.title}
                           </span>
-                          <div className={`flex items-center gap-2 transition-colors duration-1000 ${
-                            theme === 'day' ? "text-slate-300" : "text-white/40"
-                          }`}>
+                          <div className={`flex items-center gap-2 transition-colors duration-1000 ${theme === 'day' ? "text-slate-300" : "text-white/40"
+                            }`}>
                             <Calendar size={10} className="text-primary/60" />
                             <span className="text-[9px] font-bold uppercase tracking-[0.4em]" style={{ fontFamily: 'NeueMontreal' }}>
                               {match.date}
@@ -164,46 +158,40 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                         </div>
 
                         {/* Middle Score: Absolute Center */}
-                        <div className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none ${
-                          (match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs")
-                            ? "" 
+                        <div className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs")
+                            ? ""
                             : "pt-4"
-                        }`}>
+                          }`}>
                           <motion.span
                             animate={{
                               scale: isActive ? 1 : 0.8,
                               opacity: isActive ? 1 : (theme === 'day' ? 0.4 : 0.2),
                             }}
-                            className={`font-black tracking-tighter transition-colors duration-1000 ${
-                              theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_50px_rgba(218,41,28,0.3)]"
-                            } ${
-                              (match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs")
-                                ? "text-2xl sm:text-3xl tracking-[0.2em]" 
+                            className={`font-black tracking-tighter transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_50px_rgba(218,41,28,0.3)]"
+                              } ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs")
+                                ? "text-2xl sm:text-3xl tracking-[0.2em]"
                                 : "text-7xl sm:text-8xl"
-                            }`}
+                              }`}
                           >
                             {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") ? (
-                               <div className="flex flex-col items-center justify-center leading-[0.8] text-center">
-                                 {((match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") ? match.status : "POR DEFINIR") === "POR DEFINIR" ? (
-                                   <>
-                                     <span className={`text-4xl sm:text-5xl font-black tracking-widest uppercase transition-colors duration-1000 ${
-                                       theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
-                                     }`}>POR</span>
-                                     <span className={`text-4xl sm:text-5xl font-black tracking-widest uppercase transition-colors duration-1000 ${
-                                       theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
-                                     }`}>DEFINIR</span>
-                                   </>
-                                 ) : (
-                                   <span className={`text-3xl sm:text-4xl font-black tracking-[0.2em] uppercase transition-colors duration-1000 ${
-                                     theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
-                                   }`}>
-                                     {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") ? match.status : match.score}
-                                   </span>
-                                 )}
-                               </div>
-                             ) : (
-                               match.score
-                             )}
+                              <div className="flex flex-col items-center justify-center leading-[0.8] text-center">
+                                {((match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") ? match.status : "POR DEFINIR") === "POR DEFINIR" ? (
+                                  <>
+                                    <span className={`text-4xl sm:text-5xl font-black tracking-widest uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
+                                      }`}>POR</span>
+                                    <span className={`text-4xl sm:text-5xl font-black tracking-widest uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
+                                      }`}>DEFINIR</span>
+                                  </>
+                                ) : (
+                                  <span className={`text-3xl sm:text-4xl font-black tracking-[0.2em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
+                                    }`}>
+                                    {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") ? match.status : match.score}
+                                  </span>
+                                )}
+                              </div>
+                            ) : (
+                              match.score
+                            )}
                           </motion.span>
 
                           {/* Live Status Indicator (Only shown during or after the game) */}
@@ -217,8 +205,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               )}
                               <span
                                 className={`text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${match.status === "EN XOGO" ? "text-green-500" :
-                                    match.status === "PAUSA" ? (theme === 'day' ? "text-slate-300" : "text-white/40") :
-                                      (theme === 'day' ? "text-slate-400" : "text-white")
+                                  match.status === "PAUSA" ? (theme === 'day' ? "text-slate-300" : "text-white/40") :
+                                    (theme === 'day' ? "text-slate-400" : "text-white")
                                   }`}
                                 style={{ fontFamily: 'NeueMontreal' }}
                               >
@@ -232,21 +220,19 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                         <div className="flex justify-between items-end gap-10">
                           <div className="flex flex-col gap-1">
                             <span className="text-[8px] font-bold text-primary tracking-[0.4em] uppercase" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
-                            <span className={`text-sm font-bold uppercase tracking-wider transition-colors duration-1000 ${
-                               match.home.toUpperCase().includes("CERCEDENSE")
-                                 ? "text-primary"
-                                 : (theme === 'day' ? "text-slate-900" : "text-white")
-                             }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
+                            <span className={`text-sm font-bold uppercase tracking-wider transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
+                                ? "text-primary"
+                                : (theme === 'day' ? "text-slate-900" : "text-white")
+                              }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
                           </div>
 
                           {/* Venue in bottom right info - Hidden if DESCANSO */}
                           {match.away !== "DESCANSO" && (
                             <div className="flex flex-col items-end gap-1">
-                               <span className={`text-sm font-bold uppercase tracking-wider text-right transition-colors duration-1000 ${
-                                 match.away.toUpperCase().includes("CERCEDENSE")
-                                   ? "text-primary"
-                                   : (theme === 'day' ? "text-slate-900" : "text-white")
-                               }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
+                              <span className={`text-sm font-bold uppercase tracking-wider text-right transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
+                                  ? "text-primary"
+                                  : (theme === 'day' ? "text-slate-900" : "text-white")
+                                }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
                             </div>
                           )}
                         </div>
@@ -255,12 +241,10 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                   </div>
 
                   {/* Decorative Elements */}
-                  <div className={`absolute top-1/2 left-0 w-1 h-20 -translate-y-1/2 rounded-r-full transition-colors duration-1000 ${
-                     theme === 'day' ? 'bg-slate-100' : 'bg-white/5'
-                   }`} />
-                   <div className={`absolute top-1/2 right-0 w-1 h-20 -translate-y-1/2 rounded-l-full transition-colors duration-1000 ${
-                     theme === 'day' ? 'bg-slate-100' : 'bg-white/5'
-                   }`} />
+                  <div className={`absolute top-1/2 left-0 w-1 h-20 -translate-y-1/2 rounded-r-full transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-100' : 'bg-white/5'
+                    }`} />
+                  <div className={`absolute top-1/2 right-0 w-1 h-20 -translate-y-1/2 rounded-l-full transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-100' : 'bg-white/5'
+                    }`} />
 
                 </div>
               </motion.div>
