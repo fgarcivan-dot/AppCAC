@@ -11,7 +11,8 @@ export interface HomeContent {
     highlight?: string;
   };
   escolas?: {
-    headerTitle?: string;
+    headerTitleLine1?: string;
+    headerTitleHighlight?: string;
     title?: string;
     description?: string;
     btnText?: string;

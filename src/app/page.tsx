@@ -18,7 +18,7 @@ const INITIAL_DATA: AppData = {
     posicion: "3ª POSICIÓN",
     matches: [
       { title: "XORNADA ANTERIOR", date: "MAR 22", home: "CERCEDENSE", away: "BOIRO", score: "3 - 0", venue: "CAMPO O ROXO" },
-      { title: "ESTA XORNADA", date: "MAR 29", home: "CERCEDENSE", away: "PONTECARREIRA", score: "1 - 0", venue: "CAMPO O ROXO" },
+      { title: "ESTA XORNADA", date: "MAR 29", home: "CERCEDENSE", away: "DESCANSO", score: "-", venue: "-", status: "DESCANSO" },
       { title: "PRÓXIMO", date: "POR DEFINIR", home: "ORDES CF", away: "CERCEDENSE", score: "POR DEFINIR", venue: "CAMPO DEP. ORDES" }
     ],
     standings: [

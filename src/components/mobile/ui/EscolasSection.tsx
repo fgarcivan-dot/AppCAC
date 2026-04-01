@@ -12,17 +12,26 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
   
   return (
     <div className="w-full flex flex-col items-center mt-6 mb-12 px-4 z-10">
-      
+      {/* Main Section Title (matching A Nosa Xente) */}
+      <div className="w-full flex flex-col items-center text-center mt-2 mb-6">
+        <h2 className={`text-4xl font-black tracking-tighter uppercase transition-colors duration-1000 ${
+          isDay ? 'text-slate-900' : 'text-white'
+        }`}>
+          {data?.headerTitleLine1 || "A NOSA"}<br /><span className="text-primary tracking-normal">{data?.headerTitleHighlight || "CANTEIRA"}</span>
+        </h2>
+      </div>
+
       {/* Canteira Header Block */}
       <div className={`w-full p-6 rounded-[2rem] backdrop-blur-3xl shadow-lg border transition-all duration-1000 mb-6 flex flex-col items-center text-center ${
         isDay ? 'bg-white border-slate-300/50' : 'bg-gradient-to-b from-zinc-900 to-black border-white/5 shadow-black/80'
       }`}>
-        <span className="text-[10px] uppercase font-bold tracking-[0.4em] text-primary mb-2" style={{ fontFamily: 'NeueMontreal' }}>{data?.headerTitle || "A Nosa Canteira"}</span>
         
-        <h3 className={`text-[28px] sm:text-3xl font-extrabold uppercase tracking-widest mb-4 leading-tight ${
+        <h3 className={`text-[20px] sm:text-2xl font-extrabold uppercase tracking-widest mb-4 leading-snug ${
           isDay ? 'text-slate-900' : 'text-white'
         }`} style={{ fontFamily: 'NeueMontreal' }}>
-          {data?.title || "Escolas de Fútbol"}
+          {data?.title ? data.title.split('\\n').map((line: string, i: number) => <span key={i}>{line}<br /></span>) : (
+            <>Escolas de Fútbol<br />Concello de Cerceda</>
+          )}
         </h3>
         
         <p className={`text-sm font-medium leading-relaxed mb-6 ${

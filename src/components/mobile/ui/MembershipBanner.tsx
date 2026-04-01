@@ -10,10 +10,14 @@ export function MembershipBanner({ theme, data }: MembershipBannerProps) {
   const isDay = theme === 'day';
   return (
     <div className="w-full flex flex-col items-center mt-6 mb-16 px-4">
-      {/* Título pequeño ext */}
-      <span className="text-[10px] font-bold tracking-[0.4em] uppercase mb-4 text-primary" style={{ fontFamily: 'NeueMontreal' }}>
-        {data?.smallTitle || "Faite Socio"}
-      </span>
+      {/* Main Section Title (matching A Nosa Xente) */}
+      <div className="w-full flex flex-col items-center text-center mt-2 mb-6">
+        <h2 className={`text-4xl font-black tracking-tighter uppercase transition-colors duration-1000 ${
+          isDay ? 'text-slate-900' : 'text-white'
+        }`}>
+          {data?.mainTitleLine1 || "FAITE"}<br /><span className="text-primary tracking-normal">{data?.mainTitleHighlight || "SOCIO"}</span>
+        </h2>
+      </div>
 
       <div className={`w-full max-w-[100%] lg:max-w-md mx-auto relative overflow-hidden flex flex-col items-center px-6 py-10 rounded-[2.5rem] backdrop-blur-3xl shadow-xl transition-all duration-1000 ${
         isDay ? 'bg-slate-100 border border-slate-300/50' : 'bg-gradient-to-b from-zinc-900 to-black border border-white/5 shadow-black/80'
@@ -25,12 +29,6 @@ export function MembershipBanner({ theme, data }: MembershipBannerProps) {
           background: isDay ? 'rgba(218, 41, 28, 0.1)' : 'rgba(218, 41, 28, 0.2)'
         }}
       />
-
-      <h2 className={`relative z-10 text-4xl font-black uppercase tracking-tighter text-center mb-6 leading-tight transition-colors duration-1000 ${
-        isDay ? 'text-slate-900' : 'text-white'
-      }`}>
-        {data?.mainTitleLine1 || "ÚNETE Á"}<br /><span className="text-primary tracking-normal">{data?.mainTitleHighlight || "FAMILIA"}</span>
-      </h2>
       
       <p className={`relative z-10 text-sm md:text-base text-center font-medium leading-relaxed mb-8 ${
         isDay ? 'text-slate-600' : 'text-slate-400'
