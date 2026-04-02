@@ -26,8 +26,13 @@ Dependiendo de lo que pongas en el campo `"status"`, el texto aparecerá en un c
 ### B. Etiqueta "LOCAL" (Diseño de Placa)
 Ahora **todas las tarjetas** muestran automáticamente una placa roja con letras blancas que dice **LOCAL** encima del equipo de la izquierda. No tienes que hacer nada en el JSON, el sistema lo pone siempre para mayor profesionalidad.
 
-### C. El Modo "DESCANSO" (Diseño Centrado)
-- **Si el estado (`status`) es `"DESCANSO"`**: La tarjeta se vuelve **minimalista y limpia**. Se ocultan los equipos y toda la información adicional, y se muestra el título (ej: "ESTA XORNADA") y la palabra "DESCANSO" **centrados uno encima del otro**. Esto sirve tanto para jornadas libres como para indicar pausa total.
+### C. El Modo "DESCANSO" (Automático y Centrado)
+El sistema es inteligente. La tarjeta se volverá **minimalista, vacía y centrada** automáticamente si escribes la palabra `"DESCANSO"` en **cualquiera** de estos tres sitios del JSON:
+1.  En el campo `"status": "DESCANSO"`.
+2.  En el nombre del equipo local `"home": "DESCANSO"`.
+3.  En el nombre del equipo rival `"away": "DESCANSO"`.
+
+**Resultado**: Se ocultará toda la información de equipos y mapa, mostrando solo el título (ej: "ESTA XORNADA") y la palabra "DESCANSO" en el centro de la tarjeta.
 
 ### D. Partidos Pendientes (Visualización "VS" u Hora)
 - **Si el marcador (`score`) es `"POR DEFINIR"`**: Se mostrará un elegante **"VS"** con opacidad suave en el centro.
