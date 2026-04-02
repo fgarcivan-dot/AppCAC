@@ -33,11 +33,17 @@ export function InstaGrid({ theme, data }: InstaGridProps) {
         {data?.description || "Momentos de paixón. Xogadores, afección e canteira unidos por un mesmo sentimento."}
       </p>
 
-      {/* Grid */}
+      {/* Grid estilo Bento (Fotos Mixtas) */}
       <div className="grid grid-cols-2 gap-3 w-full mb-6 relative">
-        {(data?.images?.length === 6 ? data.images : INSTA_IMAGES).map((src, i) => (
-          <a key={i} href={data?.instagramUrl || "https://www.instagram.com/cacercedense/"} target="_blank" rel="noopener noreferrer" 
-             className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-[#0a0a0a] shadow-md border border-white/5 active:scale-95 transition-all group">
+        {(data?.images?.length === 6 ? data.images : INSTA_IMAGES).map((src, i) => {
+          // Diseño Mosaico: La foto 0 y la 3 serán gigantes y horizontales. Las demás serán pequeñas / verticales.
+          const isWide = i === 0 || i === 3;
+          
+          return (
+          <a key={i} href={data?.instagramUrl || "https://www.instagram.com/clubatleticocercedense/"} target="_blank" rel="noopener noreferrer" 
+             className={`relative overflow-hidden rounded-3xl bg-[#0a0a0a] shadow-md border border-white/5 active:scale-95 transition-all group ${
+               isWide ? "col-span-2 aspect-[16/9]" : "col-span-1 aspect-[4/5]"
+             }`}>
             <img src={src} key={i} alt={`Cercedense Instagram ${i+1}`} className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
             
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
@@ -56,7 +62,8 @@ export function InstaGrid({ theme, data }: InstaGridProps) {
               </span>
             </div>
           </a>
-        ))}
+          );
+        })}
       </div>
 
       <a 

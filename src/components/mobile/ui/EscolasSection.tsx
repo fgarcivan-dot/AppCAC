@@ -101,22 +101,36 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
         </div>
       </div>
 
-      {/* Join Canteira CTA */}
-      <Link href={data?.uneteLink || "/contacto"} className={`w-full p-6 rounded-[2rem] backdrop-blur-3xl shadow-lg flex items-center justify-between transition-all duration-1000 relative overflow-hidden active:scale-[98%] ${
-        isDay ? 'bg-white border border-primary/20' : 'bg-[#050505] border border-primary/20'
-      }`}>
-        {/* Glow */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-[50px] pointer-events-none" />
+      {/* Join Canteira CTA (Hero Photo Card) */}
+      <Link href={data?.uneteLink || "/contacto"} className="w-full relative rounded-[2.5rem] overflow-hidden aspect-[4/3] sm:aspect-video flex items-end p-6 active:scale-[98%] transition-transform shadow-[0_15px_40px_-15px_rgba(218,41,28,0.3)] border border-white/10 group">
         
-        <div className="flex flex-col flex-1 pr-4 relative z-10">
-          <h4 className={`text-[17px] font-extrabold uppercase tracking-widest mb-1 ${isDay ? 'text-slate-900' : 'text-white'}`} style={{ fontFamily: 'NeueMontreal' }}>
-            {data?.uneteTitle || "Únete á Canteira"}
+        {/* Background Image */}
+        <img 
+          src={(data as any)?.uneteImage || "https://images.unsplash.com/photo-1518605368461-1e1e11400a43?auto=format&fit=crop&q=80&w=800&h=600"} 
+          alt="Únete á Canteira" 
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+          loading="lazy"
+        />
+        
+        {/* Gradient Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
+        
+        {/* Content */}
+        <div className="relative z-10 flex flex-col w-full">
+          <h4 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase leading-[0.9] mb-3 text-white drop-shadow-md">
+            ÚNETE Á<br /><span className="text-primary tracking-normal drop-shadow-[0_0_20px_rgba(218,41,28,0.8)]">CANTEIRA</span>
           </h4>
-          <p className={`text-xs font-medium ${isDay ? 'text-slate-500' : 'text-slate-400'}`}>{data?.uneteDesc || "Inscricións abertas para xogadores do prebenxamín ao xuvenil."}</p>
-        </div>
-        
-        <div className="relative z-10 min-w-10 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-[0_0_20px_rgba(218,41,28,0.4)] transition-transform">
-          <ArrowRight size={18} />
+          
+          <div className="flex items-center justify-between w-full">
+            <p className="text-xs sm:text-sm font-medium text-white/80 max-w-[70%]">
+              {data?.uneteDesc || "Inscricións abertas para xogadores do prebenxamín ao xuvenil."}
+            </p>
+            
+            <div className="min-w-10 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-[0_0_20px_rgba(218,41,28,0.6)]">
+              <ArrowRight size={18} />
+            </div>
+          </div>
         </div>
       </Link>
       
