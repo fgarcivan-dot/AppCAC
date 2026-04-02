@@ -120,7 +120,9 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                   {/* Panoramic HUD Labels */}
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-20">
 
-                    {match.status?.trim().toUpperCase() === "DESCANSO" ? (
+                    {match.status?.trim().toUpperCase() === "DESCANSO" || 
+                     match.home?.trim().toUpperCase() === "DESCANSO" || 
+                     match.away?.trim().toUpperCase() === "DESCANSO" ? (
                       /* Minimalist Rest Day Mode: Centered Title + "DESCANSO" Label */
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
                         <motion.span

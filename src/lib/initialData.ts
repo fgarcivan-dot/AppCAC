@@ -27,7 +27,8 @@ export const INITIAL_DATA: AppData = {
         "home": "ORDES CF",
         "away": "CERCEDENSE",
         "score": "POR DEFINIR",
-        "venue": "CAMPO DEP. ORDES"
+        "venue": "CAMPO DEP. ORDES",
+        "status": "DESCANSO"
       }
     ],
     "standings": [
