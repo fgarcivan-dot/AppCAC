@@ -30,6 +30,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // 📥 INITIAL LOAD: Memory & Solar Detection
   useEffect(() => {
+    // 0. Hide Native Splash Screen smoothly
+    const hideNativeSplash = async () => {
+      try {
+        const { SplashScreen: NativeSplash } = await import('@capacitor/splash-screen');
+        await NativeSplash.hide();
+      } catch (e) {
+        console.warn("Capacitor SplashScreen plugin not available/initialized");
+      }
+    };
+    hideNativeSplash();
+
     // 1. Initial Loading Timer (Splash)
     const timer = setTimeout(() => {
       setIsLoading(false);

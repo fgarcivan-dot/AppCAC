@@ -109,12 +109,10 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
           src={(data as any)?.uneteImage || "https://images.unsplash.com/photo-1518605368461-1e1e11400a43?auto=format&fit=crop&q=80&w=800&h=600"} 
           alt="Únete á Canteira" 
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-          loading="lazy"
         />
         
         {/* Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-        <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
         
         {/* Content */}
         <div className="relative z-10 flex flex-col w-full">
