@@ -120,19 +120,23 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                   {/* Panoramic HUD Labels */}
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-20">
 
-                    {match.status === "DESCANSO" && match.away === "DESCANSO" ? (
-                      /* Minimalist Rest Day Mode: Only for actual BYE weeks */
+                    {match.status?.trim().toUpperCase() === "DESCANSO" ? (
+                      /* Minimalist Rest Day Mode: Centered Title + "DESCANSO" Label */
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
-                        <span className={`absolute top-10 text-[9px] font-black tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/60"
-                          }`} style={{ fontFamily: 'NeueMontreal' }}>
+                        <motion.span
+                          animate={{ opacity: isActive ? 1 : 0.4 }}
+                          className={`text-[10px] font-black tracking-[0.5em] uppercase mb-4 transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/40"
+                            }`}
+                          style={{ fontFamily: 'NeueMontreal' }}
+                        >
                           {match.title}
-                        </span>
+                        </motion.span>
                         <motion.span
                           animate={{
                             scale: isActive ? 1 : 0.8,
-                            opacity: isActive ? 1 : 0.3,
+                            opacity: isActive ? 1 : 0.2,
                           }}
-                          className={`text-3xl sm:text-4xl font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900 drop-shadow-sm" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.8)]"
+                          className={`text-4xl sm:text-5xl font-black tracking-[0.2em] uppercase text-center transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.5)]"
                             }`}
                           style={{ fontFamily: 'NeueMontreal' }}
                         >
