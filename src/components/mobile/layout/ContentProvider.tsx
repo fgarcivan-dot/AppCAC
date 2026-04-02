@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { useMotionValue } from "framer-motion";
 import { AppData, fetchAppData } from "@/lib/dataService";
 import { INITIAL_DATA } from "@/lib/initialData";
@@ -38,6 +38,18 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
 
   const yPosition = useMotionValue(0);
   const [pullDistance, setPullDistance] = useState(0);
+  
+  // Refs for gesture tracking (avoiding effect re-binding)
+  const startYRef = useRef(0);
+  const startXRef = useRef(0);
+  const isRefreshingRef = useRef(false);
+  const isHorizontalRef = useRef(false);
+  const isActiveRef = useRef(false);
+
+  // Sync ref with state for use in event listeners
+  useEffect(() => {
+    isRefreshingRef.current = isRefreshing;
+  }, [isRefreshing]);
 
   const initData = async () => {
     const remoteData = await fetchAppData();
@@ -64,45 +76,71 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    let startY = 0;
-    
     const handleTouchStart = (e: TouchEvent) => {
-      if (window.scrollY <= 5) {
-        startY = e.touches[0].pageY;
+      // Solo iniciar si estamos arriba y no estamos recargando
+      if (window.scrollY <= 5 && !isRefreshingRef.current) {
+        startYRef.current = e.touches[0].pageY;
+        startXRef.current = e.touches[0].pageX;
+        isHorizontalRef.current = false;
+        isActiveRef.current = true;
       } else {
-        startY = 0;
+        isActiveRef.current = false;
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      // Ignorar recarga en el layout si ya está recargando o no empezó desde arriba
-      if (isRefreshing || startY === 0) return;
+      if (!isActiveRef.current || isRefreshingRef.current) return;
       
       const currentY = e.touches[0].pageY;
-      const diff = currentY - startY;
+      const currentX = e.touches[0].pageX;
+      const diffY = currentY - startYRef.current;
+      const diffX = Math.abs(currentX - startXRef.current);
       
-      if (diff > 0 && window.scrollY <= 5) {
-        setPullDistance(diff);
-        yPosition.set(diff * 1.0);
-        if (diff > 10 && e.cancelable) e.preventDefault();
+      // Si el movimiento es predominantemente horizontal, marcamos para ignorar
+      if (!isHorizontalRef.current && diffX > 10 && diffX > Math.abs(diffY)) {
+        isHorizontalRef.current = true;
+      }
+
+      if (isHorizontalRef.current) return;
+      
+      if (diffY > 0 && window.scrollY <= 5) {
+        // Resistencia al tirar
+        const resistance = 0.5;
+        const constrainedDiff = diffY * resistance;
+        
+        setPullDistance(constrainedDiff);
+        yPosition.set(constrainedDiff);
+        
+        // Bloquear scroll nativo si estamos tirando
+        if (constrainedDiff > 5 && e.cancelable) {
+          e.preventDefault();
+        }
       }
     };
 
     const handleTouchEnd = () => {
-      if (isRefreshing) return;
+      if (!isActiveRef.current || isRefreshingRef.current || isHorizontalRef.current) {
+        isActiveRef.current = false;
+        return;
+      }
       
-      if (pullDistance > 30) {
+      // Acceder al valor actual de yPosition (que es pullDistance con resistencia)
+      const currentPull = yPosition.get();
+      
+      if (currentPull > 60) {
         handleRefresh();
       } else {
         setPullDistance(0);
         yPosition.set(0);
       }
-      startY = 0;
+      
+      isActiveRef.current = false;
+      startYRef.current = 0;
     };
 
-    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener("touchstart", handleTouchStart);
@@ -110,7 +148,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener("touchend", handleTouchEnd);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefreshing, pullDistance]);
+  }, []);
 
   return (
     <ContentContext.Provider value={{ data, loading, isRefreshing, pullDistance, yPosition, handleRefresh, refreshKey }}>
