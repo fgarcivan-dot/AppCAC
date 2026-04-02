@@ -120,8 +120,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                   {/* Panoramic HUD Labels */}
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-20">
 
-                    {match.status === "DESCANSO" ? (
-                      /* Minimalist Rest Day Mode: Show title + "DESCANSO" centered */
+                    {match.status === "DESCANSO" && match.away === "DESCANSO" ? (
+                      /* Minimalist Rest Day Mode: Only for actual BYE weeks */
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
                         <span className={`absolute top-10 text-[9px] font-black tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/60"
                           }`} style={{ fontFamily: 'NeueMontreal' }}>
@@ -157,7 +157,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                         </div>
 
                         {/* Middle Score: Absolute Center */}
-                        <div className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs")
+                        <div className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "DESCANSO" && match.status !== "FIN" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") || (match.score?.toUpperCase() === "POR DEFINIR") || (match.score?.includes(":") || match.score?.toUpperCase().includes("H"))
                             ? ""
                             : "pt-4"
                           }`}>
@@ -167,34 +167,22 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               opacity: isActive ? 1 : (theme === 'day' ? 0.4 : 0.2),
                             }}
                             className={`font-black tracking-tighter transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_50px_rgba(218,41,28,0.3)]"
-                              } ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs")
-                                ? "text-2xl sm:text-3xl tracking-[0.2em]"
+                              } ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "DESCANSO" && match.status !== "FIN" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") || (match.score?.toUpperCase() === "POR DEFINIR") || (match.score?.includes(":") || match.score?.toUpperCase().includes("H"))
+                                ? "text-4xl sm:text-5xl tracking-[0.1em]"
                                 : "text-7xl sm:text-8xl"
                               }`}
                           >
-                            {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") ? (
-                              <div className="flex flex-col items-center justify-center leading-[0.8] text-center">
-                                {((match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") ? match.status : "POR DEFINIR") === "POR DEFINIR" ? (
-                                  <>
-                                    <span className={`text-4xl sm:text-5xl font-black tracking-widest uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
-                                      }`}>POR</span>
-                                    <span className={`text-4xl sm:text-5xl font-black tracking-widest uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
-                                      }`}>DEFINIR</span>
-                                  </>
-                                ) : (
-                                  <span className={`text-3xl sm:text-4xl font-black tracking-[0.2em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.3)]"
-                                    }`}>
-                                    {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "FINALIZADO") ? match.status : match.score}
-                                  </span>
-                                )}
+                            {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "DESCANSO" && match.status !== "FIN" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") || (match.score?.toUpperCase() === "POR DEFINIR") || (match.score?.includes(":") || match.score?.toUpperCase().includes("H")) ? (
+                              <div className="flex items-center justify-center text-center opacity-80">
+                                {match.score?.toUpperCase() === "POR DEFINIR" ? "VS" : match.score}
                               </div>
                             ) : (
                               match.score
                             )}
                           </motion.span>
 
-                          {/* Live Status Indicator (Only shown during or after the game) */}
-                          {match.status && (match.status === "EN XOGO" || match.status === "PAUSA" || match.status === "FINALIZADO") && (
+                          {/* Live Status Indicator (Only shown during, at break or after the game) */}
+                          {match.status && (match.status === "EN XOGO" || match.status === "PAUSA" || match.status === "DESCANSO" || match.status === "FIN" || match.status === "FINALIZADO") && (
                             <motion.div
                               animate={{ opacity: isActive ? 1 : 0 }}
                               className="flex items-center gap-2 mt-4"
@@ -204,8 +192,9 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               )}
                               <span
                                 className={`text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${match.status === "EN XOGO" ? "text-green-500" :
-                                  match.status === "PAUSA" ? (theme === 'day' ? "text-slate-300" : "text-white/40") :
-                                    (theme === 'day' ? "text-slate-400" : "text-white")
+                                  (match.status === "PAUSA" || match.status === "DESCANSO") ? (theme === 'day' ? "text-slate-400" : "text-slate-400") :
+                                    (match.status === "FIN" || match.status === "FINALIZADO") ? "text-primary" :
+                                      (theme === 'day' ? "text-slate-400" : "text-white")
                                   }`}
                                 style={{ fontFamily: 'NeueMontreal' }}
                               >
@@ -217,7 +206,14 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
 
                         {/* Bottom Row: Teams */}
                         <div className="flex justify-between items-end gap-10 relative z-20">
-                          <div className="flex flex-col gap-1 w-[45%]">
+                          <div className="flex flex-col w-[55%] items-start relative">
+                            {match.home !== "DESCANSO" && (
+                              <div className="mb-2 px-1.5 py-0.5 bg-red-600 rounded-[4px] shadow-sm flex items-center justify-center">
+                                <span className="text-[8px] font-black tracking-[0.1em] text-white uppercase leading-none" style={{ fontFamily: 'NeueMontreal' }}>
+                                  LOCAL
+                                </span>
+                              </div>
+                            )}
                             <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
                                 ? "text-primary drop-shadow-sm"
                                 : (theme === 'day' ? "text-slate-900" : "text-white")

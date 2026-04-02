@@ -17,6 +17,7 @@ export interface HomeContent {
     description?: string;
     btnText?: string;
     btnLink?: string;
+    uneteImage?: string;
     modeloFormativoTitle?: string;
     tecnificacion?: { title: string; desc: string };
     metodoloxia?: { title: string; desc: string };
@@ -136,11 +137,11 @@ export async function fetchAppData(url: string = DEFAULT_GIST_URL): Promise<AppD
     // Add timestamp to prevent caching issues on mobile
     const cacheBuster = `?t=${new Date().getTime()}`;
     const response = await fetch(url + cacheBuster);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     return data as AppData;
   } catch (error) {
