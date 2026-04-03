@@ -24,53 +24,33 @@ export default function Home() {
     <div className={`flex min-h-screen flex-col items-center justify-start relative overflow-x-hidden`}>
 
       {/* Main Content Area */}
-      {/* 🏛️ ELITE BRANDING HEADER */}
-      <div className="w-full flex flex-col items-center pt-[calc(1.25rem+var(--safe-area-top))] px-6 gap-5 z-20">
-        {/* Heraldry & Tagline */}
-        <div className="flex flex-col items-center gap-2">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-10 h-10 relative opacity-80"
-          >
-            <img src="/escudo_hd.png" alt="Club Logo" className="object-contain" />
-          </motion.div>
-          <div className="flex items-center gap-3">
-             <div className="h-[1px] w-6 bg-gradient-to-r from-transparent to-primary/30" />
-             <span className="text-[9px] font-black tracking-[0.4em] text-primary/60 uppercase" style={{ fontFamily: 'NeueMontreal' }}>
-               Cerceda, Galicia ∙ 1968
-             </span>
-             <div className="h-[1px] w-6 bg-gradient-to-l from-transparent to-primary/30" />
-          </div>
-        </div>
+      <div className="w-full flex flex-col items-center px-4 pb-8 pt-5 gap-6 z-10">
 
-        {/* Elite Category Selector (Tabs) - Glassmorphism UI */}
-        <div className={`w-full max-w-[320px] relative backdrop-blur-xl rounded-2xl p-1 border flex items-center shadow-2xl transition-all duration-1000 ${
-          theme === 'day' ? 'bg-white/80 border-primary/10 shadow-primary/5' : 'bg-black/40 border-white/5 shadow-black'
-        }`}>
-          <motion.div 
-            layoutId="activeTabSelection"
-            animate={{ x: activeTab === "masculino" ? 0 : "100%" }}
-            transition={{ type: "spring", stiffness: 400, damping: 35 }}
-            className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-br from-primary to-primary-dark rounded-xl shadow-[0_0_20px_rgba(218,41,28,0.4)]"
-          />
-          <button 
-            onClick={() => setActiveTab("masculino")}
-            className={`relative z-10 flex-1 py-3 text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-500 ${
-              activeTab === "masculino" ? 'text-white' : (theme === 'day' ? 'text-slate-400' : 'text-white/30')
-            }`}
-          >
-            Masculino
-          </button>
-          <button 
-            onClick={() => setActiveTab("femenino")}
-            className={`relative z-10 flex-1 py-3 text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-500 ${
-              activeTab === "femenino" ? 'text-white' : (theme === 'day' ? 'text-slate-400' : 'text-white/30')
-            }`}
-          >
-            Femenino
-          </button>
-        </div>
+      {/* Elite Category Selector (Tabs) */}
+      <div className={`w-full max-w-[340px] mt-5 relative backdrop-blur-3xl rounded-full p-[2px] border flex items-center shadow-2xl transition-all duration-1000 ${
+        theme === 'day' ? 'bg-white border-primary/20 shadow-[0_10px_30px_-15px_rgba(218,41,28,0.2)]' : 'bg-black border-white/10 shadow-[0_10px_30px_-15px_rgba(0,0,0,1)]'
+      }`}>
+        <motion.div 
+          animate={{ x: activeTab === "masculino" ? 0 : "100%" }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-primary rounded-full shadow-[0_0_20px_rgba(218,41,28,0.4)]"
+        />
+        <button 
+          onClick={() => setActiveTab("masculino")}
+          className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
+            activeTab === "masculino" ? 'text-white drop-shadow-md' : (theme === 'day' ? 'text-slate-500 hover:text-primary' : 'text-white/60 hover:text-white')
+          }`}
+        >
+          Masculino
+        </button>
+        <button 
+          onClick={() => setActiveTab("femenino")}
+          className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
+            activeTab === "femenino" ? 'text-white drop-shadow-md' : (theme === 'day' ? 'text-slate-500 hover:text-primary' : 'text-white/60 hover:text-white')
+          }`}
+        >
+          Femenino
+        </button>
       </div>
 
       {/* Content Area with Slide Animation */}
@@ -162,6 +142,7 @@ export default function Home() {
         <div className="h-1 w-12 rounded-full bg-white/40 shadow-2xl" />
       </div>
       
+      </div>
     </div>
   );
 }
