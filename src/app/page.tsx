@@ -57,7 +57,7 @@ export default function Home() {
       <div className="w-full flex-1 relative overflow-visible mt-0">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${activeTab}-${refreshKey}`}
+            key={activeTab}
             initial={{ opacity: 0, x: activeTab === "masculino" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: activeTab === "masculino" ? 20 : -20 }}

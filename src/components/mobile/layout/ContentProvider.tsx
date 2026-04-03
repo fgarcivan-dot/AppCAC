@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useRef } from "react";
-import { useMotionValue } from "framer-motion";
+import { useMotionValue, motion, animate } from "framer-motion";
 import { AppData, fetchAppData } from "@/lib/dataService";
 import { INITIAL_DATA } from "@/lib/initialData";
 
@@ -27,7 +27,6 @@ export function useContent() {
 
 import { useTheme } from "./AppProvider";
 import { RefreshIndicator } from "@/components/mobile/ui/RefreshIndicator";
-import { motion } from "framer-motion";
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<AppData>(INITIAL_DATA);
@@ -62,12 +61,20 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await initData();
-    setTimeout(() => {
-      setIsRefreshing(false);
-      yPosition.set(0);
-      setPullDistance(0);
-    }, 200);
+    
+    // Smoothly return content to top immediately
+    animate(yPosition, 0, { type: "spring", stiffness: 300, damping: 30 });
+    
+    try {
+      await initData();
+    } catch (error) {
+      console.error("Refresh failed:", error);
+    } finally {
+      // Small buffer to allow the spinner to be seen if loading was too fast
+      setTimeout(() => {
+        setIsRefreshing(false);
+      }, 500);
+    }
   };
 
   useEffect(() => {
