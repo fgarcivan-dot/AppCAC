@@ -10,7 +10,7 @@ interface HeaderProps {
   isRefreshing?: boolean;
 }
 
-export function Header({ theme, toggleTheme, pullDistance = 0, isRefreshing = false }: HeaderProps) {
+export function Header({ theme, toggleTheme }: HeaderProps) {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full h-header pt-safe border-b transition-colors duration-1000 ${
       theme === 'day' ? 'bg-slate-200 border-slate-300/40' : 'bg-black border-white/5'
@@ -48,17 +48,6 @@ export function Header({ theme, toggleTheme, pullDistance = 0, isRefreshing = fa
             CERCEDENSE
           </h1>
         </div>
-
-        {/* Pull-to-refresh Visual Hint */}
-        {!isRefreshing && pullDistance > 20 && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 0.2, scale: 1 }}
-            className={`absolute bottom-0 w-8 h-1 rounded-full ${
-              theme === 'day' ? 'bg-slate-400' : 'bg-white/20'
-            }`}
-          />
-        )}
       </div>
     </header>
   );

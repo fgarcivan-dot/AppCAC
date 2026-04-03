@@ -110,7 +110,6 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
         // pero limitamos el valor mínimo a 0 (no tirar hacia arriba)
         const pullValue = Math.max(0, diffY * 0.45); // Un toque menos de resistencia
         
-        setPullDistance(pullValue);
         yPosition.set(pullValue);
         
         // Bloquear scroll nativo solo si estamos tirando efectivamente
@@ -139,7 +138,6 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       if (currentPull > 60) {
         handleRefresh();
       } else {
-        setPullDistance(0);
         yPosition.set(0);
       }
       
@@ -162,7 +160,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   return (
     <ContentContext.Provider value={{ data, loading, isRefreshing, pullDistance, yPosition, handleRefresh, refreshKey }}>
       <div className={`relative w-full ${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-700`}>
-        <RefreshIndicator isRefreshing={isRefreshing} pullDistance={pullDistance} theme={theme} />
+        <RefreshIndicator isRefreshing={isRefreshing} yPosition={yPosition} theme={theme} />
         <motion.div style={{ y: yPosition }} className="w-full relative z-10">
           {children}
         </motion.div>
