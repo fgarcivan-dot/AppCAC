@@ -85,7 +85,7 @@ export function SplashScreen() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2.5, ease: "easeOut" }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             className="relative h-48 w-48"
           >
             <Image
@@ -105,7 +105,7 @@ export function SplashScreen() {
           <motion.h1
             initial={{ opacity: 0, letterSpacing: "1.2em" }}
             animate={{ opacity: 0.6, letterSpacing: "0.8em" }}
-            transition={{ duration: 2.5, delay: 0.8 }}
+            transition={{ duration: 1.5, delay: 0.4 }}
             className="text-[10px] font-black text-slate-900 uppercase"
             style={{ fontFamily: 'NeueMontreal' }}
           >
@@ -119,7 +119,7 @@ export function SplashScreen() {
             <motion.h2 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               animate={{ clipPath: "inset(0 -50% 0 -50%)" }}
-              transition={{ duration: 3, delay: 1.5, ease: "easeInOut" }}
+              transition={{ duration: 1.8, delay: 1.0, ease: "easeInOut" }}
               className="absolute inset-0 text-5xl font-black tracking-tighter text-primary uppercase italic whitespace-nowrap flex items-center justify-center"
               style={{ fontFamily: 'Quakerhack' }}
             >

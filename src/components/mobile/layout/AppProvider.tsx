@@ -44,7 +44,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     // 1. Initial Loading Timer (Splash)
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3500);
 
     // 2. Theme Recovery (LocalStorage)
     const savedTheme = localStorage.getItem("app-theme") as Theme | null;
