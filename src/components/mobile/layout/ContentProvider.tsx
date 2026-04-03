@@ -103,17 +103,26 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
 
       if (isHorizontalRef.current) return;
       
-      if (diffY > 0 && window.scrollY <= 5) {
-        // Resistencia al tirar
-        const resistance = 0.5;
-        const constrainedDiff = diffY * resistance;
+      // Comprobar si estamos al principio de la página
+      // Usamos un pequeño margen para compensar el bounce de iOS
+      if (window.scrollY <= 10) {
+        // Permitir que el contenido siga al dedo tanto hacia abajo como hacia arriba
+        // pero limitamos el valor mínimo a 0 (no tirar hacia arriba)
+        const pullValue = Math.max(0, diffY * 0.45); // Un toque menos de resistencia
         
-        setPullDistance(constrainedDiff);
-        yPosition.set(constrainedDiff);
+        setPullDistance(pullValue);
+        yPosition.set(pullValue);
         
-        // Bloquear scroll nativo si estamos tirando
-        if (constrainedDiff > 5 && e.cancelable) {
+        // Bloquear scroll nativo solo si estamos tirando efectivamente
+        if (pullValue > 0 && e.cancelable) {
           e.preventDefault();
+        }
+      } else {
+        // Si el usuario scrolleó hacia abajo nativamente, ya no estamos en modo "pull"
+        if (isActiveRef.current) {
+          isActiveRef.current = false;
+          setPullDistance(0);
+          yPosition.set(0);
         }
       }
     };
