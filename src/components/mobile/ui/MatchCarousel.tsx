@@ -30,7 +30,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   // Ultimate ID-based scrolling for Android WebViews
   useEffect(() => {
     let attempts = 0;
-    const maxAttempts = 20; // 2 seconds total (100ms * 20)
+    const maxAttempts = 60; // 6 seconds total (100ms * 60)
 
     const forceCenter = () => {
       const centerCard = document.getElementById('match-card-1');
@@ -54,8 +54,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
       attempts++;
       forceCenter();
 
-      // Safety fallback
-      if (attempts > 10) setMounted(true);
+      // Safety fallback - now adjusted to 4.5s to cover the new splash (3.5s)
+      if (attempts > 45) setMounted(true);
 
       if (attempts >= maxAttempts) clearInterval(timer);
     }, 100);
