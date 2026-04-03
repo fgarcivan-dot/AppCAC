@@ -82,7 +82,6 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          style={{ touchAction: 'pan-y' }}
           className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-4 ${
             mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
           }`}
