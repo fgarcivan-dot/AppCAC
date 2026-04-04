@@ -31,7 +31,7 @@ export function MembershipBanner({ theme, data }: MembershipBannerProps) {
       />
       
       <p className={`relative z-10 text-sm md:text-base text-center font-medium leading-relaxed mb-8 ${
-        isDay ? 'text-slate-600' : 'text-slate-400'
+        isDay ? 'text-slate-700' : 'text-slate-400'
       }`}>
         {data?.description ? data.description.split('\\n').map((line: string, i: number) => <span key={i}>{line}<br /></span>) : (
           <>
@@ -74,7 +74,9 @@ export function MembershipBanner({ theme, data }: MembershipBannerProps) {
         <span>{data?.btnText || "Solicitar Alta"}</span>
       </a>
       
-      <p className="relative z-10 text-[10px] font-medium tracking-wide opacity-50 text-foreground mt-6 uppercase text-center w-full mt-6">
+      <p className={`relative font-medium tracking-wide mt-6 uppercase text-center w-full transition-colors duration-1000 ${
+        isDay ? 'text-slate-500' : 'text-white/40'
+      } text-[10px]`}>
         {data?.footerNote || "Tamén dispoñemos de abono familiar e xubilado."}
       </p>
     </div>

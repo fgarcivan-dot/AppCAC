@@ -28,23 +28,20 @@ export default function Partidos() {
   });
 
   return (
-    <div className={`flex flex-col gap-8 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${
-      theme === 'day' ? 'bg-slate-200 text-slate-900' : 'bg-black text-white'
-    }`}>
+    <div className={`flex flex-col gap-8 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-50 text-slate-900' : 'bg-black text-white'
+      }`}>
       {/* Header */}
       <header className="flex items-center justify-between">
         <h1 className={`text-4xl font-black tracking-tighter uppercase italic transition-colors duration-1000 ${
            theme === 'day' ? 'text-slate-900' : 'text-white'
         }`}>PRÓXIMOS<br /><span className="text-primary tracking-norm">PARTIDOS</span></h1>
         <div className="flex flex-col items-end text-right">
-          <span className={`text-[10px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
-            theme === 'day' ? 'text-slate-400' : 'text-white/40'
-          }`}>
+          <span className={`text-[10px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? 'text-slate-500' : 'text-white/40'
+            }`}>
             {config?.temporada || "TEMP. 24/25"}
           </span>
-          <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
-            theme === 'day' ? 'text-slate-300' : 'text-white/20'
-          }`}>
+          <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-1000 ${theme === 'day' ? 'text-slate-500' : 'text-white/20'
+            }`}>
             {config?.mesPartidos || "ABRIL 2025"}
           </span>
         </div>
@@ -56,13 +53,12 @@ export default function Partidos() {
           <button
             key={cat}
             onClick={() => setActiveTab(cat)}
-            className={`whitespace-nowrap px-10 py-3.5 rounded-full text-[10px] font-black tracking-[0.2em] transition-all ${
-              activeTab === cat 
-                ? "bg-primary text-white shadow-[0_10px_25px_-5px_rgba(218,41,28,0.4)] scale-105" 
-                : theme === 'day' 
-                    ? "bg-slate-100 text-slate-400 border border-slate-200" 
-                    : "bg-zinc-800/50 text-white/40 border border-white/5 hover:text-white/60"
-            }`}
+            className={`whitespace-nowrap px-10 py-3.5 rounded-full text-[10px] font-black tracking-[0.2em] transition-all ${activeTab === cat
+                ? "bg-primary text-white shadow-[0_10px_25px_-5px_rgba(218,41,28,0.4)] scale-105"
+                : theme === 'day'
+                  ? "bg-white text-slate-500 border border-slate-200"
+                  : "bg-zinc-800/50 text-white/40 border border-white/5 hover:text-white/60"
+              }`}
           >
             {cat}
           </button>
@@ -80,10 +76,8 @@ export default function Partidos() {
           />
         ))}
         {filteredMatches.length === 0 && (
-          <div className={`py-10 text-center text-[10px] font-bold uppercase tracking-[0.3em] transition-colors duration-1000 ${
-            theme === 'day' ? 'text-slate-400' : 'text-white/20'
-          }`}>
-            Non hai partidos nesta categoría
+          <div className={`py-12 text-center text-[10px] font-bold uppercase tracking-[0.3em] ${theme === 'day' ? 'text-slate-600' : 'text-white/20'}`}>
+            Non hai partidos programados
           </div>
         )}
       </section>

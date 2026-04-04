@@ -60,7 +60,7 @@ export function Header({ theme, toggleTheme }: HeaderProps) {
           <div className="flex flex-col gap-0.5 leading-none">
             <span 
               className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
-                theme === 'day' ? 'text-slate-400' : 'text-white/30'
+                theme === 'day' ? 'text-slate-600' : 'text-white/30'
               }`}
               style={{ fontFamily: 'NeueMontreal' }}
             >

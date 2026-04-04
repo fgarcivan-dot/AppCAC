@@ -12,7 +12,7 @@ import { useTheme } from "@/components/mobile/layout/AppProvider";
 import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Home() {
-  const { data, loading } = useContent();
+  const { data, loading, refreshKey } = useContent();
   const { theme } = useTheme();
 
   if (loading) return <div className="h-screen flex items-center justify-center bg-black"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
@@ -48,7 +48,7 @@ export default function Home() {
         <button 
           onClick={() => setActiveTab("masculino")}
           className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
-            activeTab === "masculino" ? 'text-white drop-shadow-md' : (theme === 'day' ? 'text-slate-500 hover:text-primary' : 'text-white/60 hover:text-white')
+            activeTab === "masculino" ? 'text-white drop-shadow-md' : (theme === 'day' ? 'text-slate-600 hover:text-primary' : 'text-white/60 hover:text-white')
           }`}
         >
           Masculino
@@ -56,7 +56,7 @@ export default function Home() {
         <button 
           onClick={() => setActiveTab("femenino")}
           className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
-            activeTab === "femenino" ? 'text-white drop-shadow-md' : (theme === 'day' ? 'text-slate-500 hover:text-primary' : 'text-white/60 hover:text-white')
+            activeTab === "femenino" ? 'text-white drop-shadow-md' : (theme === 'day' ? 'text-slate-600 hover:text-primary' : 'text-white/60 hover:text-white')
           }`}
         >
           Femenino
@@ -91,12 +91,12 @@ export default function Home() {
               </div>
             </div>
 
-            <MatchCarousel matches={currentData.matches} theme={theme} />
+            <MatchCarousel matches={currentData.matches} theme={theme} refreshKey={refreshKey} />
             
             <div className="flex items-center gap-3 px-2">
               <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
               <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
-                theme === 'day' ? 'text-slate-400' : 'text-white/20'
+                theme === 'day' ? 'text-slate-600' : 'text-white/20'
               }`} style={{ fontFamily: 'NeueMontreal' }}>Clasificación</span>
               <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
             </div>
@@ -110,7 +110,7 @@ export default function Home() {
             <div className="flex items-center gap-3 px-2 mt-4">
               <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
               <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
-                theme === 'day' ? 'text-slate-400' : 'text-white/20'
+                theme === 'day' ? 'text-slate-600' : 'text-white/20'
               }`} style={{ fontFamily: 'NeueMontreal' }}>Novedades</span>
               <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
             </div>

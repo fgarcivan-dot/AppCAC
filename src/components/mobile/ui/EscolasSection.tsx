@@ -46,7 +46,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
 
       {/* Modelo Formativo Grid (Bento Box) */}
       <div className="w-full mb-6 flex flex-col items-center text-center">
-        <h4 className={`text-[10px] uppercase font-bold tracking-[0.4em] mb-4 px-2 ${isDay ? 'text-slate-500' : 'text-slate-400'}`} style={{ fontFamily: 'NeueMontreal' }}>{data?.modeloFormativoTitle || "O Noso Modelo Formativo"}</h4>
+        <h4 className={`text-[10px] uppercase font-bold tracking-[0.4em] mb-4 px-2 ${isDay ? 'text-slate-600' : 'text-slate-400'}`} style={{ fontFamily: 'NeueMontreal' }}>{data?.modeloFormativoTitle || "O Noso Modelo Formativo"}</h4>
         <div className="grid grid-cols-2 gap-3">
 
           {/* Tecnificación */}
@@ -56,7 +56,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
               <Crosshair size={14} />
             </div>
             <h5 className={`font-extrabold text-[11px] mb-1 tracking-widest uppercase ${isDay ? 'text-slate-900' : 'text-white'}`} style={{ fontFamily: 'NeueMontreal' }}>{data?.tecnificacion?.title || "Tecnificación"}</h5>
-            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-500' : 'text-slate-400'}`}>{data?.tecnificacion?.desc || "Fomento de habilidades individuais en cada etapa de crecemento."}</p>
+            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-600' : 'text-slate-500'}`}>{data?.tecnificacion?.desc || "Fomento de habilidades individuais en cada etapa de crecemento."}</p>
           </div>
 
           {/* Metodoloxía */}
@@ -66,7 +66,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
               <Brain size={14} />
             </div>
             <h5 className={`font-extrabold text-[11px] mb-1 tracking-widest uppercase ${isDay ? 'text-slate-900' : 'text-white'}`} style={{ fontFamily: 'NeueMontreal' }}>{data?.metodoloxia?.title || "Metodoloxía"}</h5>
-            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-500' : 'text-slate-400'}`}>{data?.metodoloxia?.desc || "Sistema de traballo cohesionado para unha evolución progresiva."}</p>
+            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-600' : 'text-slate-500'}`}>{data?.metodoloxia?.desc || "Sistema de traballo cohesionado para unha evolución progresiva."}</p>
           </div>
 
           {/* Área CAFYD */}
@@ -76,7 +76,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
               <Activity size={14} />
             </div>
             <h5 className={`font-extrabold text-[11px] mb-1 tracking-widest uppercase ${isDay ? 'text-slate-900' : 'text-white'}`} style={{ fontFamily: 'NeueMontreal' }}>{data?.cafyd?.title || "Área CAFYD"}</h5>
-            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-500' : 'text-slate-400'}`}>{data?.cafyd?.desc || "Preparación física supervisada por licenciados profesionais."}</p>
+            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-600' : 'text-slate-500'}`}>{data?.cafyd?.desc || "Preparación física supervisada por licenciados profesionais."}</p>
           </div>
 
           {/* Dirección */}
@@ -86,7 +86,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
               <Shield size={14} />
             </div>
             <h5 className={`font-extrabold text-[11px] mb-1 tracking-widest uppercase ${isDay ? 'text-slate-900' : 'text-white'}`} style={{ fontFamily: 'NeueMontreal' }}>{data?.direccion?.title || "Dirección"}</h5>
-            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-500' : 'text-slate-400'}`}>{data?.direccion?.desc || "Supervisión da área técnica e seguimento de cada categoría."}</p>
+            <p className={`text-[10px] leading-snug font-medium ${isDay ? 'text-slate-600' : 'text-slate-500'}`}>{data?.direccion?.desc || "Supervisión da área técnica e seguimento de cada categoría."}</p>
           </div>
 
         </div>
@@ -112,7 +112,7 @@ export function EscolasSection({ theme, data }: EscolasSectionProps) {
           </h4>
 
           <div className="flex items-center justify-between w-full">
-            <p className="text-xs sm:text-sm font-medium text-white/80 max-w-[70%]">
+            <p className="text-xs sm:text-sm font-medium text-white/90 max-w-[70%]">
               {data?.uneteDesc || "Inscricións abertas para xogadores do prebenxamín ao xuvenil."}
             </p>
 

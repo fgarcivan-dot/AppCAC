@@ -14,27 +14,24 @@ export default function Directo() {
   const content = data.directo;
 
   return (
-    <div className={`flex flex-col gap-10 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${
-      theme === 'day' ? 'bg-slate-200 text-slate-900' : 'bg-black text-white'
-    }`}>
+    <div className={`flex flex-col gap-10 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-50 text-slate-900' : 'bg-black text-white'
+      }`}>
       {/* Header */}
       <header className="flex items-center justify-between">
         <h1 className={`text-4xl font-black tracking-tighter uppercase transition-colors duration-1000 ${
            theme === 'day' ? 'text-slate-900' : 'text-white'
         }`}>RETRANSMISIÓN<br /><span className="text-primary tracking-norm">EN DIRECTO</span></h1>
-        <div className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
-          theme === 'day' 
-            ? "bg-slate-100 border-slate-200 text-slate-400" 
+        <div className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${theme === 'day'
+            ? "bg-white border-slate-200 text-slate-600 shadow-sm"
             : "bg-white/5 border-white/5 text-white/40"
-        }`}>
+          }`}>
           <Share2 size={18} />
         </div>
       </header>
 
       {/* Main Status */}
-      <section className={`relative flex flex-col items-center justify-center gap-6 rounded-[3rem] p-12 border overflow-hidden transition-all duration-1000 ${
-        theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/[0.02] border-white/5 shadow-2xl"
-      }`}>
+      <section className={`relative flex flex-col items-center justify-center gap-6 rounded-[3rem] p-12 border overflow-hidden transition-all duration-1000 ${theme === 'day' ? "bg-white border-slate-200 shadow-sm" : "bg-white/[0.02] border-white/5 shadow-2xl"
+        }`}>
         {/* Pulsing decoration */}
         <div className="absolute inset-0 z-0 flex items-center justify-center">
             <motion.div 
@@ -46,10 +43,9 @@ export default function Directo() {
         </div>
 
         <div className="relative z-10 flex flex-col items-center gap-8">
-            <div className={`relative flex h-24 w-24 items-center justify-center rounded-full transition-colors duration-1000 ${
-              theme === 'day' ? "bg-slate-200" : "bg-white/5"
-            }`}>
-                <Radio size={48} className={theme === 'day' ? "text-slate-400" : "text-white/20"} />
+            <div className={`relative flex h-24 w-24 items-center justify-center rounded-full transition-colors duration-1000 ${theme === 'day' ? "bg-slate-100" : "bg-white/5"
+              }`}>
+                <Radio size={48} className={theme === 'day' ? "text-slate-500" : "text-white/20"} />
                 <motion.div 
                     animate={{ opacity: [0.3, 1, 0.3] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -61,9 +57,8 @@ export default function Directo() {
                 <h3 className={`text-xl font-black tracking-tight uppercase italic transition-colors duration-1000 ${
                   theme === 'day' ? 'text-slate-900' : 'text-white'
                 }`}>{content.statusText}</h3>
-                <p className={`max-w-[200px] text-center text-[10px] font-bold leading-relaxed uppercase tracking-widest transition-colors duration-1000 ${
-                  theme === 'day' ? 'text-slate-400' : 'text-white/30'
-                }`}>
+                <p className={`max-w-[200px] text-center text-[10px] font-bold leading-relaxed uppercase tracking-widest transition-colors duration-1000 ${theme === 'day' ? 'text-slate-600' : 'text-white/30'
+                  }`}>
                     {content.description}
                 </p>
             </div>
@@ -80,14 +75,12 @@ export default function Directo() {
       </section>
 
       {/* Upcoming Event Info */}
-      <section className={`flex flex-col gap-4 rounded-3xl p-6 border transition-all duration-1000 ${
-        theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/[0.02] border-white/5 shadow-2xl"
-      }`}>
+      <section className={`flex flex-col gap-4 rounded-3xl p-6 border transition-all duration-1000 ${theme === 'day' ? "bg-white border-slate-200 shadow-sm" : "bg-white/[0.02] border-white/5 shadow-2xl"
+        }`}>
         <div className="flex items-center gap-2">
             <Bell size={14} className="text-primary" />
-            <span className={`text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
-              theme === 'day' ? 'text-slate-400' : 'text-white/40'
-            }`}>PRÓXIMO DIRECTO</span>
+            <span className={`text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${theme === 'day' ? 'text-slate-500' : 'text-white/40'
+              }`}>PRÓXIMO DIRECTO</span>
         </div>
         <div className="flex flex-col gap-1">
             <h4 className={`text-lg font-black tracking-tight uppercase italic transition-colors duration-1000 ${

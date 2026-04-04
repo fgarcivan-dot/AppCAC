@@ -21,27 +21,32 @@ export interface Match {
 interface MatchCarouselProps {
   matches: Match[];
   theme?: "day" | "night";
+  refreshKey?: number;
 }
 
-export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) {
+export function MatchCarousel({ matches, theme = "night", refreshKey = 0 }: MatchCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(1);
   const [mounted, setMounted] = useState(false);
 
-  // 🛡️ SURGICAL CENTERING: Pure Horizontal Math (No vertical jumps)
+  // 🛡️ SURGICAL CENTERING: Force focus on index 1 (Current Matchday)
   useEffect(() => {
     let attempts = 0;
     const maxAttempts = 120;
 
+    // Default focus target is index 1 (Middle card in a 3-card layout)
+    const targetIndex = matches.length >= 3 ? 1 : 0;
+
     const forceCenter = () => {
       const container = scrollRef.current;
-      const centerCard = document.getElementById('match-card-1');
-      
-      if (container && centerCard && container.clientWidth > 0) {
-        const targetScrollLeft = centerCard.offsetLeft - (container.clientWidth / 2) + (centerCard.clientWidth / 2);
+      const targetCard = document.getElementById(`match-card-${targetIndex}`);
+
+      if (container && targetCard && container.clientWidth > 0) {
+        const targetScrollLeft = targetCard.offsetLeft - (container.clientWidth / 2) + (targetCard.clientWidth / 2);
         container.scrollTo({ left: targetScrollLeft, behavior: 'auto' });
         if (Math.abs(container.scrollLeft - targetScrollLeft) < 10) {
           setMounted(true);
+          setActiveIndex(targetIndex);
           return true;
         }
       }
@@ -59,7 +64,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
     }, 100);
 
     return () => clearInterval(timer);
-  }, [matches]);
+  }, [matches, refreshKey]); // Added refreshKey dependency
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (!mounted) return;
@@ -79,31 +84,15 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-4 ${
-            mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
-          }`}
+          className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-4 ${mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
+            }`}
         >
           {matches.map((match, i) => {
             const isActive = activeIndex === i;
-            const isRestDay = match.status?.trim().toUpperCase() === "DESCANSO" || 
-                              match.home?.trim().toUpperCase() === "DESCANSO" || 
-                              match.away?.trim().toUpperCase() === "DESCANSO";
+            const isRestDay = match.status?.trim().toUpperCase() === "DESCANSO" ||
+              match.home?.trim().toUpperCase() === "DESCANSO" ||
+              match.away?.trim().toUpperCase() === "DESCANSO";
 
-            // 🏷️ DYNAMIC WATERMARK LOGIC
-            const getWatermark = (cat: string) => {
-              const uppercaseCat = cat.toUpperCase();
-              if (uppercaseCat.includes("SENIOR")) return uppercaseCat.split(" ").pop() || "S";
-              if (uppercaseCat.includes("ALEVÍN")) return "AL-" + (uppercaseCat.split(" ").pop() || "A");
-              if (uppercaseCat.includes("BENXAMÍN")) return "BX-" + (uppercaseCat.split(" ").pop() || "A");
-              if (uppercaseCat.includes("PREBENXAMÍN")) return "PB";
-              if (uppercaseCat.includes("BIBERÓN")) return "BB";
-              if (uppercaseCat.includes("XUVENIL")) return "XU";
-              if (uppercaseCat.includes("CADETE")) return "CD";
-              if (uppercaseCat.includes("INFANTIL")) return "IF";
-              return uppercaseCat.charAt(0);
-            };
-
-            const watermarkText = getWatermark(match.title || "");
             const isHomeCercedense = match.home.toUpperCase().includes("CERCEDENSE");
             const isPreMatch = !match.status || match.status?.toUpperCase() === "PRÓXIMO";
 
@@ -114,19 +103,11 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                 className="flex-none w-screen max-w-full px-6 snap-center snap-always"
               >
                 {/* Elite Hero Card Container (190px) */}
-                <div className={`w-full h-[190px] relative transition-all duration-1000 rounded-[2rem] overflow-hidden border ${
-                  theme === 'day'
+                <div className={`w-full h-[190px] relative transition-all duration-1000 rounded-[2rem] overflow-hidden border ${theme === 'day'
                     ? "bg-white border-slate-200 shadow-[0_20px_40px_-15px_rgba(218,41,28,0.1)]"
                     : "bg-zinc-900 border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
                   }
                 `}>
-
-                  {/* 🔮 Background Watermark */}
-                  <div className={`absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 ${
-                    theme === 'day' ? "text-slate-100" : "text-white/[0.03]"
-                  }`}>
-                    {watermarkText}
-                  </div>
 
                   {/* 🔴 Status Bar (Indicator) */}
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-primary opacity-50 shadow-[0_0_20px_rgba(218,41,28,0.4)]" />
@@ -136,10 +117,12 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                     {isRestDay ? (
                       /* Minimalist Rest Day Mode */
                       <div className="flex flex-col items-center justify-center flex-1">
-                        <span className={`text-6xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 ${
-                          theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
-                        }`}>
+                        <span className={`text-6xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                          }`}>
                           DESCANSA
+                        </span>
+                        <span className={`text-[9px] font-black tracking-[0.5em] mt-3 opacity-20 ${theme === 'day' ? 'text-slate-900' : 'text-white'}`}>
+                          {match.title}
                         </span>
                         <div className="mt-4 flex flex-col items-center gap-1 opacity-20">
                           <span className="text-[7px] font-black tracking-[0.5em] uppercase">{match.date}</span>
@@ -153,25 +136,23 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                           <div className="flex flex-col gap-0.5">
                             <div className="flex items-center gap-2">
                               <Calendar size={10} className="text-primary" />
-                              <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
-                                theme === 'day' ? "text-slate-400" : "text-white/40"
-                              }`}>
+                              <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-600" : "text-white/40"
+                                }`}>
                                 {match.title}
                               </span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <MapPin size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
-                              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
-                                theme === 'day' ? "text-slate-400" : "text-white/40"
-                              }`}>
+                              <MapPin size={9} className={theme === 'day' ? "text-slate-500" : "text-white/20"} />
+                              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${theme === 'day' ? "text-slate-600" : "text-white/40"
+                                }`}>
                                 {match.date} · {match.venue}
                               </span>
                             </div>
                           </div>
-                               {/* Dynamic Status Pill - HIDDEN IF PRE-MATCH */}
+                          {/* Dynamic Status Pill - HIDDEN IF PRE-MATCH */}
                           {!isPreMatch && (
                             <div className={cn(
-                              "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center gap-2 min-w-[70px] transition-all duration-1000",
+                              "px-4 py-1.5 rounded-xl border backdrop-blur-xl flex items-center justify-center gap-2 min-w-[70px] transition-all duration-1000",
                               theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
                             )}>
                               {match.status === "EN XOGO" && (
@@ -180,11 +161,17 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               <span className={cn(
                                 "text-[8px] font-black tracking-widest uppercase transition-colors duration-1000",
                                 match.status === "EN XOGO" ? "text-green-500" :
-                                (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-slate-400" :
-                                (match.status === "FIN" || match.status === "FINALIZADO") ? "text-primary" :
-                                (theme === 'day' ? "text-slate-900" : "text-white")
+                                  (match.status === "DESCANSO" || match.status === "PAUSA") ? (theme === 'day' ? "text-slate-600" : "text-slate-400") :
+                                    (match.status === "FIN" || match.status === "FINALIZADO") ? (
+                                      match.result === "VITORIA" ? "text-green-500" :
+                                        match.result === "EMPATE" ? (theme === 'day' ? "text-slate-600" : "text-white/40") :
+                                          "text-primary" // DERROTA
+                                    ) :
+                                      (theme === 'day' ? "text-slate-900" : "text-white")
                               )}>
-                                {match.status}
+                                {((match.status === "FIN" || match.status === "FINALIZADO") && match.result)
+                                  ? (match.result === "VITORIA" ? "VICTORIA" : match.result)
+                                  : match.status}
                               </span>
                             </div>
                           )}
@@ -192,15 +179,14 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
 
                         {/* Middle Content Row: Teams & Score */}
                         <div className="flex items-center justify-between gap-4 w-full">
-                          <div className="flex flex-col gap-2 flex-1">
+                          <div className="flex flex-col gap-2 flex-1 mt-2">
                             <div className="flex items-center gap-3">
                               <div className={cn(
                                 "h-5 w-1 rounded-full",
                                 isHomeCercedense ? "bg-primary" : "bg-slate-500/20"
                               )} />
-                              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${
-                                isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
-                              }`}>
+                              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-primary") : (theme === 'day' ? "text-slate-500" : "text-white")
+                                  }`}>
                                 {match.home}
                               </span>
                             </div>
@@ -209,22 +195,24 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                                 "h-5 w-1 rounded-full",
                                 !isHomeCercedense ? "bg-primary" : "bg-slate-500/20"
                               )} />
-                              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${
-                                !isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
-                              }`}>
+                              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${!isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-primary") : (theme === 'day' ? "text-slate-500" : "text-white")
+                                  }`}>
                                 {match.away}
                               </span>
                             </div>
                           </div>
 
-                          {/* Score or Time Box */}
-                          <div className="flex flex-col items-center justify-center bg-white/5 p-3 rounded-2xl min-w-[80px] border border-white/5 shadow-inner">
+                          {/* Score or Time Box - Squarer (rounded-xl) for a cleaner look */}
+                          <div className={cn(
+                            "flex flex-col items-center justify-center px-4 h-[45px] min-w-[75px] rounded-xl border backdrop-blur-md transition-all duration-1000 shrink-0",
+                            theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/[0.12] border-white/10 shadow-inner"
+                          )}>
                             <span className={cn(
-                                "font-black tabular-nums tracking-tighter transition-colors duration-1000",
-                                isPreMatch ? "text-2xl text-primary/60" : "text-4xl",
-                                theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                              "font-black tabular-nums tracking-tighter leading-none transition-colors duration-1000",
+                              isPreMatch ? "text-lg text-primary" : "text-2xl",
+                              theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                             )}>
-                              {isPreMatch ? (match.time || "VS") : 
+                              {isPreMatch ? (match.time || "VS") :
                                 (match.score === "vs" || match.score.toUpperCase() === "POR DEFINIR" ? "VS" : match.score)
                               }
                             </span>
@@ -241,7 +229,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
 
         {/* 🧪 LIQUID MAGNETIC DOTS Indicator */}
         <div className="flex items-center justify-center gap-6 mt-4">
-          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
+          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-500' : 'text-white/10'}`}>
             0{(activeIndex + 1)}
           </span>
           <div className="relative flex items-center gap-2 px-4 py-3 rounded-full bg-black/5 backdrop-blur-sm border border-white/5">
@@ -252,8 +240,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                   <motion.div
                     animate={{
                       scale: isSelected ? 1 : 0.5,
-                      opacity: isSelected ? 1 : 0.2,
-                      backgroundColor: isSelected ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.4)")
+                      opacity: isSelected ? 1 : 0.3,
+                      backgroundColor: isSelected ? "#DA291C" : (theme === 'day' ? "#94a3b8" : "rgba(255, 255, 255, 0.4)")
                     }}
                     className="w-full h-full rounded-full"
                   />
@@ -268,7 +256,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
               );
             })}
           </div>
-          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
+          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-500' : 'text-white/10'}`}>
             0{matches.length}
           </span>
         </div>

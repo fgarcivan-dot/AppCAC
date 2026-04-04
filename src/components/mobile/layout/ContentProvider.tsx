@@ -44,7 +44,42 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const initData = async () => {
     const remoteData = await fetchAppData();
     if (remoteData) {
-      setData({ ...INITIAL_DATA, ...remoteData });
+      // 🏗️ ELITE HUD DEEP MERGE: Protect the 3-card lifecycle (Past, Present, Future)
+      const mergedData = { ...INITIAL_DATA, ...remoteData };
+      
+      const smartMergeMatches = (local: any[], remote: any[]) => {
+        if (!remote || remote.length === 0) return local;
+        if (remote.length >= 3) return remote; // Use remote if full
+
+        // If Gist is incomplete (e.g. only 2 cards), orbit remote data into the correct local slots
+        const result = [...local];
+        remote.forEach(rm => {
+          const localIdx = local.findIndex(lm => lm.title?.toUpperCase() === rm.title?.toUpperCase());
+          if (localIdx !== -1) {
+            result[localIdx] = rm;
+          } else {
+            // If no title match, we don't just append, we keep the UI stable
+          }
+        });
+        return result;
+      };
+
+      if (remoteData.equipos) {
+        mergedData.equipos = {
+          masculino: {
+            ...INITIAL_DATA.equipos.masculino,
+            ...remoteData.equipos.masculino,
+            matches: smartMergeMatches(INITIAL_DATA.equipos.masculino.matches, remoteData.equipos.masculino.matches || [])
+          },
+          femenino: {
+            ...INITIAL_DATA.equipos.femenino,
+            ...remoteData.equipos.femenino,
+            matches: smartMergeMatches(INITIAL_DATA.equipos.femenino.matches, remoteData.equipos.femenino.matches || [])
+          }
+        };
+      }
+
+      setData(mergedData);
       setRefreshKey(prev => prev + 1);
     }
     setLoading(false);

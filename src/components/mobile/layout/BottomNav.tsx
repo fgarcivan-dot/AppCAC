@@ -44,14 +44,14 @@ export function BottomNav() {
               
               <div className={cn(
                 "p-1.5 rounded-xl transition-all",
-                isActive ? "text-primary mt-1" : (theme === 'day' ? "text-slate-300" : "text-white/40")
+                isActive ? "text-primary mt-1" : (theme === 'day' ? "text-slate-500" : "text-white/40")
               )}>
                 <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
               </div>
               
               <span className={cn(
                 "text-[9px] font-black tracking-widest",
-                isActive ? "text-primary" : (theme === 'day' ? "text-slate-400" : "text-white/40")
+                isActive ? "text-primary" : (theme === 'day' ? "text-slate-600" : "text-white/40")
               )}>
                 {item.name}
               </span>

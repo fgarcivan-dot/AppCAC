@@ -70,9 +70,55 @@ El sistema genera el código de fondo gigante automáticamente según el `"title
 ### C. Eficiencia de Temporada
 Los cuadros de victorias se calculan solos. Solo introduce los números en `balanceMasculino / Femenino` dentro de la sección `resultados`.
 
+### D. Resaltado "Orgullo Cercedense"
+La tabla de clasificación detecta automáticamente al club:
+*   **Acción**: Cualquier equipo con el nombre **"CERCEDENSE"** será detectado por el HUD.
+*   **Resultado**: La fila se ilumina con el color primario, un borde acentuado y un indicador de "Club Elite" (punto brillante) junto al nombre. No necesitas marcar nada en el JSON, es automático.
+
 ---
 
-## 📋 4. Consejos Pro 
+## 📊 4. Gestión de Resultados (Última Xornada)
+
+La página de resultados ahora utiliza un sistema de **Pestañas Inteligentes**:
+
+1.  **SÉNIOR**: Agrupa los resultados de los equipos Masculino y Femenino.
+2.  **CANTEIRA**: Agrupa automáticamente todos los resultados de las categorías inferiores.
+3.  **Enlaces de Temporada**: El sistema genera botones automáticos hacia la clasificación completa. Estos enlaces se gestionan desde el campo `externalUrl` dentro de cada equipo en la sección `equipos`.
+
+---
+
+## 🏟️ 6. Jornadas de Doble Partido
+
+El sistema ahora permite mostrar **múltiples partidos** para una misma categoría en un mismo fin de semana (Doble Xornada).
+
+1.  **Página de Partidos**: Añade dos objetos seguidos en la lista `"proximos"`. Cada uno debe tener su propia `"date"` (ej: SÁB 12 y DOM 13) y un `"id"` único.
+2.  **Página de Resultados**: Añade dos resultados seguidos en la `"lista"` de resultados. El sistema los agrupará y mostrará ambos marcadores automáticamente.
+
+### 💡 Ejemplo de JSON para Doble Partido:
+```json
+{
+  "id": 101, // ID Único
+  "home": "CERCEDENSE",
+  "away": "RIVAL SÁBADO",
+  "date": "SÁB 04 ABR",
+  "time": "16:30H",
+  "category": "XUVENIL",
+  "venue": "O ROXO"
+},
+{
+  "id": 102, // Otro ID Único
+  "home": "RIVAL DOMINGO",
+  "away": "CERCEDENSE",
+  "date": "DOM 05 ABR",
+  "time": "11:00H",
+  "category": "XUVENIL",
+  "venue": "FORA"
+}
+```
+
+---
+
+## 📋 7. Consejos Pro 
 1.  **Formato de Hora**: Usa siempre la "H" (ej: `12:00H`) para que el HUD la detecte.
 2.  **Imágenes**: Ruta `/images/nombre.webp`.
 3.  **Actualización**: Desliza hacia abajo en la pantalla de Inicio para forzar la sincronización con el Gist.
