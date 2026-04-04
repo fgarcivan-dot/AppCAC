@@ -63,7 +63,7 @@ export default function Partidos() {
       {/* Match List */}
       <section className={cn(
         "flex flex-col",
-        activeTab === "SENIORS" ? "gap-10" : "gap-3"
+        activeTab === "SENIORS" ? "gap-4" : "gap-3"
       )}>
         {filteredMatches.map((match, i) => (
           activeTab === "SENIORS" 
