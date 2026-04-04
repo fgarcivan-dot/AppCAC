@@ -77,6 +77,7 @@ export default function Resultados() {
                   away={maleResult.away}
                   score={maleResult.score}
                   date={maleResult.date}
+                  time={maleResult.time}
                   venue={maleResult.venue}
                   category="SENIOR MASCULINO"
                   result={maleResult.result as "VITORIA" | "DERROTA" | "EMPATE"}
@@ -102,6 +103,7 @@ export default function Resultados() {
                   away={femaleResult.away}
                   score={femaleResult.score}
                   date={femaleResult.date}
+                  time={femaleResult.time}
                   venue={femaleResult.venue}
                   category="SENIOR FEMININO"
                   result={femaleResult.result as "VITORIA" | "DERROTA" | "EMPATE"}
@@ -130,6 +132,7 @@ export default function Resultados() {
                 away={res.away}
                 score={res.score}
                 date={res.date}
+                time={res.time}
                 venue={res.venue}
                 category={res.category}
                 result={res.result as "VITORIA" | "DERROTA" | "EMPATE"}

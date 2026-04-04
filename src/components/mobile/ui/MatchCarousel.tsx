@@ -9,6 +9,7 @@ export interface Match {
   type?: string;
   title: string;
   date: string;
+  time?: string;
   home: string;
   away: string;
   score: string;
@@ -104,6 +105,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
 
             const watermarkText = getWatermark(match.title || "");
             const isHomeCercedense = match.home.toUpperCase().includes("CERCEDENSE");
+            const isPreMatch = !match.status || match.status?.toUpperCase() === "PRÓXIMO";
 
             return (
               <motion.div
@@ -166,25 +168,26 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               </span>
                             </div>
                           </div>
-                          
-                          {/* Dynamic Status Pill */}
-                          <div className={cn(
-                            "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center gap-2 min-w-[70px] transition-all duration-1000",
-                            theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
-                          )}>
-                            {match.status === "EN XOGO" && (
-                              <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
-                            )}
-                            <span className={cn(
-                              "text-[8px] font-black tracking-widest uppercase transition-colors duration-1000",
-                              match.status === "EN XOGO" ? "text-green-500" :
-                              (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-slate-400" :
-                              (match.status === "FIN" || match.status === "FINALIZADO") ? "text-primary" :
-                              (theme === 'day' ? "text-slate-900" : "text-white")
+                               {/* Dynamic Status Pill - HIDDEN IF PRE-MATCH */}
+                          {!isPreMatch && (
+                            <div className={cn(
+                              "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center gap-2 min-w-[70px] transition-all duration-1000",
+                              theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
                             )}>
-                              {match.status || "PRÓXIMO"}
-                            </span>
-                          </div>
+                              {match.status === "EN XOGO" && (
+                                <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+                              )}
+                              <span className={cn(
+                                "text-[8px] font-black tracking-widest uppercase transition-colors duration-1000",
+                                match.status === "EN XOGO" ? "text-green-500" :
+                                (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-slate-400" :
+                                (match.status === "FIN" || match.status === "FINALIZADO") ? "text-primary" :
+                                (theme === 'day' ? "text-slate-900" : "text-white")
+                              )}>
+                                {match.status}
+                              </span>
+                            </div>
+                          )}
                         </div>
 
                         {/* Middle Content Row: Teams & Score */}
@@ -214,11 +217,16 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                             </div>
                           </div>
 
+                          {/* Score or Time Box */}
                           <div className="flex flex-col items-center justify-center bg-white/5 p-3 rounded-2xl min-w-[80px] border border-white/5 shadow-inner">
-                            <span className={`text-4xl font-black tabular-nums tracking-tighter transition-colors duration-1000 ${
-                              theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-                            }`}>
-                              {match.score === "vs" || match.score.toUpperCase() === "POR DEFINIR" ? "VS" : match.score}
+                            <span className={cn(
+                                "font-black tabular-nums tracking-tighter transition-colors duration-1000",
+                                isPreMatch ? "text-2xl text-primary/60" : "text-4xl",
+                                theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                            )}>
+                              {isPreMatch ? (match.time || "VS") : 
+                                (match.score === "vs" || match.score.toUpperCase() === "POR DEFINIR" ? "VS" : match.score)
+                              }
                             </span>
                           </div>
                         </div>

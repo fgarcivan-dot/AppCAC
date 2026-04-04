@@ -20,7 +20,8 @@ export const INITIAL_DATA: AppData = {
         "away": "S.D.C TEIXEIRO",
         "score": "0-0",
         "venue": "O ROXO",
-        "status": "DESCANSO"
+        "time": "17:00H",
+        "status": "PRÓXIMO"
       },
       {
         "title": "PRÓXIMO",
@@ -66,7 +67,8 @@ export const INITIAL_DATA: AppData = {
         "away": "CERCEDENSE",
         "score": "1 - 8",
         "venue": "CAMPO ALEGRET",
-        "status": "EN XOGO"
+        "time": "12:00H",
+        "status": "PRÓXIMO"
       },
       {
         "title": "PRÓXIMO",

@@ -9,6 +9,7 @@ interface ProResultCardProps {
   away: string;
   score: string;
   date: string;
+  time?: string;
   venue: string;
   category: string;
   result: "VITORIA" | "DERROTA" | "EMPATE";
@@ -17,7 +18,7 @@ interface ProResultCardProps {
   theme?: "day" | "night";
 }
 
-export function ProResultCard({ home, away, score, date, venue, category, result, status, index, theme = "night" }: ProResultCardProps) {
+export function ProResultCard({ home, away, score, date, time, venue, category, result, status, index, theme = "night" }: ProResultCardProps) {
   
   // 🏷️ DYNAMIC WATERMARK LOGIC
   const getWatermark = (cat: string) => {
@@ -36,6 +37,7 @@ export function ProResultCard({ home, away, score, date, venue, category, result
   const watermarkText = getWatermark(category);
   const isHomeCercedense = home.toUpperCase().includes("CERCEDENSE");
   const isRestDay = home.toUpperCase().includes("DESCANSO") || away.toUpperCase().includes("DESCANSO");
+  const isPreMatch = !status || status?.toUpperCase() === "PRÓXIMO";
 
   // 🚦 Result Styling
   const getResultConfig = () => {
@@ -120,20 +122,23 @@ export function ProResultCard({ home, away, score, date, venue, category, result
               </div>
             </div>
             
-            <div className={cn(
-              "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center gap-2 min-w-[80px] transition-all duration-1000",
-              theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
-            )}>
-              {status === "EN XOGO" && (
-                <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
-              )}
-              <span className={cn(
-                "text-[8px] font-black tracking-widest uppercase text-center",
-                config.color
+            {/* Dynamic Status Pill - HIDDEN IF PRE-MATCH */}
+            {!isPreMatch && (
+              <div className={cn(
+                "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center gap-2 min-w-[80px] transition-all duration-1000",
+                theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
               )}>
-                {status || result}
-              </span>
-            </div>
+                {status === "EN XOGO" && (
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+                )}
+                <span className={cn(
+                  "text-[8px] font-black tracking-widest uppercase text-center",
+                  config.color
+                )}>
+                  {status || result}
+                </span>
+              </div>
+            )}
           </div>
         )}
 
@@ -177,11 +182,14 @@ export function ProResultCard({ home, away, score, date, venue, category, result
                </div>
             </div>
 
+            {/* Score or Time Box */}
             <div className="flex flex-col items-center justify-center bg-white/5 p-3 rounded-2xl min-w-[80px] border border-white/5 shadow-inner">
-               <span className={`text-4xl font-black tabular-nums tracking-tighter transition-colors duration-1000 ${
+               <span className={cn(
+                 "font-black tabular-nums tracking-tighter transition-colors duration-1000",
+                 isPreMatch ? "text-2xl text-primary/60" : "text-4xl",
                  theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-               }`}>
-                 {score}
+               )}>
+                 {isPreMatch ? (time || "VS") : score}
                </span>
             </div>
           </div>
