@@ -17,7 +17,7 @@ export function RefreshIndicator({ isRefreshing, yPosition, theme = "night" }: R
   return (
     <motion.div 
       style={{ opacity, y: yOffset }}
-      className="absolute top-[var(--header-height)] mt-4 left-0 right-0 flex justify-center z-[60] pointer-events-none"
+      className="absolute top-0 left-0 right-0 flex justify-center z-[60] pointer-events-none mt-4"
     >
       <div className={`p-3 rounded-full border backdrop-blur-3xl shadow-xl transition-all duration-1000 ${
         theme === 'day' ? "bg-white/80 border-slate-200 shadow-slate-200/50" : "bg-zinc-900/80 border-white/5 shadow-[0_0_30px_rgba(218,41,28,0.3)]"

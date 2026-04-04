@@ -3,6 +3,7 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 interface HeaderProps {
   theme: 'day' | 'night';
@@ -14,15 +15,16 @@ interface HeaderProps {
 export function Header({ theme, toggleTheme }: HeaderProps) {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Detección de dirección de scroll para ocultar/mostrar el cabecero
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 50) {
+    const diff = latest - lastScrollY;
+    if (latest > 100 && diff > 10) {
       setHidden(true);
-    } else {
+    } else if (diff < -10) {
       setHidden(false);
     }
+    setLastScrollY(latest);
   });
 
   return (
@@ -43,13 +45,18 @@ export function Header({ theme, toggleTheme }: HeaderProps) {
         
         {/* Identidad del Club (Logo + Texto a la Izquierda) */}
         <div className="flex items-center gap-3">
-          <motion.img 
-            src="/escudo.png" 
-            alt="Escudo" 
-            className="w-10 h-10 object-contain drop-shadow-md"
+          <motion.div 
+            className="w-10 h-10 relative drop-shadow-md"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          />
+          >
+            <Image 
+              src="/escudo.png" 
+              alt="Escudo" 
+              fill
+              className="object-contain"
+            />
+          </motion.div>
           <div className="flex flex-col gap-0.5 leading-none">
             <span 
               className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${

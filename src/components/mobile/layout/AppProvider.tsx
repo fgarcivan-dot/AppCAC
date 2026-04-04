@@ -30,6 +30,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // 📥 INITIAL LOAD: Memory & Solar Detection
   useEffect(() => {
+    // 0. Forced Manual Scroll Restoration for navigation stability
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
     // 0. Hide Native Splash Screen smoothly
     const hideNativeSplash = async () => {
       try {
@@ -79,7 +84,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         theme === 'day' ? "bg-slate-200 text-slate-900" : "bg-black text-white"
       } ${isLoading ? "hidden" : "block animate-in fade-in duration-1000"}`}>
         {!isLoading && <Header theme={theme} toggleTheme={toggleTheme} />}
-        <div className={isLoading ? "" : "pt-header"}>
+        <div className="pt-header">
           {children}
         </div>
       </div>

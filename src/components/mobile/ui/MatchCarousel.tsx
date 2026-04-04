@@ -27,37 +27,55 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   const [activeIndex, setActiveIndex] = useState(1);
   const [mounted, setMounted] = useState(false);
 
-  // Ultimate ID-based scrolling for Android WebViews
+  // 🛡️ REAL DIMENSIONS CENTERING: Ensures it only stops when measurements are non-zero.
   useEffect(() => {
     let attempts = 0;
-    const maxAttempts = 60; // 6 seconds total (100ms * 60)
+    const maxAttempts = 120; // Extended grace period for splash exit
 
     const forceCenter = () => {
+      const container = scrollRef.current;
       const centerCard = document.getElementById('match-card-1');
-      if (centerCard && scrollRef.current) {
-        centerCard.scrollIntoView({
-          behavior: 'auto',
-          inline: 'center',
-          block: 'nearest'
+      
+      if (container && centerCard && container.clientWidth > 0) {
+        // 🚀 THE CURE: Pure horizontal math. Never touches the vertical scroll.
+        const leftOffset = centerCard.offsetLeft;
+        const cardWidth = centerCard.clientWidth;
+        const containerWidth = container.clientWidth;
+        
+        // Final position for centering card in the viewport
+        const targetScrollLeft = leftOffset - (containerWidth / 2) + (cardWidth / 2);
+        
+        container.scrollTo({
+          left: targetScrollLeft,
+          behavior: 'auto' // Instant for the initial layout
         });
 
-        // Final verification: Is the card actually visible/centered?
-        if (attempts > 2) {
+        // Verification: Check if we are physically close to the target
+        const isActuallyCentered = Math.abs(container.scrollLeft - targetScrollLeft) < 5;
+        
+        // Only mark mounted/success if we have the dimensions and it's centered
+        if (isActuallyCentered) {
           setMounted(true);
+          return true;
         }
-        return true;
       }
       return false;
     };
 
     const timer = setInterval(() => {
       attempts++;
-      forceCenter();
+      const success = forceCenter();
 
-      // Safety fallback - now adjusted to 4.5s to cover the new splash (3.5s)
-      if (attempts > 45) setMounted(true);
+      // THE CURE 2: Only stop if we actually have dimensions (success) AND 
+      // have enough confidence attempts after visibility.
+      if (success && attempts > 15) {
+        clearInterval(timer);
+      }
 
-      if (attempts >= maxAttempts) clearInterval(timer);
+      if (attempts >= maxAttempts) {
+        setMounted(true);
+        clearInterval(timer);
+      }
     }, 100);
 
     return () => clearInterval(timer);
@@ -215,9 +233,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                           <div className="flex flex-col w-[55%] items-start relative">
                             {match.home !== "DESCANSO" && (
                               <div className="mb-2 px-1.5 py-0.5 bg-red-600 rounded-[4px] shadow-sm flex items-center justify-center">
-                                <span className="text-[8px] font-black tracking-[0.1em] text-white uppercase leading-none" style={{ fontFamily: 'NeueMontreal' }}>
-                                  LOCAL
-                                </span>
+                                <span className="text-[8px] font-black tracking-[0.1em] text-white uppercase leading-none" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
                               </div>
                             )}
                             <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")

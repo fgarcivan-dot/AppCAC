@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useRef } from "react";
-import { useMotionValue, motion, animate } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
+import { RefreshIndicator } from "../ui/RefreshIndicator";
 import { AppData, fetchAppData } from "@/lib/dataService";
 import { INITIAL_DATA } from "@/lib/initialData";
 
@@ -10,7 +11,6 @@ interface ContentContextType {
   loading: boolean;
   isRefreshing: boolean;
   pullDistance: number;
-  yPosition: any;
   handleRefresh: () => Promise<void>;
   refreshKey: number;
 }
@@ -26,7 +26,6 @@ export function useContent() {
 }
 
 import { useTheme } from "./AppProvider";
-import { RefreshIndicator } from "@/components/mobile/ui/RefreshIndicator";
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<AppData>(INITIAL_DATA);
@@ -35,21 +34,13 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [refreshKey, setRefreshKey] = useState(0);
   const { theme } = useTheme();
 
+  // Use MotionValue for high-performance visual syncing
   const yPosition = useMotionValue(0);
-  const [pullDistance, setPullDistance] = useState(0);
+  const [pullDistanceState, setPullDistanceState] = useState(0);
   
-  // Refs for gesture tracking (avoiding effect re-binding)
-  const startYRef = useRef(0);
-  const startXRef = useRef(0);
-  const isRefreshingRef = useRef(false);
-  const isHorizontalRef = useRef(false);
-  const isActiveRef = useRef(false);
-
-  // Sync ref with state for use in event listeners
-  useEffect(() => {
-    isRefreshingRef.current = isRefreshing;
-  }, [isRefreshing]);
-
+  const startY = useRef(0);
+  const isPulling = useRef(false);
+  
   const initData = async () => {
     const remoteData = await fetchAppData();
     if (remoteData) {
@@ -61,114 +52,83 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    
-    // Smoothly return content to top immediately
-    animate(yPosition, 0, { type: "spring", stiffness: 300, damping: 30 });
-    
     try {
       await initData();
     } catch (error) {
       console.error("Refresh failed:", error);
     } finally {
-      // Small buffer to allow the spinner to be seen if loading was too fast
       setTimeout(() => {
         setIsRefreshing(false);
+        yPosition.set(0);
+        setPullDistanceState(0);
       }, 500);
     }
   };
 
   useEffect(() => {
     initData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
-      // Solo iniciar si estamos arriba y no estamos recargando
-      if (window.scrollY <= 5 && !isRefreshingRef.current) {
-        startYRef.current = e.touches[0].pageY;
-        startXRef.current = e.touches[0].pageX;
-        isHorizontalRef.current = false;
-        isActiveRef.current = true;
-      } else {
-        isActiveRef.current = false;
+      if (window.scrollY === 0) {
+        startY.current = e.touches[0].pageY;
+        isPulling.current = true;
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isActiveRef.current || isRefreshingRef.current) return;
+      if (!isPulling.current) return;
       
       const currentY = e.touches[0].pageY;
-      const currentX = e.touches[0].pageX;
-      const diffY = currentY - startYRef.current;
-      const diffX = Math.abs(currentX - startXRef.current);
-      
-      // Si el movimiento es predominantemente horizontal, marcamos para ignorar
-      if (!isHorizontalRef.current && diffX > 10 && diffX > Math.abs(diffY)) {
-        isHorizontalRef.current = true;
-      }
+      const diff = currentY - startY.current;
 
-      if (isHorizontalRef.current) return;
-      
-      // Comprobar si estamos al principio de la página
-      // Usamos un pequeño margen para compensar el bounce de iOS
-      if (window.scrollY <= 10) {
-        // Permitir que el contenido siga al dedo tanto hacia abajo como hacia arriba
-        // pero limitamos el valor mínimo a 0 (no tirar hacia arriba)
-        const pullValue = Math.max(0, diffY * 0.45); // Un toque menos de resistencia
+      if (diff > 0 && window.scrollY === 0) {
+        // Resistance factor
+        const distance = Math.min(diff * 0.4, 80);
+        yPosition.set(distance);
+        setPullDistanceState(distance);
         
-        yPosition.set(pullValue);
-        
-        // Bloquear scroll nativo solo si estamos tirando efectivamente
-        if (pullValue > 0 && e.cancelable) {
-          e.preventDefault();
+        if (distance > 0) {
+          if (e.cancelable) e.preventDefault();
         }
       } else {
-        // Si el usuario scrolleó hacia abajo nativamente, ya no estamos en modo "pull"
-        if (isActiveRef.current) {
-          isActiveRef.current = false;
-          setPullDistance(0);
-          yPosition.set(0);
-        }
+        isPulling.current = false;
+        yPosition.set(0);
+        setPullDistanceState(0);
       }
     };
 
     const handleTouchEnd = () => {
-      if (!isActiveRef.current || isRefreshingRef.current || isHorizontalRef.current) {
-        isActiveRef.current = false;
-        return;
-      }
-      
-      // Acceder al valor actual de yPosition (que es pullDistance con resistencia)
-      const currentPull = yPosition.get();
-      
-      if (currentPull > 60) {
+      if (isPulling.current && yPosition.get() > 60) {
         handleRefresh();
       } else {
         yPosition.set(0);
+        setPullDistanceState(0);
       }
-      
-      isActiveRef.current = false;
-      startYRef.current = 0;
+      isPulling.current = false;
     };
 
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [theme]); // Re-bind on theme change for type safety if needed
 
   return (
-    <ContentContext.Provider value={{ data, loading, isRefreshing, pullDistance, yPosition, handleRefresh, refreshKey }}>
+    <ContentContext.Provider value={{ data, loading, isRefreshing, pullDistance: pullDistanceState, handleRefresh, refreshKey }}>
       <div className={`relative w-full ${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-700`}>
-        <RefreshIndicator isRefreshing={isRefreshing} yPosition={yPosition} theme={theme} />
-        <motion.div style={{ y: yPosition }} className="w-full relative z-10">
+        <RefreshIndicator isRefreshing={isRefreshing} yPosition={yPosition} theme={theme as "day" | "night"} />
+        
+        <motion.div
+          style={{ y: yPosition }}
+          className="w-full relative z-10"
+        >
           {children}
         </motion.div>
       </div>

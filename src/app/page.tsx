@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { MatchCarousel } from "@/components/mobile/ui/MatchCarousel";
 import { ClassificationTable } from "@/components/mobile/ui/ClassificationTable";
-import { SocialPost } from "@/components/mobile/ui/SocialPost"; // Import social post
+import { SocialPost } from "@/components/mobile/ui/SocialPost"; 
 import { InstaGrid } from "@/components/mobile/ui/InstaGrid";
 import { EscolasSection } from "@/components/mobile/ui/EscolasSection";
 import { MembershipBanner } from "@/components/mobile/ui/MembershipBanner";
 import { useTheme } from "@/components/mobile/layout/AppProvider";
 import { useContent } from "@/components/mobile/layout/ContentProvider";
-
-
 
 export default function Home() {
   const { data, refreshKey } = useContent();
@@ -81,7 +79,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Dynamic Interactive Widgets */}
             <MatchCarousel matches={currentData.matches} theme={theme} />
             
             <div className="flex items-center gap-3 px-2">
@@ -98,7 +95,6 @@ export default function Home() {
               theme={theme}
             />
 
-            {/* News / Social Post */}
             <div className="flex items-center gap-3 px-2 mt-4">
               <div className={`h-px flex-1 transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`} />
               <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${
@@ -108,36 +104,29 @@ export default function Home() {
             </div>
             <SocialPost {...currentData.socialPost} theme={theme} />
 
-            {/* O Noso Manifesto */}
             <div className="mt-12 mb-8 flex flex-col items-start justify-center text-left w-full px-6 overflow-hidden">
               <span className={`text-xs font-black tracking-[0.4em] uppercase mb-4 transition-colors duration-1000 ${theme === 'day' ? 'text-primary' : 'text-primary/90'}`} style={{ fontFamily: 'NeueMontreal' }}>
                 {data.homeContent?.manifesto?.line1 || "O Noso Manifesto"}
               </span>
               
-              <h2 className={`text-[24px] sm:text-3xl md:text-4xl font-black leading-snug tracking-wider uppercase whitespace-nowrap transition-colors duration-1000 ${
+              <h2 className={`text-[24px] sm:text-3xl md:text-4xl font-black leading-snug tracking-wider uppercase transition-colors duration-1000 ${
                 theme === 'day' ? 'text-slate-900' : 'text-white'
               }`} style={{ fontFamily: 'NeueMontreal' }}>
                 {data.homeContent?.manifesto?.line2 || "Non somos só un club."}<br/>
                 <span className={`text-primary ${theme === 'day' ? 'drop-shadow-sm' : 'drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]'}`}>{data.homeContent?.manifesto?.highlight || "Somos familia."}</span><br/>
-                {data.homeContent?.manifesto?.line3 || "Somos esforzo."}<br/>
+                {data.homeContent?.manifesto?.line3 || "Somos esfuerzo."}<br/>
                 <span className={`text-primary ${theme === 'day' ? 'drop-shadow-sm' : 'drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]'}`}>{data.homeContent?.manifesto?.line1 ? "" : "Somos Cerceda."}</span>
               </h2>
             </div>
 
-            {/* Escolas / Canteira */}
             <EscolasSection theme={theme} data={data.homeContent?.escolas} />
-
-            {/* Instagram Grid */}
             <InstaGrid theme={theme} data={data.homeContent?.instaGrid} />
-
-            {/* Membership Banner (Socios) */}
             <MembershipBanner theme={theme} data={data.homeContent?.membership} />
             
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Static Branding Floating Bottom */}
       <div className="fixed bottom-24 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none z-0">
         <div className="h-1 w-12 rounded-full bg-white/40 shadow-2xl" />
       </div>
