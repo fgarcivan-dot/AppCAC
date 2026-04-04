@@ -24,6 +24,19 @@ Usamos un selector de cápsula de cristal traslúcida. El bloque rojo se mueve d
 Si un equipo no juega esa semana, el sistema limpia la tarjeta y muestra un mensaje potente: **"DESCANSA"**. 
 - **Cómo activarlo**: Escribe la palabra `"DESCANSO"` en el campo `"home"` o `"away"` de tu JSON. El sistema hará el resto (ocultará escudos, mapas y centrará el texto).
 
+### D. Estados del Partido (Colores y Marcador)
+Dependiendo de lo que pongas en el campo `"status"`, el marcador de la pantalla de inicio cambiará de color automáticamente:
+
+| Texto en `status` | Color | Significado |
+| :--- | :--- | :--- |
+| `EN XOGO` | **Verde** | El partido está en directo (incluye punto parpadeante). |
+| `DESCANSO` o `PAUSA` | **Gris** | El partido está pausado (entre tiempos). |
+| `FIN` o `FINALIZADO` | **Rojo** | El partido ha terminado. |
+
+### E. Partidos Pendientes (Visualización "VS" u Hora)
+- **Si el marcador (`score`) es `"POR DEFINIR"`**: Se mostrará un elegante **"VS"** en el centro.
+- **Si el marcador (`score`) incluye una hora**: Si el sistema detecta un **":"** o una **"H"** (ej: `17:00H`, `12:30`, `18h`), mostrará ese texto en el centro con un estilo de espera limpio.
+
 ---
 
 ## 🏆 3. Rediseño Elite Seniors (Tarjetas Hero)
