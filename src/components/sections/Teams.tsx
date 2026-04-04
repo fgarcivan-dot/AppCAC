@@ -35,29 +35,26 @@ const teams = [
 
 export default function Teams() {
   return (
-    <section className="py-24 bg-surface" id="equipos">
-      <div className="fluid-container relative z-10">
-        <div className="text-center mb-16 px-4">
+    <section className="py-24 bg-background overflow-hidden" id="equipos">
+      <div className="fluid-container relative z-10 px-6">
+        <div className="flex flex-col gap-2 mb-16">
+          <div className="flex items-center gap-3">
+            <div className="h-1 w-8 bg-primary rounded-full" />
+            <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">
+              ESTRUCTURA ELITE
+            </span>
+          </div>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="font-heading font-black text-fluid-h2 text-white uppercase tracking-tighter"
+            className="font-heading font-black text-5xl md:text-7xl text-white uppercase tracking-tighter leading-none"
           >
             Equipos <span className="text-primary">Seniors</span>
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-white/60 mt-4 max-w-2xl mx-auto text-lg"
-          >
-            A máxima expresión do noso club. Os equipos que levan o nome de Cerceda por toda Galicia.
-          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {teams.map((team, index) => (
             <motion.div
               key={team.name}
@@ -65,70 +62,67 @@ export default function Teams() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="group relative overflow-hidden rounded-sm bg-background border border-white/5 flex flex-col h-full"
+              className="group relative rounded-[2.5rem] overflow-hidden border border-white/5 bg-zinc-900 flex flex-col h-full shadow-2xl transition-all duration-700 hover:border-primary/20"
             >
-              <div className="aspect-[4/3] overflow-hidden relative bg-surface-light shrink-0">
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
+              <div className="aspect-[16/10] overflow-hidden relative shrink-0">
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent z-10" />
                 <img
                   src={team.image}
                   alt={team.name}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-80"
                 />
+                <div className="absolute top-6 left-6 z-20">
+                   <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/10 backdrop-blur-xl">
+                      <span className="text-[8px] font-black tracking-[0.4em] text-white uppercase">{team.squad}</span>
+                   </div>
+                </div>
               </div>
 
-              <div className="p-8 relative flex-1 flex flex-col">
-                {/* Decorative line */}
-                <div className="absolute top-0 left-0 w-0 h-1 bg-primary group-hover:w-full transition-all duration-500" />
-
-                <h3 className="font-heading font-bold text-3xl text-white uppercase mb-2 group-hover:text-primary transition-colors">{team.name}</h3>
-                <p className="text-white/50 font-bold uppercase tracking-widest text-sm mb-6">{team.category}</p>
-
-                <div className="flex flex-col gap-3 text-white/70 text-sm mb-8">
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="uppercase text-xs font-bold tracking-wider text-white/50">Cadro</span>
-                    <span className="font-medium text-white">{team.squad}</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span className="uppercase text-xs font-bold tracking-wider text-white/50">Corpo Técnico</span>
-                    <span className="font-medium text-right text-white max-w-[60%] truncate" title={team.staff}>{team.staff}</span>
-                  </div>
+              <div className="p-8 pb-10 relative flex-1 flex flex-col gap-6">
+                <div className="flex flex-col gap-1">
+                  <h3 className="font-heading font-black text-3xl text-white uppercase tracking-tighter group-hover:text-primary transition-colors leading-none">{team.name}</h3>
+                  <span className="text-white/30 font-black uppercase tracking-[0.3em] text-[9px] mt-2">{team.category}</span>
                 </div>
 
-                {/* Último Resultado Panel */}
-                <div className="mt-auto bg-surface-light border border-white/5 rounded-sm p-5 relative overflow-hidden group-hover:border-white/10 transition-colors">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-[20px] -translate-y-1/2 translate-x-1/2" />
+                <div className="grid grid-cols-1 gap-2">
+                   <div className="flex justify-between items-center px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <span className="text-[8px] font-black tracking-[0.3em] text-white/30 uppercase">Corpo Técnico</span>
+                      <span className="text-[9px] font-bold text-white uppercase tracking-widest truncate max-w-[60%]">{team.staff}</span>
+                   </div>
+                </div>
 
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-white/40 uppercase font-bold text-[10px] tracking-widest leading-none">Último Partido</span>
-                    <span className="text-white/40 uppercase font-bold text-[10px] tracking-widest leading-none">{team.lastMatch.competition}</span>
+                {/* Último Resultado Panel - Mini Elite Style */}
+                <div className="mt-auto bg-white/[0.03] border border-white/5 rounded-[1.8rem] p-6 relative overflow-hidden group-hover:bg-white/[0.05] transition-all">
+                  <div className="flex justify-between items-center mb-5">
+                    <div className="flex items-center gap-2">
+                       <div className="w-1 h-1 rounded-full bg-primary" />
+                       <span className="text-white/40 uppercase font-black text-[8px] tracking-[0.4em]">ÚLTIMO PARTIDO</span>
+                    </div>
+                    <span className="text-white/20 uppercase font-black text-[8px] tracking-[0.4em]">{team.lastMatch.competition}</span>
                   </div>
 
-                  <div className="flex justify-between items-center relative z-10">
-                    <div className="flex flex-col items-center flex-1">
-                      <span className="font-heading font-bold text-white uppercase tracking-wider text-sm lg:text-base text-center break-words w-full px-1">
-                        {team.lastMatch.isHome ? "Cercedense" : team.lastMatch.opponent}
-                      </span>
+                  <div className="flex justify-between items-center gap-4">
+                    <div className="flex flex-col gap-2 flex-1">
+                       <span className={`text-sm font-black uppercase tracking-tight ${team.lastMatch.isHome ? 'text-white' : 'text-white/40'}`}>
+                          {team.lastMatch.isHome ? "CERCEDENSE" : team.lastMatch.opponent}
+                       </span>
+                       <span className={`text-sm font-black uppercase tracking-tight ${!team.lastMatch.isHome ? 'text-white' : 'text-white/40'}`}>
+                          {!team.lastMatch.isHome ? "CERCEDENSE" : team.lastMatch.opponent}
+                       </span>
                     </div>
 
-                    <div className="flex flex-col items-center justify-center px-4 shrink-0">
-                      <span className="font-heading font-black text-3xl text-white tracking-widest">{team.lastMatch.score}</span>
-                      <span className={`uppercase font-bold text-[10px] tracking-widest mt-1 px-2.5 py-1 rounded-sm ${team.lastMatch.result.toLowerCase() === 'victoria' || team.lastMatch.result.toLowerCase() === 'vitoria' ? 'bg-green-500/20 text-green-500' :
-                        team.lastMatch.result.toLowerCase() === 'empate' ? 'bg-gray-500/20 text-gray-400' :
-                          'bg-red-500/20 text-red-500'
+                    <div className="flex flex-col items-center justify-center p-3 px-4 bg-black/40 rounded-2xl border border-white/5 min-w-[70px]">
+                       <span className="font-heading font-black text-2xl text-white tabular-nums tracking-tighter">{team.lastMatch.score}</span>
+                       <span className={`uppercase font-black text-[7px] tracking-[0.3em] mt-1 px-2 py-0.5 rounded-full ${
+                          team.lastMatch.result.toLowerCase().includes('vitoria') ? 'bg-green-500/20 text-green-500' :
+                          team.lastMatch.result.toLowerCase().includes('empate') ? 'bg-white/10 text-white/40' :
+                          'bg-primary/20 text-primary'
                         }`}>
-                        {team.lastMatch.result.toLowerCase() === 'victoria' || team.lastMatch.result.toLowerCase() === 'vitoria' ? 'Vitoria' :
-                          team.lastMatch.result.toLowerCase() === 'empate' ? 'Empate' : 'Derrota'}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col items-center flex-1">
-                      <span className="font-heading font-bold text-white/50 uppercase tracking-wider text-sm lg:text-base text-center break-words w-full px-1">
-                        {team.lastMatch.isHome ? team.lastMatch.opponent : "Cercedense"}
+                        {team.lastMatch.result.toUpperCase()}
                       </span>
                     </div>
                   </div>
                 </div>
-
               </div>
             </motion.div>
           ))}

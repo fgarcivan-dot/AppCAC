@@ -36,73 +36,91 @@ const squads = {
 };
 
 export default function Squads() {
-  const [activeTab, setActiveTab] = useState<"mens" | "womens">("mens"); return (
+  const [activeTab, setActiveTab] = useState<"mens" | "womens">("mens");
+  
+  return (
     <section className="py-12 md:py-24 bg-background relative overflow-hidden" id="plantillas">
-      <div className="absolute top-0 right-0 w-full h-full bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="fluid-container relative z-10 px-6">
+        <div className="flex flex-col gap-8 mb-16 items-center">
+          <div className="flex flex-col gap-2 items-center">
+            <div className="flex items-center gap-3">
+              <div className="h-1 w-8 bg-primary rounded-full" />
+              <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">
+                NOSO POTENCIAL
+              </span>
+            </div>
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="font-heading font-black text-5xl md:text-7xl text-white uppercase tracking-tighter leading-none text-center"
+            >
+              Os Nosos <br/> <span className="text-primary">Xogadores</span>
+            </motion.h2>
+          </div>
 
-      <div className="fluid-container relative z-10">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-heading font-black text-fluid-h2 text-white uppercase tracking-tighter"
-          >
-            Os Nosos <span className="text-primary">Xogadores</span>
-          </motion.h2>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8 max-w-sm mx-auto sm:max-w-none">
-            <button
+          {/* Elite Tab Selector */}
+          <div className="w-full max-w-[400px] relative backdrop-blur-3xl rounded-full p-[2px] border border-white/10 flex items-center bg-black/40 shadow-2xl">
+            <motion.div 
+              animate={{ x: activeTab === "mens" ? 0 : "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-primary rounded-full shadow-[0_0_20px_rgba(218,41,28,0.4)]"
+            />
+            <button 
               onClick={() => setActiveTab("mens")}
-              className={`px-8 py-4 font-heading font-bold uppercase tracking-wider text-sm transition-all rounded-sm ${activeTab === 'mens' ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' : 'bg-surface border border-white/10 text-white/50 hover:text-white hover:border-white/30'}`}
+              className={`relative z-10 flex-1 py-4 text-[10px] font-black tracking-widest uppercase transition-all duration-500 ${
+                activeTab === "mens" ? 'text-white' : 'text-white/40 hover:text-white'
+              }`}
             >
-              Senior Masculino
+              Sénior Masculino
             </button>
-            <button
+            <button 
               onClick={() => setActiveTab("womens")}
-              className={`px-8 py-4 font-heading font-bold uppercase tracking-wider text-sm transition-all rounded-sm ${activeTab === 'womens' ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' : 'bg-surface border border-white/10 text-white/50 hover:text-white hover:border-white/30'}`}
+              className={`relative z-10 flex-1 py-4 text-[10px] font-black tracking-widest uppercase transition-all duration-500 ${
+                activeTab === "womens" ? 'text-white' : 'text-white/40 hover:text-white'
+              }`}
             >
-              Senior Feminino
+              Sénior Feminino
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 max-w-7xl mx-auto">
           {squads[activeTab].map((player, index) => (
             <motion.div
               key={`${activeTab}-${index}`}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-surface group relative overflow-hidden rounded-sm border border-white/5 flex flex-col shadow-xl"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="group relative rounded-[2rem] overflow-hidden border border-white/5 bg-zinc-900 flex flex-col shadow-2xl hover:border-primary/20 transition-all duration-500"
             >
-              <div className="aspect-[3/4] overflow-hidden relative bg-surface-light shrink-0">
-                {/* Fallback pattern */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                  <span className="font-heading font-black text-8xl">{player.number}</span>
+              <div className="aspect-[3/4.5] overflow-hidden relative bg-zinc-800 shrink-0">
+                {/* Number Watermark HUD */}
+                <div className="absolute top-6 right-6 z-20 w-12 h-12 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl flex items-center justify-center">
+                   <span className="text-white font-black text-xl tracking-tighter">{player.number}</span>
                 </div>
 
                 <img
                   src={player.image}
                   alt={player.name}
-                  className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out relative z-10"
+                  className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0 opacity-80"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.opacity = '0';
                   }}
                 />
 
-                {/* Red gradient overlay */}
-                <div className="absolute bottom-0 left-0 w-full h-3/4 bg-gradient-to-t from-background via-background/80 to-transparent z-20" />
-
-                {/* Player Number Watermark */}
-                <div className="absolute top-3 right-3 z-20 text-white font-heading font-black text-2xl lg:text-3xl opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 drop-shadow-md bg-primary/80 backdrop-blur-sm w-12 h-12 flex items-center justify-center rounded-sm">
-                  {player.number}
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent z-10" />
               </div>
 
-              <div className="p-4 flex-1 flex flex-col relative z-30 -mt-20">
-                <p className="text-primary font-bold uppercase tracking-widest text-[10px] md:text-xs mb-1 drop-shadow-md">{player.position}</p>
-                <h3 className="font-heading font-black text-xl md:text-2xl text-white uppercase leading-tight drop-shadow-lg">{player.name}</h3>
+              <div className="p-6 pt-0 relative z-20 flex flex-col items-center text-center -mt-16">
+                 <div className="flex flex-col gap-1 items-center">
+                    <div className="flex items-center gap-2 mb-2">
+                       <span className="w-1 h-1 rounded-full bg-primary" />
+                       <span className="text-primary font-black uppercase tracking-[0.3em] text-[9px]">{player.position}</span>
+                    </div>
+                    <h3 className="font-heading font-black text-xl text-white uppercase leading-tight tracking-tighter group-hover:text-primary transition-colors">{player.name}</h3>
+                 </div>
               </div>
             </motion.div>
           ))}

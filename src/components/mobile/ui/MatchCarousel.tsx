@@ -3,6 +3,7 @@
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Calendar, MapPin, Clock } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface Match {
   type?: string;
@@ -87,150 +88,130 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               match.home?.trim().toUpperCase() === "DESCANSO" || 
                               match.away?.trim().toUpperCase() === "DESCANSO";
 
+            // 🏷️ DYNAMIC WATERMARK LOGIC
+            const getWatermark = (cat: string) => {
+              const uppercaseCat = cat.toUpperCase();
+              if (uppercaseCat.includes("SENIOR")) return uppercaseCat.split(" ").pop() || "S";
+              if (uppercaseCat.includes("ALEVÍN")) return "AL-" + (uppercaseCat.split(" ").pop() || "A");
+              if (uppercaseCat.includes("BENXAMÍN")) return "BX-" + (uppercaseCat.split(" ").pop() || "A");
+              if (uppercaseCat.includes("PREBENXAMÍN")) return "PB";
+              if (uppercaseCat.includes("BIBERÓN")) return "BB";
+              if (uppercaseCat.includes("XUVENIL")) return "XU";
+              if (uppercaseCat.includes("CADETE")) return "CD";
+              if (uppercaseCat.includes("INFANTIL")) return "IF";
+              return uppercaseCat.charAt(0);
+            };
+
+            const watermarkText = getWatermark(match.title || "");
+            const isHomeCercedense = match.home.toUpperCase().includes("CERCEDENSE");
+
             return (
               <motion.div
                 key={i}
                 id={`match-card-${i}`}
-                // 🛑 MANDATORY STOP: Forces one-by-one even with fast swiping
                 className="flex-none w-screen max-w-full px-6 snap-center snap-always"
               >
-                {/* Stadium Atmosphere Backdrop: White & Red Passion */}
-                <div className={`w-full h-[320px] relative transition-all duration-1000
-                  rounded-[2.5rem] overflow-hidden border ${theme === 'day'
-                    ? "bg-white border-primary/10 shadow-[0_20px_40px_-15px_rgba(218,41,28,0.15)]"
-                    : "bg-black border-primary/20 shadow-[0_0_40px_-5px_rgba(218,41,28,0.25)]"
+                {/* Elite Hero Card Container (190px) */}
+                <div className={`w-full h-[190px] relative transition-all duration-1000 rounded-[2rem] overflow-hidden border ${
+                  theme === 'day'
+                    ? "bg-white border-slate-200 shadow-[0_20px_40px_-15px_rgba(218,41,28,0.1)]"
+                    : "bg-zinc-900 border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
                   }
                 `}>
 
-                  {/* Spotlight Radial Gradient - Heroic Red Flare */}
-                  <div
-                    className="absolute inset-0 transition-opacity duration-1000 pointer-events-none mix-blend-plus-lighter"
-                    style={{
-                      background: isActive && mounted
-                        ? (theme === 'day'
-                          ? `radial-gradient(circle at center, rgba(218, 41, 28, 0.05) 0%, transparent 70%)`
-                          : `radial-gradient(circle at center, rgba(218, 41, 28, 0.4) 0%, transparent 70%)`)
-                        : `none`,
-                      opacity: 1
-                    }}
-                  />
+                  {/* 🔮 Background Watermark */}
+                  <div className={`absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 ${
+                    theme === 'day' ? "text-slate-100" : "text-white/[0.03]"
+                  }`}>
+                    {watermarkText}
+                  </div>
 
-                  {/* Panoramic HUD Labels */}
-                  <div className="absolute inset-0 p-10 flex flex-col justify-between z-20">
+                  {/* 🔴 Status Bar (Indicator) */}
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-primary opacity-50 shadow-[0_0_20px_rgba(218,41,28,0.4)]" />
+
+                  <div className="absolute inset-0 p-6 flex flex-col justify-between z-20 pl-8">
 
                     {isRestDay ? (
-                      /* Minimalist Rest Day Mode: Centered Title + "DESCANSA" Label */
-                      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
-                        <motion.span
-                          animate={{ opacity: isActive ? 1 : 0.4 }}
-                          className={`text-[10px] font-black tracking-[0.5em] uppercase mb-4 transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/40"
-                            }`}
-                          style={{ fontFamily: 'NeueMontreal' }}
-                        >
-                          {match.title}
-                        </motion.span>
-                        <motion.span
-                          animate={{
-                            scale: isActive ? 1 : 0.8,
-                            opacity: isActive ? 1 : 0.2,
-                          }}
-                          className={`text-4xl sm:text-5xl font-black tracking-[0.2em] uppercase text-center transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_30px_rgba(218,41,28,0.5)]"
-                            }`}
-                          style={{ fontFamily: 'NeueMontreal' }}
-                        >
-                          {match.home?.toUpperCase().includes("CERCEDENSE") || match.away?.toUpperCase().includes("CERCEDENSE") 
-                            ? "DESCANSA" 
-                            : "DESCANSO"
-                          }
-                        </motion.span>
-                        <span className={`mt-4 text-[10px] font-bold tracking-[0.3em] uppercase ${theme === 'day' ? 'text-slate-400' : 'text-white/20'}`}>
-                          {match.date}
+                      /* Minimalist Rest Day Mode */
+                      <div className="flex flex-col items-center justify-center flex-1">
+                        <span className={`text-6xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 ${
+                          theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                        }`}>
+                          DESCANSA
                         </span>
+                        <div className="mt-4 flex flex-col items-center gap-1 opacity-20">
+                          <span className="text-[7px] font-black tracking-[0.5em] uppercase">{match.date}</span>
+                          <div className="h-[1px] w-8 bg-current" />
+                        </div>
                       </div>
                     ) : (
                       <>
-                        {/* Top Row: Info */}
-                        <div className="flex justify-between items-start">
-                          <span className={`text-[9px] font-black tracking-[0.4em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-white/60"
-                            }`} style={{ fontFamily: 'NeueMontreal' }}>
-                            {match.title}
-                          </span>
-                          <div className={`flex items-center gap-2 transition-colors duration-1000 ${theme === 'day' ? "text-slate-700" : "text-white/60"
+                        {/* Top Metadata Row */}
+                        <div className="flex justify-between items-start w-full">
+                          <div className="flex flex-col gap-0.5">
+                            <div className="flex items-center gap-2">
+                              <Calendar size={10} className="text-primary" />
+                              <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
+                                theme === 'day' ? "text-slate-400" : "text-white/40"
+                              }`}>
+                                {match.title}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <MapPin size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
+                              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
+                                theme === 'day' ? "text-slate-400" : "text-white/40"
+                              }`}>
+                                {match.date} · {match.venue}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <div className={cn(
+                            "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center min-w-[70px] transition-all duration-1000",
+                            theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
+                          )}>
+                            <span className={`text-[8px] font-black tracking-widest uppercase transition-colors duration-1000 ${
+                              theme === 'day' ? "text-slate-900" : "text-white"
                             }`}>
-                            <Calendar size={10} className="text-primary/80" />
-                            <span className="text-[9px] font-bold uppercase tracking-[0.4em]" style={{ fontFamily: 'NeueMontreal' }}>
-                              {match.date}
+                              PRÓXIMO
                             </span>
                           </div>
                         </div>
 
-                        {/* Middle Score: Absolute Center */}
-                        <div className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "DESCANSO" && match.status !== "FIN" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") || (match.score?.toUpperCase() === "POR DEFINIR") || (match.score?.includes(":") || match.score?.toUpperCase().includes("H"))
-                            ? ""
-                            : "pt-4"
-                          }`}>
-                          <motion.span
-                            animate={{
-                              scale: isActive ? 1 : 0.8,
-                              opacity: isActive ? 1 : (theme === 'day' ? 0.4 : 0.2),
-                            }}
-                            className={`font-black tracking-tighter transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_50px_rgba(218,41,28,0.3)]"
-                              } ${(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "DESCANSO" && match.status !== "FIN" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") || (match.score?.toUpperCase() === "POR DEFINIR") || (match.score?.includes(":") || match.score?.toUpperCase().includes("H"))
-                                ? "text-4xl sm:text-5xl tracking-[0.1em]"
-                                : "text-7xl sm:text-8xl"
-                              }`}
-                          >
-                            {(match.status && match.status !== "EN XOGO" && match.status !== "PAUSA" && match.status !== "DESCANSO" && match.status !== "FIN" && match.status !== "FINALIZADO") || (match.score?.toLowerCase() === "vs") || (match.score?.toUpperCase() === "POR DEFINIR") || (match.score?.includes(":") || match.score?.toUpperCase().includes("H")) ? (
-                              <div className="flex items-center justify-center text-center opacity-80">
-                                {match.score?.toUpperCase() === "POR DEFINIR" ? "VS" : match.score}
-                              </div>
-                            ) : (
-                              match.score
-                            )}
-                          </motion.span>
-
-                          {/* Live Status Indicator */}
-                          {match.status && (match.status === "EN XOGO" || match.status === "PAUSA" || match.status === "DESCANSO" || match.status === "FIN" || match.status === "FINALIZADO") && (
-                            <motion.div
-                              animate={{ opacity: isActive ? 1 : 0 }}
-                              className="flex items-center gap-2 mt-4"
-                            >
-                              {match.status === "EN XOGO" && (
-                                <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
-                              )}
-                              <span
-                                className={`text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-1000 ${match.status === "EN XOGO" ? "text-green-500" :
-                                  (match.status === "PAUSA" || match.status === "DESCANSO") ? (theme === 'day' ? "text-slate-400" : "text-slate-400") :
-                                    (match.status === "FIN" || match.status === "FINALIZADO") ? "text-primary" :
-                                      (theme === 'day' ? "text-slate-400" : "text-white")
-                                  }`}
-                                style={{ fontFamily: 'NeueMontreal' }}
-                              >
-                                {match.status}
+                        {/* Middle Content Row: Teams & Score */}
+                        <div className="flex items-center justify-between gap-4 w-full">
+                          <div className="flex flex-col gap-2 flex-1">
+                            <div className="flex items-center gap-3">
+                              <div className={cn(
+                                "h-5 w-1 rounded-full",
+                                isHomeCercedense ? "bg-primary" : "bg-slate-500/20"
+                              )} />
+                              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${
+                                isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
+                              }`}>
+                                {match.home}
                               </span>
-                            </motion.div>
-                          )}
-                        </div>
-
-                        {/* Bottom Row: Teams */}
-                        <div className="flex justify-between items-end gap-10 relative z-20">
-                          <div className="flex flex-col w-[55%] items-start relative">
-                            {match.home !== "DESCANSO" && (
-                              <div className="mb-2 px-1.5 py-0.5 bg-red-600 rounded-[4px] shadow-sm flex items-center justify-center">
-                                <span className="text-[8px] font-black tracking-[0.1em] text-white uppercase leading-none" style={{ fontFamily: 'NeueMontreal' }}>LOCAL</span>
-                              </div>
-                            )}
-                            <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.home.toUpperCase().includes("CERCEDENSE")
-                                ? "text-primary drop-shadow-sm"
-                                : (theme === 'day' ? "text-slate-900" : "text-white")
-                              }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className={cn(
+                                "h-5 w-1 rounded-full",
+                                !isHomeCercedense ? "bg-primary" : "bg-slate-500/20"
+                              )} />
+                              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${
+                                !isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
+                              }`}>
+                                {match.away}
+                              </span>
+                            </div>
                           </div>
 
-                          <div className="flex flex-col items-end gap-1 w-[45%] text-right">
-                              <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
-                                  ? "text-primary drop-shadow-sm"
-                                  : (theme === 'day' ? "text-slate-900" : "text-white")
-                                }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
+                          <div className="flex flex-col items-center justify-center bg-white/5 p-3 rounded-2xl min-w-[80px] border border-white/5 shadow-inner">
+                            <span className={`text-4xl font-black tabular-nums tracking-tighter transition-colors duration-1000 ${
+                              theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                            }`}>
+                              {match.score === "vs" || match.score.toUpperCase() === "POR DEFINIR" ? "VS" : match.score}
+                            </span>
                           </div>
                         </div>
                       </>
