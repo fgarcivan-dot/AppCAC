@@ -61,7 +61,16 @@ export const INITIAL_DATA: AppData = {
       posicion: "4º",
       matches: [
         {
-          title: "PRÓXIMO PARTIDO",
+          title: "ÚLTIMO RESULTADO",
+          date: "DOM 30 MAR, 17:00H",
+          home: "AD PORTOMAZO",
+          away: "CERCEDENSE",
+          score: "1-2",
+          venue: "O VAL",
+          status: "FIN"
+        },
+        {
+          title: "ESTA XORNADA",
           date: "DOM 06 ABR, 17:00H",
           home: "CERCEDENSE",
           away: "S.D.C TEIXEIRO",
@@ -71,13 +80,14 @@ export const INITIAL_DATA: AppData = {
           status: "PRÓXIMO"
         },
         {
-          title: "ÚLTIMO RESULTADO",
-          date: "DOM 30 MAR, 17:00H",
-          home: "AD PORTOMAZO",
+          title: "PRÓXIMO PARTIDO",
+          date: "DOM 13 ABR, 11:00H",
+          home: "S.D. O PINO",
           away: "CERCEDENSE",
-          score: "1-2",
-          venue: "O VAL",
-          status: "FIN"
+          score: "0-0",
+          venue: "REBOREDO",
+          time: "11:00H",
+          status: "PRÓXIMO"
         }
       ],
       standings: [
@@ -85,7 +95,7 @@ export const INITIAL_DATA: AppData = {
         { pos: 2, team: "SD ABRENSE", pts: 54, pj: 24 },
         { pos: 3, team: "BETANZOS CF", pts: 51, pj: 24 },
         { pos: 4, team: "CERCEDENSE", pts: 49, pj: 24 },
-        { pos: 5, team: "MEIRás", pts: 45, pj: 24 }
+        { pos: 5, team: "MEIRÁS", pts: 45, pj: 24 }
       ],
       externalUrl: "https://www.siguetuliga.com/liga/galicia-segunda-autonomica-coruna-grupo-2",
       socialPost: {
@@ -99,7 +109,16 @@ export const INITIAL_DATA: AppData = {
       posicion: "2ª",
       matches: [
         {
-          title: "PRÓXIMO PARTIDO",
+          title: "ÚLTIMO RESULTADO",
+          date: "SÁB 22 MAR, 12:00H",
+          home: "AD CULLEREDO",
+          away: "CERCEDENSE",
+          score: "1-8",
+          venue: "CAMPO ALEGRET",
+          status: "FIN"
+        },
+        {
+          title: "ESTA XORNADA",
           date: "SÁB 05 ABR, 12:00H",
           home: "BETANZOS CF",
           away: "CERCEDENSE",
@@ -109,13 +128,14 @@ export const INITIAL_DATA: AppData = {
           status: "PRÓXIMO"
         },
         {
-          title: "ÚLTIMO RESULTADO",
-          date: "SÁB 22 MAR, 12:00H",
-          home: "AD CULLEREDO",
-          away: "CERCEDENSE",
-          score: "1-8",
-          venue: "CAMPO ALEGRET",
-          status: "FIN"
+          title: "PRÓXIMO PARTIDO",
+          date: "SÁB 12 ABR, 16:30H",
+          home: "CERCEDENSE",
+          away: "S.D.C GALICIA",
+          score: "0-0",
+          venue: "O ROXO",
+          time: "16:30H",
+          status: "PRÓXIMO"
         }
       ],
       standings: [

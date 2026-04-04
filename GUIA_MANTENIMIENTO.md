@@ -1,74 +1,82 @@
-# 🛡️ Guía de Mantenimiento: Club Atlético Cercedense
+# 🛡️ Guía de Mantenimiento Elite: Club Atlético Cercedense
 
-Esta guía explica cómo gestionar los contenidos de la aplicación y cómo funcionan las lógicas automáticas de diseño premium implementadas.
-
----
-
-## ☁️ 1. Actualización de Datos (GitHub Gist)
-
-La aplicación consume los datos de un archivo **JSON** alojado en GitHub Gist. Para actualizar la información (resultados, clasificaciones, fotos), solo debes editar ese archivo. Los cambios se verán reflejados al abrir la app o al deslizar hacia abajo para actualizar.
+Esta guía es tu manual definitivo para gestionar la aplicación. Todo el sistema ha sido diseñado con una arquitectura **Elite HUD (Heads-Up Display)** que automatiza el diseño premium basándose en tus datos.
 
 ---
 
-## ⚽ 2. El Carrusel Master (Página de Inicio)
+## ☁️ 1. Estructura del JSON (app_data.json)
 
-El carrusel de la pantalla de inicio está diseñado para la **máxima fidelidad informativa**:
+El archivo de datos en GitHub Gist está organizado por **Páginas y Configuración Global** para un mantenimiento ultrarrápido.
 
-### A. Diseño Original
-En esta pantalla **no se modifica el diseño** aunque un equipo descanse. Siempre se muestran los dos nombres de los equipos y el marcador (que puede ser la hora o "DESCANSO" en gris) para mantener la estética uniforme de la portada.
+### 📋 Secciones Principales:
 
-### B. Estados de Partido (Colores Automáticos)
-Dependiendo de lo que pongas en el campo `"status"`, el marcador cambiará de color automáticamente:
+1.  **`config`**: (AL INICIO)
+    *   `temporada`: Cambia el texto "TEMP. 24/25".
+    *   `mesResultados`: Nombre del mes en la pantalla de Resultados.
+    *   `mesPartidos`: Nombre del mes en la pantalla de Partidos.
 
-| Texto en `status` | Color | Significado |
+2.  **`inicio`**: 
+    *   Gestiona el **Manifiesto**, **Escolas**, **InstaGrid** y el **Banner de Socios**.
+
+3.  **`equipos`**: (MASCULINO / FEMENINO)
+    *   `posicion`: Ej: "4º", "LÍDER".
+    *   `matches`: Contiene **3 tarjetas** que aparecen en el carrusel de la Home:
+        1.  **ÚLTIMO RESULTADO** (Pasado)
+        2.  **ESTA XORNADA** (Presente / Enfoque Central)
+        3.  **PRÓXIMO PARTIDO** (Futuro)
+    *   `standings`: La tabla de clasificación abreviada.
+    *   `socialPost`: La última noticia de Instagram con su imagen.
+
+4.  **`resultados`**, **`partidos`**, **`directo`** y **`contacto`**: Secciones específicas por página.
+
+---
+
+## ⚽ 2. Lógica de Estados en el Carrusel
+
+El sistema detecta automáticamente qué diseño mostrar en el carrusel según el campo `"status"`:
+
+| Texto en `status` | Diseño HUD | Significado Táctico |
 | :--- | :--- | :--- |
-| `EN XOGO` | **Verde** | El partido está en directo (incluye punto parpadeante). |
-| `DESCANSO` o `PAUSA` | **Gris** | El partido está pausado (entre tiempos). |
-| `FIN` o `FINALIZADO` | **Rojo** | El partido ha terminado. |
+| **`EN XOGO`** | 🟢 **Verde Pulsante** | **PARTIDO EN VIVO**. Muestra el marcador iluminado. |
+| **`DESCANSO`** | ⚪ **Gris HUD** | **PAUSA DEL PARTIDO**. Muestra el marcador. |
+| **`FIN`** | 🔴 **Rojo HUD** | **RESULTADO FINAL**. Muestra el marcador definitivo. |
+| **`PRÓXIMO`** | 💠 **Pre-Partido** | **MUESTRA LA HORA** (ej: 17:00H) en lugar del marcador. No muestra píldora de estado. |
+
+### 💡 Ejemplo de cómo editar un partido en el carrusel:
+```json
+{
+  "title": "ESTA XORNADA",
+  "home": "CERCEDENSE",
+  "away": "S.D.C TEIXEIRO",
+  "date": "DOM 06 ABR, 17:00H",
+  "time": "17:00H",
+  "status": "PRÓXIMO" // Cambiar a "EN XOGO" cuando empiece
+}
+```
 
 ---
 
-## 🏆 3. Diseño Elite (Partidos y Resultados)
+## 🏆 3. Automatismos Especiales
 
-Toda la sección de competición (tanto próximos encuentros como marcadores pasados) utiliza el diseño **Hero Pro / Elite HUD**.
+### A. La Regla "DESCANSA"
+Si un equipo no juega esa semana:
+*   **Acción**: Escribe **`"DESCANSO"`** en el nombre del equipo (`home` o `away`) O en el `status`.
+*   **Resultado**: El HUD genera automáticamente una tarjeta minimalista con el texto "DESCANSA" en tipografía gigante.
 
-### A. La Lógica "DESCANSA" (Universal)
-Si un equipo no juega, el sistema genera el cartel de **"DESCANSA"** automáticamente tanto en próximos partidos como en la lista de resultados.
-- **Cómo activarlo**: Escribe la palabra **`"DESCANSO"`** en el campo `"home"` o `"away"` de tu JSON.
-- **Resultado**: La tarjeta se vuelve minimalista y oculta el marcador para dar protagonismo al descanso.
+### B. Marcas de Agua HUD
+El sistema genera el código de fondo gigante automáticamente según el `"title"` del partido:
+*   `SENIOR` -> `S` | `ALEVÍN` -> `AL-A/B` | `BENXAMÍN` -> `BX-A/B` | `PREBENXAMÍN` -> `PB` | `BIBERÓN` -> `BB`
 
-### B. Indicadores de Resultado (Haz de Luz)
-En la sección de resultados, aparecerá una barra luminosa lateral que indica el signo del partido:
-- 🟢 **Verde** (VITORIA)
-- 🔴 **Rojo** (DERROTA)
-- ⚪ **Gris** (EMPATE)
-
-### C. Dashboard HUD de Estadísticas
-El balance de temporada se muestra en un cuadro de telemetría táctica:
-- **Barra Digital**: Indica la eficiencia de victorias con un degradado neón segmentado.
-- **Eficiencia**: El porcentaje se calcula automáticamente sumando victorias/empates/derrotas.
-- **Nota**: Al ser un componente Glassmorphism, adapta su transparencia al fondo.
-
-### D. Marcas de Agua HUD (Dinámicas)
-El sistema detecta la categoría y pone un código gigante de diseño en el fondo de la tarjeta automáticamente:
-- **SENIOR A / B** -> `A` / `B`
-- **ALEVÍN A / B** -> `AL-A` / `AL-B`
-- **BENXAMÍN A / B** -> `BX-A` / `BX-B`
-- **PREBENXAMÍN** -> `PB`
-- **BIBERÓN** -> `BB`
-- **Resto** (Xuvenil, Cadete, INF) -> `XU`, `CD`, `IF`.
+### C. Eficiencia de Temporada
+Los cuadros de victorias se calculan solos. Solo introduce los números en `balanceMasculino / Femenino` dentro de la sección `resultados`.
 
 ---
 
-## 🔄 4. Actualización "Liquid Refresh"
-
-Al deslizar hacia abajo para actualizar, la app se conecta a GitHub para bajar los últimos cambios del Gist. Es el momento donde aparece el texto **"ACTUALIZANDO"** con pulso de luz roja.
-
----
-
-## 📋 5. Consejos para el JSON Profesional
-1. **Mayúsculas**: Escribe nombres de equipos y categorías en MAYÚSCULAS para mayor impacto visual.
-2. **Resultados**: Si no hay marcador todavía, pon la hora (ej: `"17:00H"`) o `"POR DEFINIR"` en el campo `"score"`.
-3. **Escudos**: El sistema ya tiene pre-cargados los escudos principales, solo necesitas los nombres.
+## 📋 4. Consejos Pro 
+1.  **Formato de Hora**: Usa siempre la "H" (ej: `12:00H`) para que el HUD la detecte.
+2.  **Imágenes**: Ruta `/images/nombre.webp`.
+3.  **Actualización**: Desliza hacia abajo en la pantalla de Inicio para forzar la sincronización con el Gist.
 
 ---
+> [!IMPORTANT]
+> **No borres las comas `,` ni las llaves `{ }`** del JSON. Si la App no carga, revisa que el JSON sea válido.
