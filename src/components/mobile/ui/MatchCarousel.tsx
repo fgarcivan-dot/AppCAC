@@ -235,46 +235,49 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
           })}
         </div>
 
-        {/* 🧪 LIQUID MAGNETIC DOTS: Advanced interactive indicator */}
-        <div className="flex items-center justify-center gap-6 mt-4">
+        {/* 🎬 FOCUS WAVE TIMELINE: High-precision technical indicator */}
+        <div className="flex flex-col items-center gap-4 mt-2">
           
-          {/* Subtle Page Counter */}
-          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
-            0{(activeIndex + 1)}
-          </span>
+          {/* Active Index HUD */}
+          <div className="flex items-center gap-3">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={activeIndex}
+                initial={{ y: 5, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -5, opacity: 0 }}
+                className={`text-[10px] font-black tracking-widest ${theme === 'day' ? 'text-slate-900' : 'text-primary'}`}
+                style={{ fontFamily: 'NeueMontreal' }}
+              >
+                0{(activeIndex + 1)}
+              </motion.span>
+            </AnimatePresence>
+            <div className={`h-[1px] w-4 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/10'}`} />
+            <span className={`text-[10px] font-black tracking-widest ${theme === 'day' ? 'text-slate-300' : 'text-white/20'}`}>
+              0{matches.length}
+            </span>
+          </div>
 
-          {/* Points Container */}
-          <div className="relative flex items-center gap-2 px-4 py-3 rounded-full bg-black/5 backdrop-blur-sm border border-white/5">
+          {/* Timeline Wave */}
+          <div className="flex items-end justify-center gap-1.5 h-6">
             {matches.map((_, i) => {
-              const isSelected = activeIndex === i;
+              const distance = Math.abs(i - activeIndex);
+              const isActive = i === activeIndex;
               
               return (
-                <div key={i} className="relative flex items-center justify-center w-2 h-2">
-                  <motion.div
-                    animate={{
-                      scale: isSelected ? 1 : 0.5,
-                      opacity: isSelected ? 1 : 0.2,
-                      backgroundColor: isSelected ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.4)")
-                    }}
-                    className="w-full h-full rounded-full"
-                  />
-                  
-                  {/* Liquid Glow & Expand effect */}
-                  {isSelected && (
-                    <motion.div
-                      layoutId="liquid-focus"
-                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                      className="absolute inset-[-4px] rounded-full border border-primary/20 shadow-[0_0_15px_rgba(218,41,28,0.4)]"
-                    />
-                  )}
-                </div>
+                <motion.div
+                  key={i}
+                  animate={{
+                    height: isActive ? 20 : (distance === 1 ? 10 : 4),
+                    backgroundColor: isActive ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.1)"),
+                    opacity: isActive ? 1 : (distance === 1 ? 0.4 : 0.1)
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  className="w-[2px] rounded-full"
+                />
               );
             })}
           </div>
-
-          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
-            0{matches.length}
-          </span>
 
         </div>
 
