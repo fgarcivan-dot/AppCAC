@@ -80,6 +80,7 @@ export default function Resultados() {
                   venue={maleResult.venue}
                   category="SENIOR MASCULINO"
                   result={maleResult.result as "VITORIA" | "DERROTA" | "EMPATE"}
+                  status={maleResult.status}
                   index={0}
                   theme={theme}
                 />
@@ -104,6 +105,7 @@ export default function Resultados() {
                   venue={femaleResult.venue}
                   category="SENIOR FEMININO"
                   result={femaleResult.result as "VITORIA" | "DERROTA" | "EMPATE"}
+                  status={femaleResult.status}
                   index={1}
                   theme={theme}
                 />
@@ -131,6 +133,7 @@ export default function Resultados() {
                 venue={res.venue}
                 category={res.category}
                 result={res.result as "VITORIA" | "DERROTA" | "EMPATE"}
+                status={res.status}
                 index={idx}
                 theme={theme}
               />

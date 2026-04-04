@@ -12,11 +12,12 @@ interface ProResultCardProps {
   venue: string;
   category: string;
   result: "VITORIA" | "DERROTA" | "EMPATE";
+  status?: string;
   index: number;
   theme?: "day" | "night";
 }
 
-export function ProResultCard({ home, away, score, date, venue, category, result, index, theme = "night" }: ProResultCardProps) {
+export function ProResultCard({ home, away, score, date, venue, category, result, status, index, theme = "night" }: ProResultCardProps) {
   
   // 🏷️ DYNAMIC WATERMARK LOGIC
   const getWatermark = (cat: string) => {
@@ -39,6 +40,12 @@ export function ProResultCard({ home, away, score, date, venue, category, result
   // 🚦 Result Styling
   const getResultConfig = () => {
     if (isRestDay) return { color: "text-white/20", bar: "bg-white/10", glow: "" };
+    
+    // Status Overrides
+    if (status === "EN XOGO") return { color: "text-green-500", bar: "bg-green-500", glow: "shadow-[0_0_20px_rgba(34,197,94,0.4)]" };
+    if (status === "DESCANSO" || status === "PAUSA") return { color: "text-slate-400", bar: "bg-slate-400/50", glow: "" };
+    if (status === "FIN" || status === "FINALIZADO") return { color: "text-primary", bar: "bg-primary", glow: "shadow-[0_0_20px_rgba(218,41,28,0.4)]" };
+
     switch (result) {
       case "VITORIA":
         return { color: "text-green-500", bar: "bg-green-500", glow: "shadow-[0_0_20px_rgba(34,197,94,0.4)]" };
@@ -114,14 +121,17 @@ export function ProResultCard({ home, away, score, date, venue, category, result
             </div>
             
             <div className={cn(
-              "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center min-w-[80px] transition-all duration-1000",
+              "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center gap-2 min-w-[80px] transition-all duration-1000",
               theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
             )}>
+              {status === "EN XOGO" && (
+                <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+              )}
               <span className={cn(
                 "text-[8px] font-black tracking-widest uppercase text-center",
                 config.color
               )}>
-                {result}
+                {status || result}
               </span>
             </div>
           </div>

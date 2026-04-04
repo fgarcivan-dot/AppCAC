@@ -58,6 +58,7 @@ export interface ResultRow {
   venue: string;
   category: string;
   result: "VITORIA" | "DERROTA" | "EMPATE";
+  status?: string;
 }
 
 export interface DirectoContent {
