@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { MatchListCard } from "@/components/mobile/ui/MatchListCard";
+import { SeniorMatchCard } from "@/components/mobile/ui/SeniorMatchCard";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/mobile/layout/AppProvider";
+import { cn } from "@/lib/utils";
 
 import { useContent } from "@/components/mobile/layout/ContentProvider";
 
@@ -59,9 +61,14 @@ export default function Partidos() {
       </section>
 
       {/* Match List */}
-      <section className="flex flex-col gap-3">
+      <section className={cn(
+        "flex flex-col",
+        activeTab === "SENIORS" ? "gap-10" : "gap-3"
+      )}>
         {filteredMatches.map((match, i) => (
-          <MatchListCard key={`${activeTab}-${match.id}`} {...match} index={i} />
+          activeTab === "SENIORS" 
+            ? <SeniorMatchCard key={`${activeTab}-${match.id}`} {...match} index={i} theme={theme} />
+            : <MatchListCard key={`${activeTab}-${match.id}`} {...match} index={i} />
         ))}
         {filteredMatches.length === 0 && (
           <div className={`py-10 text-center text-[10px] font-bold uppercase tracking-[0.3em] transition-colors duration-1000 ${
