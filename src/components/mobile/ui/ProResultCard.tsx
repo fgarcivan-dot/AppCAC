@@ -105,11 +105,11 @@ export function ProResultCard({ home, away, score, date, category, result, index
             </div>
             
             <div className={cn(
-              "px-4 py-1.5 rounded-full border backdrop-blur-xl transition-all duration-1000",
+              "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center min-w-[80px] transition-all duration-1000",
               theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
             )}>
               <span className={cn(
-                "text-[8px] font-black tracking-widest uppercase",
+                "text-[8px] font-black tracking-widest uppercase text-center",
                 config.color
               )}>
                 {result}
@@ -128,7 +128,7 @@ export function ProResultCard({ home, away, score, date, category, result, index
               </span>
               <div className="mt-4 flex flex-col items-center gap-1 opacity-20">
                  <span className="text-[7px] font-black tracking-[0.5em] uppercase">{date}</span>
-                 <div className="h-0.5 w-8 bg-current" />
+                 <div className="h-[1px] w-8 bg-current" />
               </div>
            </div>
         ) : (
@@ -165,15 +165,6 @@ export function ProResultCard({ home, away, score, date, category, result, index
                  {score}
                </span>
             </div>
-          </div>
-        )}
-
-        {/* Bottom Row: Accent */}
-        {!isRestDay && (
-          <div className="flex justify-between items-center opacity-40 w-full">
-             <span className="text-[7px] font-black tracking-[0.4em] uppercase">ROXO ARENA HUD</span>
-             <div className="h-[1px] flex-1 mx-4 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-             <span className="text-[7px] font-black tracking-[0.4em] uppercase">CAC ARCHIVE</span>
           </div>
         )}
       </div>
