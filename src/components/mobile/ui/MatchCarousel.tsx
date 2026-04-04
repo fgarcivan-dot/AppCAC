@@ -167,14 +167,22 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                             </div>
                           </div>
                           
+                          {/* Dynamic Status Pill */}
                           <div className={cn(
-                            "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center justify-center min-w-[70px] transition-all duration-1000",
+                            "px-4 py-1.5 rounded-full border backdrop-blur-xl flex items-center gap-2 min-w-[70px] transition-all duration-1000",
                             theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
                           )}>
-                            <span className={`text-[8px] font-black tracking-widest uppercase transition-colors duration-1000 ${
-                              theme === 'day' ? "text-slate-900" : "text-white"
-                            }`}>
-                              PRÓXIMO
+                            {match.status === "EN XOGO" && (
+                              <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+                            )}
+                            <span className={cn(
+                              "text-[8px] font-black tracking-widest uppercase transition-colors duration-1000",
+                              match.status === "EN XOGO" ? "text-green-500" :
+                              (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-slate-400" :
+                              (match.status === "FIN" || match.status === "FINALIZADO") ? "text-primary" :
+                              (theme === 'day' ? "text-slate-900" : "text-white")
+                            )}>
+                              {match.status || "PRÓXIMO"}
                             </span>
                           </div>
                         </div>
