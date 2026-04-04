@@ -17,8 +17,19 @@ export default function Partidos() {
   const { theme } = useTheme();
 
   const filteredMatches = matches.filter(match => {
-    if (activeTab === "SENIORS") return match.category.includes("SENIOR");
-    if (activeTab === "CANTEIRA") return !match.category.includes("SENIOR");
+    const cat = match.category.toUpperCase();
+    if (activeTab === "SENIORS") return cat.includes("SENIOR");
+    if (activeTab === "ALEVÍNS") return cat.includes("ALEVÍN");
+    if (activeTab === "BENXAMÍNS") return cat.includes("BENXAMÍN");
+    if (activeTab === "PREBENXAMÍN") return cat.includes("PREBENXAMÍN");
+    if (activeTab === "BIBERÓNS") return cat.includes("BIBERÓN");
+    if (activeTab === "CANTEIRA") {
+       return !cat.includes("SENIOR") && 
+              !cat.includes("ALEVÍN") && 
+              !cat.includes("BENXAMÍN") && 
+              !cat.includes("PREBENXAMÍN") && 
+              !cat.includes("BIBERÓN");
+    }
     return true;
   });
 
@@ -41,18 +52,18 @@ export default function Partidos() {
         </div>
       </header>
 
-      {/* Categories */}
-      <section className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-        {["SENIORS", "CANTEIRA"].map((cat) => (
+      {/* Categories Horizontal HUD */}
+      <section className="flex gap-3 overflow-x-auto scrollbar-hide pb-4 -mx-6 px-6 snap-x snap-mandatory">
+        {["SENIORS", "ALEVÍNS", "BENXAMÍNS", "PREBENXAMÍN", "BIBERÓNS", "CANTEIRA"].map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveTab(cat)}
-            className={`whitespace-nowrap px-6 py-2.5 rounded-full text-[9px] font-black tracking-widest transition-all ${
+            className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black tracking-[0.2em] transition-all snap-start ${
               activeTab === cat 
-                ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                ? "bg-primary text-white shadow-[0_10px_25px_-5px_rgba(218,41,28,0.4)] scale-105" 
                 : theme === 'day' 
-                    ? "bg-slate-100 text-slate-400" 
-                    : "bg-surface-light text-white/40 hover:text-white/60"
+                    ? "bg-slate-100 text-slate-400 border border-slate-200" 
+                    : "bg-zinc-800/50 text-white/40 border border-white/5 hover:text-white/60"
             }`}
           >
             {cat}
