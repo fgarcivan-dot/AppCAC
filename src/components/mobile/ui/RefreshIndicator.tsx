@@ -26,7 +26,7 @@ export function RefreshIndicator({ isRefreshing, yPosition, theme = "night" }: R
         }`}
       >
         <motion.span
-          style={{ letterSpacing }}
+          style={{ letterSpacing, fontFamily: 'NeueMontreal' }}
           animate={isRefreshing ? { opacity: [0.4, 1, 0.4] } : { opacity: 1 }}
           transition={isRefreshing ? { repeat: Infinity, duration: 1.5 } : {}}
           className={`text-[10px] font-black uppercase transition-colors duration-1000 ${
@@ -34,7 +34,6 @@ export function RefreshIndicator({ isRefreshing, yPosition, theme = "night" }: R
               ? "text-primary" 
               : (theme === 'day' ? "text-slate-400" : "text-white/40")
           }`}
-          style={{ fontFamily: 'NeueMontreal' }}
         >
           {isRefreshing ? "ACTUALIZANDO" : "DESLIZA PARA ACTUALIZAR"}
         </motion.span>
