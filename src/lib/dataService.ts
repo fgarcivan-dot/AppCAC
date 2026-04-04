@@ -126,10 +126,24 @@ export interface AppData {
     femaleSeasonWins: number;
     femaleSeasonDraws: number;
     femaleSeasonLosses: number;
+    seasonLabel?: string;
+    monthLabel?: string;
   };
   directoContent?: DirectoContent;
   contactoContent?: ContactoContent;
-  partidosContent?: PartidosContent;
+  partidosContent?: {
+    matches: {
+      id: number | string;
+      home: string;
+      away: string;
+      date: string;
+      time: string;
+      category: string;
+      venue: string;
+    }[];
+    seasonLabel?: string;
+    monthLabel?: string;
+  };
 }
 
 // Tu URL real de Gist configurada para actualizaciones en tiempo real

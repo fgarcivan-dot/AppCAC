@@ -161,8 +161,14 @@ export const INITIAL_DATA: AppData = {
       { "id": 10, "home": "CERCEDENSE", "away": "DESCANSO", "score": "DESCANSA", "date": "MAR 17", "venue": "O ROXO", "category": "PREBENXAMÍN", "result": "EMPATE", "status": "FIN" },
       { "id": 11, "home": "CERCEDENSE", "away": "CALASANZ", "score": "3 - 1", "date": "MAR 17", "venue": "CAMPO O ROXO", "category": "BIBERÓN", "result": "VITORIA", "status": "FIN" }
     ],
-    "maleSeasonWins": 14, "maleSeasonDraws": 4, "maleSeasonLosses": 6,
-    "femaleSeasonWins": 10, "femaleSeasonDraws": 2, "femaleSeasonLosses": 3
+    "maleSeasonWins": 14,
+    "maleSeasonDraws": 4,
+    "maleSeasonLosses": 6,
+    "femaleSeasonWins": 10,
+    "femaleSeasonDraws": 2,
+    "femaleSeasonLosses": 3,
+    "seasonLabel": "TEMP. 24/25",
+    "monthLabel": "MARZO 2025"
   },
   "directoContent": {
     "isLive": false,
@@ -193,6 +199,8 @@ export const INITIAL_DATA: AppData = {
       { "id": 9, "home": "ONCE CABALLEROS", "away": "CERCEDENSE", "date": "6 Abr", "time": "11:15H", "category": "BENXAMÍN B", "venue": "CAMPO O TEMPLE" },
       { "id": 10, "home": "CERCEDENSE", "away": "DESCANSO", "date": "7 Abr", "time": "DESCANSA", "category": "PREBENXAMÍN", "venue": "O ROXO" },
       { "id": 11, "home": "CERCEDENSE", "away": "CALASANZ", "date": "7 Abr", "time": "10:00H", "category": "BIBERÓN", "venue": "CAMPO O ROXO" }
-    ]
+    ],
+    "seasonLabel": "TEMP. 24/25",
+    "monthLabel": "ABRIL 2025"
   }
 };

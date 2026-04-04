@@ -32,13 +32,17 @@ export default function Partidos() {
         <h1 className={`text-4xl font-black tracking-tighter uppercase italic transition-colors duration-1000 ${
            theme === 'day' ? 'text-slate-900' : 'text-white'
         }`}>PRÓXIMOS<br /><span className="text-primary tracking-norm">PARTIDOS</span></h1>
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-end text-right">
           <span className={`text-[10px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
             theme === 'day' ? 'text-slate-400' : 'text-white/40'
-          }`}>TEMP. 24/25</span>
-          <span className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-1000 ${
+          }`}>
+            {data.partidosContent?.seasonLabel || "TEMP. 24/25"}
+          </span>
+          <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
             theme === 'day' ? 'text-slate-300' : 'text-white/20'
-          }`}>ABRIL 2025</span>
+          }`}>
+            {data.partidosContent?.monthLabel || "ABRIL 2025"}
+          </span>
         </div>
       </header>
 
