@@ -14,6 +14,8 @@ interface MatchListCardProps {
 }
 
 export function MatchListCard({ home, away, date, time, category, venue, index }: MatchListCardProps) {
+  const isRestDay = home.toUpperCase().includes("DESCANSO") || away.toUpperCase().includes("DESCANSO");
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -26,22 +28,35 @@ export function MatchListCard({ home, away, date, time, category, venue, index }
           {category}
         </span>
         <span className="text-[8px] font-bold text-white/20 uppercase tracking-wider">
-          {venue}
+          {isRestDay ? "XORNADA LIBRE" : venue}
         </span>
       </div>
 
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
-          <span className={cn("text-xs font-black tracking-tight", home === "CERCEDENSE" ? "text-white" : "text-white/40 uppercase")}>
-            {home}
-          </span>
-          <span className={cn("text-xs font-black tracking-tight", away === "CERCEDENSE" ? "text-white" : "text-white/40 uppercase")}>
-            {away}
-          </span>
+          {isRestDay ? (
+            <span className="text-sm font-black tracking-tighter text-primary uppercase">
+              DESCANSA
+            </span>
+          ) : (
+            <>
+              <span className={cn("text-xs font-black tracking-tight", home === "CERCEDENSE" ? "text-white" : "text-white/40 uppercase")}>
+                {home}
+              </span>
+              <span className={cn("text-xs font-black tracking-tight", away === "CERCEDENSE" ? "text-white" : "text-white/40 uppercase")}>
+                {away}
+              </span>
+            </>
+          )}
         </div>
         <div className="flex flex-col items-end gap-0.5">
           <span className="text-[10px] font-black text-white tabular-nums">{date}</span>
-          <span className="text-[10px] font-bold text-primary tracking-tighter uppercase">{time}</span>
+          <span className={cn(
+            "text-[10px] font-bold tracking-tighter uppercase",
+            isRestDay ? "text-white/20" : "text-primary"
+          )}>
+            {time}
+          </span>
         </div>
       </div>
     </motion.div>

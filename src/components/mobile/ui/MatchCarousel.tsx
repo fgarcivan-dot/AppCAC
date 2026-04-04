@@ -83,6 +83,9 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
         >
           {matches.map((match, i) => {
             const isActive = activeIndex === i;
+            const isRestDay = match.status?.trim().toUpperCase() === "DESCANSO" || 
+                              match.home?.trim().toUpperCase() === "DESCANSO" || 
+                              match.away?.trim().toUpperCase() === "DESCANSO";
 
             return (
               <motion.div
@@ -115,10 +118,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                   {/* Panoramic HUD Labels */}
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-20">
 
-                    {match.status?.trim().toUpperCase() === "DESCANSO" || 
-                     match.home?.trim().toUpperCase() === "DESCANSO" || 
-                     match.away?.trim().toUpperCase() === "DESCANSO" ? (
-                      /* Minimalist Rest Day Mode: Centered Title + "DESCANSO" Label */
+                    {isRestDay ? (
+                      /* Minimalist Rest Day Mode: Centered Title + "DESCANSA" Label */
                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-10">
                         <motion.span
                           animate={{ opacity: isActive ? 1 : 0.4 }}
@@ -137,8 +138,14 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                             }`}
                           style={{ fontFamily: 'NeueMontreal' }}
                         >
-                          DESCANSO
+                          {match.home?.toUpperCase().includes("CERCEDENSE") || match.away?.toUpperCase().includes("CERCEDENSE") 
+                            ? "DESCANSA" 
+                            : "DESCANSO"
+                          }
                         </motion.span>
+                        <span className={`mt-4 text-[10px] font-bold tracking-[0.3em] uppercase ${theme === 'day' ? 'text-slate-400' : 'text-white/20'}`}>
+                          {match.date}
+                        </span>
                       </div>
                     ) : (
                       <>
@@ -235,58 +242,37 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
           })}
         </div>
 
-        {/* 🎬 SEGMENTED PILL SLIDER: Perfectly centered with layoutId */}
-        <div className="flex justify-center mt-2">
-          <div className={`relative flex items-center p-1 rounded-full border backdrop-blur-xl transition-[background,border] duration-1000 ${
-            theme === 'day' 
-              ? "bg-slate-100/50 border-slate-200" 
-              : "bg-white/5 border-white/5"
-          }`}>
-            
-            {/* Segments Container */}
-            <div className="relative flex items-center gap-1 px-1 z-20">
-              {matches.map((_, i) => {
-                const isActive = activeIndex === i;
-                return (
-                  <div
-                    key={i}
-                    className="relative w-[44px] h-[28px] flex items-center justify-center cursor-pointer"
-                  >
-                    {/* 🔴 Perfect Centering: Pill inside the segment with layoutId */}
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-pill-centered"
-                        transition={{ 
-                          type: "spring", 
-                          stiffness: 400, 
-                          damping: 32,
-                        }}
-                        className="absolute inset-0 rounded-full bg-primary shadow-[0_5px_15px_rgba(218,41,28,0.3)] z-0"
-                      />
-                    )}
-                    
-                    <span 
-                      className={`relative z-10 text-[9px] font-black tracking-tighter transition-colors duration-500 ${
-                        isActive 
-                          ? "text-white" 
-                          : (theme === 'day' ? "text-slate-400" : "text-white/20")
-                      }`}
-                      style={{ fontFamily: 'NeueMontreal' }}
-                    >
-                      {i + 1}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
+        {/* 🧪 LIQUID MAGNETIC DOTS Indicator */}
+        <div className="flex items-center justify-center gap-6 mt-4">
+          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
+            0{(activeIndex + 1)}
+          </span>
+          <div className="relative flex items-center gap-2 px-4 py-3 rounded-full bg-black/5 backdrop-blur-sm border border-white/5">
+            {matches.map((_, i) => {
+              const isSelected = activeIndex === i;
+              return (
+                <div key={i} className="relative flex items-center justify-center w-2 h-2">
+                  <motion.div
+                    animate={{
+                      scale: isSelected ? 1 : 0.5,
+                      opacity: isSelected ? 1 : 0.2,
+                      backgroundColor: isSelected ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.4)")
+                    }}
+                    className="w-full h-full rounded-full"
+                  />
+                  {isSelected && (
+                    <motion.div
+                      layoutId="liquid-focus"
+                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      className="absolute inset-[-4px] rounded-full border border-primary/20 shadow-[0_0_15px_rgba(218,41,28,0.4)]"
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
-        </div>
-
-        {/* Total indicator HUD style */}
-        <div className="flex justify-center mt-2 opacity-30">
-          <span className="text-[7px] font-black tracking-[0.5em] uppercase">
-            {activeIndex + 1} / {matches.length}
+          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
+            0{matches.length}
           </span>
         </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Trophy } from "lucide-react";
+import { Calendar, MapPin, Clock, Trophy, Ghost } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SeniorMatchCardProps {
@@ -16,8 +16,8 @@ interface SeniorMatchCardProps {
 }
 
 export function SeniorMatchCard({ home, away, date, time, category, venue, index, theme = "night" }: SeniorMatchCardProps) {
-  // Extract A or B from category (e.g., "SENIOR A" -> "A")
   const subCategory = category.split(" ").pop() || "A";
+  const isRestDay = home.toUpperCase().includes("DESCANSO") || away.toUpperCase().includes("DESCANSO");
   const isHomeCercedense = home.toUpperCase().includes("CERCEDENSE");
 
   return (
@@ -31,7 +31,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           : "bg-zinc-900 border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
       }`}
     >
-      {/* 🔮 Background Watermark: Giant A or B */}
+      {/* 🔮 Background Watermark */}
       <div className={`absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 ${
         theme === 'day' ? "text-slate-100" : "text-white/[0.03]"
       }`}>
@@ -54,14 +54,16 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
                 {category}
               </span>
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
-              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
-                theme === 'day' ? "text-slate-400" : "text-white/40"
-              }`}>
-                {venue}
-              </span>
-            </div>
+            {!isRestDay && (
+              <div className="flex items-center gap-2">
+                <MapPin size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
+                <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
+                  theme === 'day' ? "text-slate-400" : "text-white/40"
+                }`}>
+                  {venue}
+                </span>
+              </div>
+            )}
           </div>
           
           <div className={`px-3 py-1 rounded-full border backdrop-blur-xl transition-all duration-1000 ${
@@ -69,35 +71,48 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           }`}>
             <span className={`text-[8px] font-black tracking-widest transition-colors duration-1000 ${
               theme === 'day' ? "text-slate-900" : "text-white"
-            }`}>LIGA</span>
+            }`}>{isRestDay ? "REPOSO" : "LIGA"}</span>
           </div>
         </div>
 
-        {/* Middle: Teams */}
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-3">
-            <div className={cn(
-              "h-6 w-1 rounded-full transition-all duration-1000",
-              isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-slate-500/20"
-            )} />
-            <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${
-              isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
-            }`}>
-              {home}
-            </span>
+        {/* Middle: Teams or Rest Message */}
+        {isRestDay ? (
+          <div className="flex flex-col justify-center items-center py-2">
+             <span className={`text-4xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 ${
+               theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_20px_rgba(218,41,28,0.4)]"
+             }`}>
+               DESCANSA
+             </span>
+             <span className={`text-[9px] font-black tracking-[0.5em] mt-2 ${theme === 'day' ? 'text-slate-400' : 'text-white/20'}`}>
+               XORNADA DE LIBRE
+             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <div className={cn(
-              "h-6 w-1 rounded-full transition-all duration-1000",
-              !isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-slate-500/20"
-            )} />
-            <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${
-              !isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
-            }`}>
-              {away}
-            </span>
+        ) : (
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center gap-3">
+              <div className={cn(
+                "h-6 w-1 rounded-full transition-all duration-1000",
+                isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-slate-500/20"
+              )} />
+              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${
+                isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
+              }`}>
+                {home}
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className={cn(
+                "h-6 w-1 rounded-full transition-all duration-1000",
+                !isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-slate-500/20"
+              )} />
+              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${
+                !isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-white") : "text-white/40"
+              }`}>
+                {away}
+              </span>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Bottom: Schedule */}
         <div className="flex justify-between items-end border-t border-white/5 pt-3 mt-1">
@@ -114,14 +129,20 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           
           <div className="flex flex-col items-end">
              <div className="flex items-center gap-2 mb-0.5">
-                <Clock size={10} className="text-primary" />
+                {isRestDay ? (
+                  <Ghost size={12} className="text-primary/40 animate-pulse" />
+                ) : (
+                  <Clock size={10} className="text-primary" />
+                )}
                 <span className={`text-lg font-black tabular-nums transition-colors duration-1000 ${
                   theme === 'day' ? "text-slate-900" : "text-white"
-                }`}>{time}</span>
+                }`}>{isRestDay ? "REPOSO" : time}</span>
              </div>
              <span className={`text-[7px] font-black tracking-[0.4em] uppercase transition-colors duration-1000 ${
                theme === 'day' ? "text-primary" : "text-primary/60"
-             }`}>HORA DO PARTIDO</span>
+             }`}>
+               {isRestDay ? "ESTADO DO EQUIPO" : "HORA DO PARTIDO"}
+             </span>
           </div>
         </div>
 
