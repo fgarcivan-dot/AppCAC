@@ -10,22 +10,15 @@ La aplicación consume los datos de un archivo **JSON** alojado en GitHub Gist. 
 
 ---
 
-## ⚽ 2. El Carrusel Master (MatchCarousel)
+## ⚽ 2. El Carrusel Master (Página de Inicio)
 
 El carrusel de la pantalla de inicio ahora es inteligente y de alta precisión:
 
 ### A. Paso Obligatorio (Strict Paging)
-Para mantener una estética profesional, el carrusel obliga a pasar las tarjetas **una a una**. Aunque deslices rápido, el sistema frenará en la siguiente tarjeta para asegurar que el usuario vea todos los partidos.
+El carrusel obliga a pasar las tarjetas **una a una**. Aunque deslices rápido, el sistema frenará en la siguiente tarjeta para asegurar una navegación profesional.
 
-### B. Indicador "Pill Slider"
-Usamos un selector de cápsula de cristal traslúcida. El bloque rojo se mueve dinámicamente bajo el número de partido activo. Es 100% automático y se adapta al número de partidos que pongas en el JSON.
-
-### C. La Lógica "DESCANSA" (Automático)
-Si un equipo no juega esa semana, el sistema limpia la tarjeta y muestra un mensaje potente: **"DESCANSA"**. 
-- **Cómo activarlo**: Escribe la palabra `"DESCANSO"` en el campo `"home"` o `"away"` de tu JSON. El sistema hará el resto (ocultará escudos, mapas y centrará el texto).
-
-### D. Estados del Partido (Colores y Marcador)
-Dependiendo de lo que pongas en el campo `"status"`, el marcador de la pantalla de inicio cambiará de color automáticamente:
+### B. Estados de Partido (Colores Automáticos)
+Dependiendo de lo que pongas en el campo `"status"`, el marcador cambiará de color automáticamente:
 
 | Texto en `status` | Color | Significado |
 | :--- | :--- | :--- |
@@ -33,38 +26,44 @@ Dependiendo de lo que pongas en el campo `"status"`, el marcador de la pantalla 
 | `DESCANSO` o `PAUSA` | **Gris** | El partido está pausado (entre tiempos). |
 | `FIN` o `FINALIZADO` | **Rojo** | El partido ha terminado. |
 
-### E. Partidos Pendientes (Visualización "VS" u Hora)
-- **Si el marcador (`score`) es `"POR DEFINIR"`**: Se mostrará un elegante **"VS"** en el centro.
-- **Si el marcador (`score`) incluye una hora**: Si el sistema detecta un **":"** o una **"H"** (ej: `17:00H`, `12:30`, `18h`), mostrará ese texto en el centro con un estilo de espera limpio.
+---
+
+## 🏆 3. Diseño Elite Universal (Página de Partidos)
+
+Hemos unificado toda la sección de competición bajo el diseño **Hero Pro**. Ya no existen listas pequeñas; todas las categorías tienen el mismo protagonismo.
+
+### A. La Lógica "DESCANSA" (Automático)
+Si un equipo no juega, el sistema genera un cartel de **"DESCANSA"** centrado.
+- **Cómo activarlo**: Escribe la palabra **`"DESCANSO"`** en el campo `"home"` o `"away"` de tu JSON. 
+- **Opcional**: Pon `"DESCANSA"` en el campo `"time"`.
+
+### B. Marcas de Agua HUD (Dinámicas)
+El sistema detecta la categoría y pone un código gigante de diseño en el fondo de la tarjeta automáticamente:
+- **SENIOR A / B** -> `A` / `B`
+- **ALEVÍN A / B** -> `AL-A` / `AL-B`
+- **BENXAMÍN A / B** -> `BX-A` / `BX-B`
+- **PREBENXAMÍN** -> `PB`
+- **BIBERÓN** -> `BB`
+- **Resto** (Xuvenil, Cadete, INF) -> `XU`, `CD`, `IF`.
 
 ---
 
-## 🏆 3. Rediseño Elite Seniors (Tarjetas Hero)
+## 🔄 4. Actualización "Liquid Refresh"
 
-En la sección de **Partidos**, hemos creado una jerarquía visual para los equipos principales:
-
-1.  **Senior A y B**: Estos equipos aparecen con **Tarjetas Hero** de gran formato (`190px`).
-2.  **Marca de Agua**: El sistema detecta si es el equipo "A" o el "B" y pone una letra gigante de fondo.
-3.  **Canteira**: El resto de categorías siguen apareciendo en una lista compacta y ágil para facilitar la lectura de muchos partidos seguidos.
-
----
-
-## 🔄 4. Sincronización "Ethereal Liquid"
-
-Cuando deslizas hacia abajo para actualizar los datos:
-- Verás el texto **"DESLIZA PARA ACTUALIZAR"** con una animación de expansión de letras.
-- Al soltar, aparecerá **"ACTUALIZANDO"** con un pulso de luz roja atmosférico. Este sistema está optimizado por la GPU para que sea fluido incluso en móviles antiguos.
+Al deslizar hacia abajo para actualizar:
+- Verás **"DESLIZA PARA ACTUALIZAR"** con expansión de letras.
+- Al soltar, aparecerá **"ACTUALIZANDO"** con un pulso de luz roja.
 
 ---
 
 ## 📋 5. Consejos para el JSON Profesional
-1. **Mayúsculas**: Escribe nombres de equipos y categorías en MAYÚSCULAS para mantener la estética HUD.
-2. **Resultados**: Si el partido no ha empezado, pon `"POR DEFINIR"` o la hora (ej: `"17:00H"`) en el campo `"score"`.
-3. **Imágenes**: Usa siempre enlaces directos `.jpg` o `.png`.
+1. **Mayúsculas**: Escribe nombres de equipos y categorías en MAYÚSCULAS.
+2. **Resultados**: Si no hay marcador, pon `"POR DEFINIR"` o la hora (ej: `"17:00H"`) en el campo `"score"`.
+3. **Imágenes**: Usa enlaces directos `.jpg` o `.png`.
 
 ---
 
 > [!IMPORTANT]
-> **Estabilidad en iOS/iPhone**: Si notas que al navegar la pantalla intenta subir sola, no te preocupes. Hemos implementado un reseteo de seguridad que fuerza el posicionamiento correcto 0.5ms después de cambiar de página.
+> **Estabilidad en iOS**: Hemos implementado un reseteo de seguridad que fuerza el posicionamiento correcto 0.5ms después de cambiar de página para evitar saltos de pantalla indeseados.
 
 ---
