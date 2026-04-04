@@ -147,7 +147,13 @@ export const INITIAL_DATA: AppData = {
       { "id": 2, "home": "AT. ARTEIXO", "away": "CERCEDENSE", "score": "2 - 1", "date": "MAR 21", "category": "SENIOR FEMININO", "result": "DERROTA" },
       { "id": 3, "home": "CERCEDENSE", "away": "SD FISTERRA", "score": "3 - 2", "date": "MAR 21", "category": "XUVENIL", "result": "VITORIA" },
       { "id": 4, "home": "BERGANTIÑOS", "away": "CERCEDENSE", "score": "1 - 1", "date": "MAR 20", "category": "CADETE", "result": "EMPATE" },
-      { "id": 5, "home": "CERCEDENSE", "away": "VICTORIA CF", "score": "0 - 2", "date": "MAR 20", "category": "INFANTIL", "result": "DERROTA" }
+      { "id": 5, "home": "CERCEDENSE", "away": "VICTORIA CF", "score": "0 - 2", "date": "MAR 20", "category": "INFANTIL", "result": "DERROTA" },
+      { "id": 6, "home": "BOIRO CF", "away": "CERCEDENSE", "score": "0 - 4", "date": "MAR 19", "category": "ALEVÍN A", "result": "VITORIA" },
+      { "id": 7, "home": "CERCEDENSE", "away": "URAL CF", "score": "2 - 2", "date": "MAR 19", "category": "ALEVÍN B", "result": "EMPATE" },
+      { "id": 8, "home": "CERCEDENSE", "away": "SAN TIRSO SD", "score": "5 - 1", "date": "MAR 18", "category": "BENXAMÍN A", "result": "VITORIA" },
+      { "id": 9, "home": "ONCE CABALLEROS", "away": "CERCEDENSE", "score": "1 - 0", "date": "MAR 18", "category": "BENXAMÍN B", "result": "DERROTA" },
+      { "id": 10, "home": "CERCEDENSE", "away": "DESCANSO", "score": "DESCANSA", "date": "MAR 17", "category": "PREBENXAMÍN", "result": "EMPATE" },
+      { "id": 11, "home": "CERCEDENSE", "away": "CALASANZ", "score": "3 - 1", "date": "MAR 17", "category": "BIBERÓN", "result": "VITORIA" }
     ],
     "maleSeasonWins": 14, "maleSeasonDraws": 4, "maleSeasonLosses": 6,
     "femaleSeasonWins": 10, "femaleSeasonDraws": 2, "femaleSeasonLosses": 3
