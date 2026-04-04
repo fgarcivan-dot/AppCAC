@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Calendar, MapPin, Clock } from "lucide-react";
 
@@ -29,7 +29,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   // 🛡️ SURGICAL CENTERING: Pure Horizontal Math (No vertical jumps)
   useEffect(() => {
     let attempts = 0;
-    const maxAttempts = 120; // 12 seconds grace for slow renders
+    const maxAttempts = 120;
 
     const forceCenter = () => {
       const container = scrollRef.current;
@@ -38,7 +38,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
       if (container && centerCard && container.clientWidth > 0) {
         const targetScrollLeft = centerCard.offsetLeft - (container.clientWidth / 2) + (centerCard.clientWidth / 2);
         container.scrollTo({ left: targetScrollLeft, behavior: 'auto' });
-        if (Math.abs(container.scrollLeft - targetScrollLeft) < 5) {
+        if (Math.abs(container.scrollLeft - targetScrollLeft) < 10) {
           setMounted(true);
           return true;
         }
@@ -68,9 +68,6 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
       setActiveIndex(index);
     }
   };
-
-  // Magnetic Progress Math
-  const progressRatio = (activeIndex + 1) / matches.length;
 
   return (
     <div className={`relative w-full py-2 overflow-hidden transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
@@ -238,40 +235,47 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
           })}
         </div>
 
-        {/* 🎬 MAGNETIC HUD PROGRESS BAR: Modern one-line indicator */}
-        <div className="flex flex-col items-center gap-3 mt-1 px-8">
-          <div className="flex items-center justify-between w-full">
-            {/* Page Counter style HUD */}
-            <span 
-              className={`text-[8px] font-black tracking-[0.5em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-400' : 'text-white/20'}`}
-              style={{ fontFamily: 'NeueMontreal' }}
-            >
-              0{(activeIndex + 1)} <span className="mx-2 opacity-50">—</span> 0{matches.length}
-            </span>
+        {/* 🧪 LIQUID MAGNETIC DOTS: Advanced interactive indicator */}
+        <div className="flex items-center justify-center gap-6 mt-4">
+          
+          {/* Subtle Page Counter */}
+          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
+            0{(activeIndex + 1)}
+          </span>
 
-            {/* Total matches label */}
-            <span 
-              className={`text-[8px] font-black tracking-[0.5em] transition-colors duration-1000 ${theme === 'day' ? 'text-primary' : 'text-primary/60'}`}
-              style={{ fontFamily: 'NeueMontreal' }}
-            >
-              CERCEDENSE <span className="opacity-50">PRO</span>
-            </span>
+          {/* Points Container */}
+          <div className="relative flex items-center gap-2 px-4 py-3 rounded-full bg-black/5 backdrop-blur-sm border border-white/5">
+            {matches.map((_, i) => {
+              const isSelected = activeIndex === i;
+              
+              return (
+                <div key={i} className="relative flex items-center justify-center w-2 h-2">
+                  <motion.div
+                    animate={{
+                      scale: isSelected ? 1 : 0.5,
+                      opacity: isSelected ? 1 : 0.2,
+                      backgroundColor: isSelected ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.4)")
+                    }}
+                    className="w-full h-full rounded-full"
+                  />
+                  
+                  {/* Liquid Glow & Expand effect */}
+                  {isSelected && (
+                    <motion.div
+                      layoutId="liquid-focus"
+                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      className="absolute inset-[-4px] rounded-full border border-primary/20 shadow-[0_0_15px_rgba(218,41,28,0.4)]"
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
-          {/* Liquid Magnetic Progress Track */}
-          <div className={`relative w-full h-[1px] ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`}>
-            <motion.div
-              animate={{ 
-                x: matches.length > 1 ? `${(activeIndex / (matches.length - 1)) * (100 - (100 / matches.length))}%` : "0%",
-                width: `${100 / matches.length}%`
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute inset-y-0 bg-primary shadow-[0_0_10px_rgba(218,41,28,0.8)]"
-            >
-              {/* Tip Glow */}
-              <div className="absolute top-1/2 -right-1 h-3 w-3 bg-primary/40 blur-md rounded-full -translate-y-1/2" />
-            </motion.div>
-          </div>
+          <span className={`text-[9px] font-black tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-300' : 'text-white/10'}`}>
+            0{matches.length}
+          </span>
+
         </div>
 
       </div>
