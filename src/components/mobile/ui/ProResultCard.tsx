@@ -77,30 +77,33 @@ export function ProResultCard({ home, away, score, date, category, result, index
         config.glow
       )} />
 
-      <div className="absolute inset-0 p-6 flex flex-col justify-between z-10 pl-8">
+      <div className={cn(
+        "absolute inset-0 flex flex-col z-10 p-6",
+        isRestDay ? "justify-center items-center" : "justify-between pl-8"
+      )}>
         
-        {/* Top: Metadata */}
-        <div className="flex justify-between items-start">
-          <div className="flex flex-col gap-0.5">
-            <div className="flex items-center gap-2">
-              <Trophy size={10} className="text-primary" />
-              <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
-                theme === 'day' ? "text-slate-400" : "text-white/40"
-              }`}>
-                {category}
-              </span>
+        {/* Top: Metadata (Hide for Rest to allow perfect center, or show small above) */}
+        {!isRestDay && (
+          <div className="flex justify-between items-start w-full">
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-2">
+                <Trophy size={10} className="text-primary" />
+                <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
+                  theme === 'day' ? "text-slate-400" : "text-white/40"
+                }`}>
+                  {category}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Calendar size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
+                <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
+                  theme === 'day' ? "text-slate-400" : "text-white/40"
+                }`}>
+                  ÚLTIMA XORNADA · {date}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Calendar size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
-              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
-                theme === 'day' ? "text-slate-400" : "text-white/40"
-              }`}>
-                {isRestDay ? date : `ÚLTIMA XORNADA · ${date}`}
-              </span>
-            </div>
-          </div>
-          
-          {!isRestDay && (
+            
             <div className={cn(
               "px-4 py-1.5 rounded-full border backdrop-blur-xl transition-all duration-1000",
               theme === 'day' ? "bg-slate-100 border-slate-200" : "bg-white/5 border-white/5"
@@ -112,20 +115,24 @@ export function ProResultCard({ home, away, score, date, category, result, index
                 {result}
               </span>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* Middle: Teams & Score or Rest Message */}
+        {/* Middle: Content */}
         {isRestDay ? (
-           <div className="flex flex-col justify-center items-center py-2 h-full">
+           <div className="flex flex-col items-center justify-center">
               <span className={`text-6xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 ${
                 theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
               }`}>
                 DESCANSA
               </span>
+              <div className="mt-4 flex flex-col items-center gap-1 opacity-20">
+                 <span className="text-[7px] font-black tracking-[0.5em] uppercase">{date}</span>
+                 <div className="h-0.5 w-8 bg-current" />
+              </div>
            </div>
         ) : (
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 w-full">
             <div className="flex flex-col gap-2 flex-1">
                <div className="flex items-center gap-3">
                   <div className={cn(
@@ -163,20 +170,12 @@ export function ProResultCard({ home, away, score, date, category, result, index
 
         {/* Bottom Row: Accent */}
         {!isRestDay && (
-          <div className="flex justify-between items-center opacity-40">
+          <div className="flex justify-between items-center opacity-40 w-full">
              <span className="text-[7px] font-black tracking-[0.4em] uppercase">ROXO ARENA HUD</span>
              <div className="h-[1px] flex-1 mx-4 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
              <span className="text-[7px] font-black tracking-[0.4em] uppercase">CAC ARCHIVE</span>
           </div>
         )}
-
-        {/* Bottom Row: Accent */}
-        <div className="flex justify-between items-center opacity-40">
-           <span className="text-[7px] font-black tracking-[0.4em] uppercase">ROXO ARENA HUD</span>
-           <div className="h-[1px] flex-1 mx-4 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-           <span className="text-[7px] font-black tracking-[0.4em] uppercase">CAC ARCHIVE</span>
-        </div>
-
       </div>
     </motion.div>
   );
