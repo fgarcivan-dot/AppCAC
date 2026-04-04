@@ -8,84 +8,71 @@ interface RefreshIndicatorProps {
 }
 
 export function RefreshIndicator({ isRefreshing, yPosition, theme = "night" }: RefreshIndicatorProps) {
-  // 🔬 Cinematic HUD Physics
-  const opacity = useTransform(yPosition, [0, 50], [0, 1]);
-  const yOffset = useTransform(yPosition, (val) => isRefreshing ? 0 : Math.min(val, 60));
-  const scale = useTransform(yPosition, [0, 80], [0.95, 1]);
-  const scanPos = useTransform(yPosition, [0, 100], ["-100%", "200%"]);
+  // 🌊 Liquid Physics & Atmospheric Glow
+  const opacity = useTransform(yPosition, [0, 40], [0, 1]);
+  const glowHeight = useTransform(yPosition, [0, 100], [0, 120]);
+  const textY = useTransform(yPosition, [0, 80], [-20, 20]);
+  const bladeWidth = useTransform(yPosition, [0, 80], ["0%", "100%"]);
 
   return (
     <motion.div 
-      style={{ opacity, y: yOffset, scale }}
-      className="absolute top-0 left-0 right-0 flex justify-center z-[60] pointer-events-none mt-6"
+      style={{ opacity }}
+      className="absolute top-0 left-0 right-0 z-[60] pointer-events-none"
     >
-      <div className="relative group">
-        {/* 🌈 Outer Glow - Atmospheric Red Pulse */}
-        <AnimatePresence>
-          {isRefreshing && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute -inset-2 bg-primary/20 blur-xl rounded-full"
-            />
-          )}
-        </AnimatePresence>
+      {/* 🔴 Atmospheric Header Glow */}
+      <motion.div 
+        style={{ height: glowHeight }}
+        className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent blur-2xl"
+      />
 
-        {/* 💎 Minimalist HUD Bar */}
-        <div className={`relative px-8 py-2 rounded-full border backdrop-blur-2xl overflow-hidden transition-all duration-1000 flex items-center gap-3 ${
-          theme === 'day' 
-            ? "bg-white/60 border-slate-200 shadow-xl" 
-            : "bg-black/40 border-white/10 shadow-2xl"
-        }`}>
-          
-          {/* ⚡ Scanning Line (Only during swipe) */}
-          {!isRefreshing && (
-            <motion.div 
-              style={{ left: scanPos }}
-              className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-primary/30 to-transparent skew-x-12"
-            />
-          )}
+      {/* ⚡ The "Blade" - Razor thin progress line */}
+      <div className="absolute top-0 left-0 right-0 flex justify-center">
+        <motion.div 
+          style={{ width: isRefreshing ? "100%" : bladeWidth }}
+          animate={isRefreshing ? { opacity: [0.2, 1, 0.2] } : { opacity: 1 }}
+          transition={isRefreshing ? { repeat: Infinity, duration: 1.5 } : {}}
+          className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+        />
+      </div>
 
-          {/* 🔴 Status Pulse Dot */}
-          <div className="relative flex items-center justify-center">
-            <div className={`h-1.5 w-1.5 rounded-full ${isRefreshing ? 'bg-primary' : (theme === 'day' ? 'bg-slate-300' : 'bg-white/20')}`} />
-            {isRefreshing && (
-              <motion.div 
-                animate={{ scale: [1, 2.5], opacity: [0.5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-                className="absolute inset-0 bg-primary rounded-full"
-              />
-            )}
-          </div>
-
-          {/* ✍️ Technical Typography */}
-          <span
-            className={`text-[9px] font-black tracking-[0.6em] uppercase transition-colors duration-1000 ${
+      {/* ✍️ Ethereal Floating Typography */}
+      <motion.div 
+        style={{ y: isRefreshing ? 25 : textY }}
+        className="flex flex-col items-center justify-center pt-2"
+      >
+        <div className="relative group">
+          <motion.span
+            animate={isRefreshing ? { 
+              letterSpacing: ["0.4em", "0.8em", "0.4em"],
+              opacity: [0.3, 1, 0.3]
+            } : { 
+              letterSpacing: "0.4em",
+              opacity: 1
+            }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className={`text-[8px] font-black uppercase transition-colors duration-1000 ${
               isRefreshing 
-                ? "text-primary" 
-                : (theme === 'day' ? "text-slate-500" : "text-white/60")
+                ? "text-primary drop-shadow-[0_0_10px_rgba(218,41,28,0.5)]" 
+                : (theme === 'day' ? "text-slate-500" : "text-white/30")
             }`}
             style={{ fontFamily: 'NeueMontreal' }}
           >
-            {isRefreshing ? "SYNCING DATA" : "DATABASE SYNC"}
-          </span>
-
-          {/* 📊 Visual Data Bits */}
-          <div className="flex gap-1">
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                animate={isRefreshing ? { height: [2, 6, 2] } : { height: 2 }}
-                transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.1 }}
-                className={`w-0.5 rounded-full ${theme === 'day' ? 'bg-primary/30' : 'bg-white/10'}`}
+            {isRefreshing ? "ACTUALIZANDO" : "CERCEDENSE SYNC"}
+          </motion.span>
+          
+          {/* Subtle underline pulse */}
+          <AnimatePresence>
+            {isRefreshing && (
+              <motion.div 
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "100%", opacity: 1 }}
+                exit={{ width: 0, opacity: 0 }}
+                className="h-[0.5px] bg-primary absolute -bottom-1 left-0 shadow-[0_0_8px_rgba(218,41,28,0.8)]"
               />
-            ))}
-          </div>
-
+            )}
+          </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
-
