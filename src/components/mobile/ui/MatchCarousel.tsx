@@ -235,50 +235,56 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
           })}
         </div>
 
-        {/* 🎬 FOCUS WAVE TIMELINE: High-precision technical indicator */}
-        <div className="flex flex-col items-center gap-4 mt-2">
-          
-          {/* Active Index HUD */}
-          <div className="flex items-center gap-3">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={activeIndex}
-                initial={{ y: 5, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -5, opacity: 0 }}
-                className={`text-[10px] font-black tracking-widest ${theme === 'day' ? 'text-slate-900' : 'text-primary'}`}
-                style={{ fontFamily: 'NeueMontreal' }}
-              >
-                0{(activeIndex + 1)}
-              </motion.span>
-            </AnimatePresence>
-            <div className={`h-[1px] w-4 ${theme === 'day' ? 'bg-slate-200' : 'bg-white/10'}`} />
-            <span className={`text-[10px] font-black tracking-widest ${theme === 'day' ? 'text-slate-300' : 'text-white/20'}`}>
-              0{matches.length}
-            </span>
-          </div>
+        {/* 🎬 SEGMENTED PILL SLIDER: Cleanest integrated HUD indicator */}
+        <div className="flex justify-center mt-2">
+          <div className={`relative flex items-center p-1 rounded-full border backdrop-blur-xl transition-[background,border] duration-1000 ${
+            theme === 'day' 
+              ? "bg-slate-100/50 border-slate-200" 
+              : "bg-white/5 border-white/5"
+          }`}>
+            
+            {/* The Floating Red Pill Background */}
+            <motion.div
+              layoutId="active-pill"
+              animate={{ 
+                x: activeIndex * 48 // 48px is the width of each segment (40px + gap)
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              className="absolute left-1 h-[24px] w-[40px] rounded-full bg-primary shadow-[0_5px_15px_rgba(218,41,28,0.3)] z-10"
+            />
 
-          {/* Timeline Wave */}
-          <div className="flex items-end justify-center gap-1.5 h-6">
-            {matches.map((_, i) => {
-              const distance = Math.abs(i - activeIndex);
-              const isActive = i === activeIndex;
-              
-              return (
-                <motion.div
-                  key={i}
-                  animate={{
-                    height: isActive ? 20 : (distance === 1 ? 10 : 4),
-                    backgroundColor: isActive ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.1)"),
-                    opacity: isActive ? 1 : (distance === 1 ? 0.4 : 0.1)
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  className="w-[2px] rounded-full"
-                />
-              );
-            })}
-          </div>
+            {/* Segments Container */}
+            <div className="relative flex items-center gap-2 px-1 z-20">
+              {matches.map((_, i) => {
+                const isActive = activeIndex === i;
+                return (
+                  <div
+                    key={i}
+                    className={`w-[40px] flex items-center justify-center transition-colors duration-500`}
+                  >
+                    <span 
+                      className={`text-[9px] font-black tracking-tighter transition-colors duration-500 ${
+                        isActive 
+                          ? "text-white" 
+                          : (theme === 'day' ? "text-slate-400" : "text-white/20")
+                      }`}
+                      style={{ fontFamily: 'NeueMontreal' }}
+                    >
+                      {i + 1}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
 
+          </div>
+        </div>
+
+        {/* Total indicator HUD style */}
+        <div className="flex justify-center mt-2 opacity-30">
+          <span className="text-[7px] font-black tracking-[0.5em] uppercase">
+            {activeIndex + 1} / {matches.length}
+          </span>
         </div>
 
       </div>
