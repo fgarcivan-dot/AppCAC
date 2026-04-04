@@ -235,7 +235,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
           })}
         </div>
 
-        {/* 🎬 SEGMENTED PILL SLIDER: Cleanest integrated HUD indicator */}
+        {/* 🎬 SEGMENTED PILL SLIDER: Perfectly centered with layoutId */}
         <div className="flex justify-center mt-2">
           <div className={`relative flex items-center p-1 rounded-full border backdrop-blur-xl transition-[background,border] duration-1000 ${
             theme === 'day' 
@@ -243,27 +243,30 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
               : "bg-white/5 border-white/5"
           }`}>
             
-            {/* The Floating Red Pill Background */}
-            <motion.div
-              layoutId="active-pill"
-              animate={{ 
-                x: activeIndex * 48 // 48px is the width of each segment (40px + gap)
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className="absolute left-1 h-[24px] w-[40px] rounded-full bg-primary shadow-[0_5px_15px_rgba(218,41,28,0.3)] z-10"
-            />
-
             {/* Segments Container */}
-            <div className="relative flex items-center gap-2 px-1 z-20">
+            <div className="relative flex items-center gap-1 px-1 z-20">
               {matches.map((_, i) => {
                 const isActive = activeIndex === i;
                 return (
                   <div
                     key={i}
-                    className={`w-[40px] flex items-center justify-center transition-colors duration-500`}
+                    className="relative w-[44px] h-[28px] flex items-center justify-center cursor-pointer"
                   >
+                    {/* 🔴 Perfect Centering: Pill inside the segment with layoutId */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="active-pill-centered"
+                        transition={{ 
+                          type: "spring", 
+                          stiffness: 400, 
+                          damping: 32,
+                        }}
+                        className="absolute inset-0 rounded-full bg-primary shadow-[0_5px_15px_rgba(218,41,28,0.3)] z-0"
+                      />
+                    )}
+                    
                     <span 
-                      className={`text-[9px] font-black tracking-tighter transition-colors duration-500 ${
+                      className={`relative z-10 text-[9px] font-black tracking-tighter transition-colors duration-500 ${
                         isActive 
                           ? "text-white" 
                           : (theme === 'day' ? "text-slate-400" : "text-white/20")
