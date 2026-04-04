@@ -10,7 +10,8 @@ export const INITIAL_DATA: AppData = {
         "home": "CERCEDENSE",
         "away": "BOIRO",
         "score": "3 - 0",
-        "venue": "CAMPO O ROXO"
+        "venue": "CAMPO O ROXO",
+        "status": "FIN"
       },
       {
         "title": "ESTA XORNADA",
@@ -55,7 +56,8 @@ export const INITIAL_DATA: AppData = {
         "home": "CERCEDENSE",
         "away": "SP. MEICENDE",
         "score": "3 - 3",
-        "venue": "CAMPO O ROXO"
+        "venue": "CAMPO O ROXO",
+        "status": "FIN"
       },
       {
         "title": "ESTA XORNADA",
@@ -63,7 +65,8 @@ export const INITIAL_DATA: AppData = {
         "home": "AD CULLEREDO",
         "away": "CERCEDENSE",
         "score": "1 - 8",
-        "venue": "CAMPO ALEGRET"
+        "venue": "CAMPO ALEGRET",
+        "status": "EN XOGO"
       },
       {
         "title": "PRÓXIMO",
@@ -71,7 +74,8 @@ export const INITIAL_DATA: AppData = {
         "home": "CERCEDENSE",
         "away": "C.C.D. CURTIS",
         "score": "POR DEFINIR",
-        "venue": "CAMPO O ROXO"
+        "venue": "CAMPO O ROXO",
+        "status": "PRÓXIMO"
       }
     ],
     "standings": [
