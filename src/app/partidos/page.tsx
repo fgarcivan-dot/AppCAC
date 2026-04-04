@@ -61,14 +61,14 @@ export default function Partidos() {
       </section>
 
       {/* Match List */}
-      <section className={cn(
-        "flex flex-col",
-        activeTab === "SENIORS" ? "gap-4" : "gap-3"
-      )}>
+      <section className="flex flex-col gap-4">
         {filteredMatches.map((match, i) => (
-          activeTab === "SENIORS" 
-            ? <SeniorMatchCard key={`${activeTab}-${match.id}`} {...match} index={i} theme={theme} />
-            : <MatchListCard key={`${activeTab}-${match.id}`} {...match} index={i} />
+          <SeniorMatchCard 
+            key={`${activeTab}-${match.id}`} 
+            {...match} 
+            index={i} 
+            theme={theme} 
+          />
         ))}
         {filteredMatches.length === 0 && (
           <div className={`py-10 text-center text-[10px] font-bold uppercase tracking-[0.3em] transition-colors duration-1000 ${

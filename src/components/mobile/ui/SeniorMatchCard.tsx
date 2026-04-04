@@ -16,7 +16,22 @@ interface SeniorMatchCardProps {
 }
 
 export function SeniorMatchCard({ home, away, date, time, category, venue, index, theme = "night" }: SeniorMatchCardProps) {
-  const subCategory = category.split(" ").pop() || "A";
+  
+  // 🏷️ DYNAMIC WATERMARK LOGIC
+  const getWatermark = (cat: string) => {
+    const uppercaseCat = cat.toUpperCase();
+    if (uppercaseCat.includes("SENIOR")) return uppercaseCat.split(" ").pop() || "S";
+    if (uppercaseCat.includes("ALEVÍN")) return "AL-" + (uppercaseCat.split(" ").pop() || "A");
+    if (uppercaseCat.includes("BENXAMÍN")) return "BX-" + (uppercaseCat.split(" ").pop() || "A");
+    if (uppercaseCat.includes("PREBENXAMÍN")) return "PB";
+    if (uppercaseCat.includes("BIBERÓN")) return "BB";
+    if (uppercaseCat.includes("XUVENIL")) return "XU";
+    if (uppercaseCat.includes("CADETE")) return "CD";
+    if (uppercaseCat.includes("INFANTIL")) return "IF";
+    return uppercaseCat.charAt(0);
+  };
+
+  const watermarkText = getWatermark(category);
   const isRestDay = home.toUpperCase().includes("DESCANSO") || away.toUpperCase().includes("DESCANSO");
   const isHomeCercedense = home.toUpperCase().includes("CERCEDENSE");
 
@@ -31,11 +46,11 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           : "bg-zinc-900 border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
       }`}
     >
-      {/* 🔮 Background Watermark */}
+      {/* 🔮 Background Watermark: Dynamic based on category */}
       <div className={`absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 ${
         theme === 'day' ? "text-slate-100" : "text-white/[0.03]"
       }`}>
-        {subCategory}
+        {watermarkText}
       </div>
 
       {/* 🔴 Accent Glow */}

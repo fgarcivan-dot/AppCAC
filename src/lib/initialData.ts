@@ -174,7 +174,13 @@ export const INITIAL_DATA: AppData = {
       { "id": 2, "home": "BETANZOS CF", "away": "CERCEDENSE", "date": "5 Abr", "time": "12:00H", "category": "SENIOR FEMININO", "venue": "CAMPO DEP. BETANZOS" },
       { "id": 3, "home": "CERCEDENSE", "away": "SD FISTERRA", "date": "4 Abr", "time": "16:30H", "category": "XUVENIL", "venue": "CAMPO O ROXO" },
       { "id": 4, "home": "DESCANSO", "away": "CERCEDENSE", "date": "4 Abr", "time": "DESCANSA", "category": "CADETE", "venue": "O ROXO" },
-      { "id": 5, "home": "CERCEDENSE", "away": "VICTORIA CF", "date": "4 Abr", "time": "10:30H", "category": "INFANTIL", "venue": "CAMPO O ROXO" }
+      { "id": 5, "home": "CERCEDENSE", "away": "VICTORIA CF", "date": "4 Abr", "time": "10:30H", "category": "INFANTIL", "venue": "CAMPO O ROXO" },
+      { "id": 6, "home": "BOIRO CF", "away": "CERCEDENSE", "date": "6 Abr", "time": "11:00H", "category": "ALEVÍN A", "venue": "CAMPO MUNICIPAL BOIRO" },
+      { "id": 7, "home": "CERCEDENSE", "away": "URAL CF", "date": "6 Abr", "time": "12:30H", "category": "ALEVÍN B", "venue": "CAMPO O ROXO" },
+      { "id": 8, "home": "CERCEDENSE", "away": "SAN TIRSO SD", "date": "6 Abr", "time": "10:00H", "category": "BENXAMÍN A", "venue": "CAMPO O ROXO" },
+      { "id": 9, "home": "ONCE CABALLEROS", "away": "CERCEDENSE", "date": "6 Abr", "time": "11:15H", "category": "BENXAMÍN B", "venue": "CAMPO O TEMPLE" },
+      { "id": 10, "home": "CERCEDENSE", "away": "DESCANSO", "date": "7 Abr", "time": "DESCANSA", "category": "PREBENXAMÍN", "venue": "O ROXO" },
+      { "id": 11, "home": "CERCEDENSE", "away": "CALASANZ", "date": "7 Abr", "time": "10:00H", "category": "BIBERÓN", "venue": "CAMPO O ROXO" }
     ]
   }
 };
