@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Calendar, MapPin, Clock } from "lucide-react";
 
@@ -23,38 +23,22 @@ interface MatchCarouselProps {
 
 export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const centerCardRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(1);
   const [mounted, setMounted] = useState(false);
 
   // 🛡️ SURGICAL CENTERING: Pure Horizontal Math (No vertical jumps)
   useEffect(() => {
     let attempts = 0;
-    const maxAttempts = 80; // Extended safety range for slow Android loads
+    const maxAttempts = 120; // 12 seconds grace for slow renders
 
     const forceCenter = () => {
       const container = scrollRef.current;
       const centerCard = document.getElementById('match-card-1');
       
       if (container && centerCard && container.clientWidth > 0) {
-        // 🚀 THE CURE: Pure horizontal math. Never touches the vertical scroll.
-        const leftOffset = centerCard.offsetLeft;
-        const cardWidth = centerCard.clientWidth;
-        const containerWidth = container.clientWidth;
-        
-        // Final position for centering card in the viewport
-        const targetScrollLeft = leftOffset - (containerWidth / 2) + (cardWidth / 2);
-        
-        container.scrollTo({
-          left: targetScrollLeft,
-          behavior: 'auto' // 🚫 CRITICAL: Must be 'auto' to avoid fighting iOS inertia
-        });
-
-        // Verification: Check if we are physically close to the target
-        const isActuallyCentered = Math.abs(container.scrollLeft - targetScrollLeft) < 10;
-        
-        // Only mark mounted/success if we have the dimensions and it's centered
-        if (isActuallyCentered) {
+        const targetScrollLeft = centerCard.offsetLeft - (container.clientWidth / 2) + (centerCard.clientWidth / 2);
+        container.scrollTo({ left: targetScrollLeft, behavior: 'auto' });
+        if (Math.abs(container.scrollLeft - targetScrollLeft) < 5) {
           setMounted(true);
           return true;
         }
@@ -65,12 +49,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
     const timer = setInterval(() => {
       attempts++;
       const success = forceCenter();
-
-      // Only stop once it's confirmed centered AND layout is stable
-      if (success && attempts > 15) {
-        clearInterval(timer);
-      }
-
+      if (success && attempts > 15) clearInterval(timer);
       if (attempts >= maxAttempts) {
         setMounted(true);
         clearInterval(timer);
@@ -82,7 +61,6 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (!mounted) return;
-
     const container = e.currentTarget;
     const cardWidth = container.clientWidth || 375;
     const index = Math.round(container.scrollLeft / cardWidth);
@@ -91,16 +69,19 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
     }
   };
 
+  // Magnetic Progress Math
+  const progressRatio = (activeIndex + 1) / matches.length;
+
   return (
-    <div className={`relative w-full py-2 overflow-hidden transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`relative w-full py-2 overflow-hidden transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
       <div className="flex flex-col gap-2">
 
-        {/* 🚫 NO SCROLL-SMOOTH: Mandatory for iOS stability. Fixed snapping via JS. */}
+        {/* Full-Bleed Swipe Container */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
           className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-4 ${
-            mounted ? "snap-x snap-mandatory scroll-auto" : "overflow-hidden"
+            mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
           }`}
         >
           {matches.map((match, i) => {
@@ -110,8 +91,8 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
               <motion.div
                 key={i}
                 id={`match-card-${i}`}
-                ref={i === 1 ? centerCardRef : null}
-                className="flex-none w-screen max-w-full px-6 snap-center"
+                // 🛑 MANDATORY STOP: Forces one-by-one even with fast swiping
+                className="flex-none w-screen max-w-full px-6 snap-center snap-always"
               >
                 {/* Stadium Atmosphere Backdrop: White & Red Passion */}
                 <div className={`w-full h-[320px] relative transition-all duration-1000
@@ -204,7 +185,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                             )}
                           </motion.span>
 
-                          {/* Live Status Indicator (Only shown during, at break or after the game) */}
+                          {/* Live Status Indicator */}
                           {match.status && (match.status === "EN XOGO" || match.status === "PAUSA" || match.status === "DESCANSO" || match.status === "FIN" || match.status === "FINALIZADO") && (
                             <motion.div
                               animate={{ opacity: isActive ? 1 : 0 }}
@@ -241,46 +222,58 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
                               }`} style={{ fontFamily: 'NeueMontreal' }}>{match.home}</span>
                           </div>
 
-                          {/* Venue in bottom right info - Hidden if DESCANSO */}
-                          {match.away !== "DESCANSO" && (
-                            <div className="flex flex-col items-end gap-1 w-[45%] text-right">
+                          <div className="flex flex-col items-end gap-1 w-[45%] text-right">
                               <span className={`text-sm sm:text-base font-black uppercase tracking-widest leading-[1.1] break-words transition-colors duration-1000 ${match.away.toUpperCase().includes("CERCEDENSE")
                                   ? "text-primary drop-shadow-sm"
                                   : (theme === 'day' ? "text-slate-900" : "text-white")
                                 }`} style={{ fontFamily: 'NeueMontreal' }}>{match.away}</span>
-                            </div>
-                          )}
+                          </div>
                         </div>
                       </>
                     )}
                   </div>
-
-                  {/* Decorative Elements */}
-                  <div className={`absolute top-1/2 left-0 w-1 h-20 -translate-y-1/2 rounded-r-full transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-100' : 'bg-white/5'
-                    }`} />
-                  <div className={`absolute top-1/2 right-0 w-1 h-20 -translate-y-1/2 rounded-l-full transition-colors duration-1000 ${theme === 'day' ? 'bg-slate-100' : 'bg-white/5'
-                    }`} />
-
                 </div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Cinematic Underline Indicator */}
-        <div className="flex justify-center gap-1">
-          {matches.map((_, i) => (
+        {/* 🎬 MAGNETIC HUD PROGRESS BAR: Modern one-line indicator */}
+        <div className="flex flex-col items-center gap-3 mt-1 px-8">
+          <div className="flex items-center justify-between w-full">
+            {/* Page Counter style HUD */}
+            <span 
+              className={`text-[8px] font-black tracking-[0.5em] transition-colors duration-1000 ${theme === 'day' ? 'text-slate-400' : 'text-white/20'}`}
+              style={{ fontFamily: 'NeueMontreal' }}
+            >
+              0{(activeIndex + 1)} <span className="mx-2 opacity-50">—</span> 0{matches.length}
+            </span>
+
+            {/* Total matches label */}
+            <span 
+              className={`text-[8px] font-black tracking-[0.5em] transition-colors duration-1000 ${theme === 'day' ? 'text-primary' : 'text-primary/60'}`}
+              style={{ fontFamily: 'NeueMontreal' }}
+            >
+              CERCEDENSE <span className="opacity-50">PRO</span>
+            </span>
+          </div>
+
+          {/* Liquid Magnetic Progress Track */}
+          <div className={`relative w-full h-[1px] ${theme === 'day' ? 'bg-slate-200' : 'bg-white/5'}`}>
             <motion.div
-              key={i}
-              animate={{
-                width: activeIndex === i ? 60 : 20,
-                opacity: activeIndex === i ? 1 : 0.1,
-                backgroundColor: activeIndex === i ? "#DA291C" : (theme === 'day' ? "#cbd5e1" : "rgba(255, 255, 255, 0.1)")
+              animate={{ 
+                x: matches.length > 1 ? `${(activeIndex / (matches.length - 1)) * (100 - (100 / matches.length))}%` : "0%",
+                width: `${100 / matches.length}%`
               }}
-              className="h-0.5"
-            />
-          ))}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute inset-y-0 bg-primary shadow-[0_0_10px_rgba(218,41,28,0.8)]"
+            >
+              {/* Tip Glow */}
+              <div className="absolute top-1/2 -right-1 h-3 w-3 bg-primary/40 blur-md rounded-full -translate-y-1/2" />
+            </motion.div>
+          </div>
         </div>
+
       </div>
     </div>
   );
