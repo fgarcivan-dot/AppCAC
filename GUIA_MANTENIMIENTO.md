@@ -28,17 +28,28 @@ Dependiendo de lo que pongas en el campo `"status"`, el marcador cambiará de co
 
 ---
 
-## 🏆 3. Diseño Elite (Sección Próximos Partidos)
+## 🏆 3. Diseño Elite (Partidos y Resultados)
 
-Esta sección (donde aparecen Seniors y Canteira) utiliza el diseño **Hero Pro Ultra-Minimalista**.
+Toda la sección de competición (tanto próximos encuentros como marcadores pasados) utiliza el diseño **Hero Pro / Elite HUD**.
 
-### A. La Lógica "DESCANSA" (Ultra-Limpia)
-Cuando un equipo tiene jornada libre, la tarjeta se transforma en un cartel central de alto impacto:
-- **Cartel Central**: Aparece el texto **DESCANSA** en tamaño gigante.
-- **Sin Distracciones**: Se han eliminado automáticamente el círculo de "REPOSO" superior, el icono del "Fantasma", el texto inferior de "Reposo" y el "Estado de equipo".
+### A. La Lógica "DESCANSA" (Universal)
+Si un equipo no juega, el sistema genera el cartel de **"DESCANSA"** automáticamente tanto en próximos partidos como en la lista de resultados.
 - **Cómo activarlo**: Escribe la palabra **`"DESCANSO"`** en el campo `"home"` o `"away"` de tu JSON.
+- **Resultado**: La tarjeta se vuelve minimalista y oculta el marcador para dar protagonismo al descanso.
 
-### B. Marcas de Agua HUD (Dinámicas)
+### B. Indicadores de Resultado (Haz de Luz)
+En la sección de resultados, aparecerá una barra luminosa lateral que indica el signo del partido:
+- 🟢 **Verde** (VITORIA)
+- 🔴 **Rojo** (DERROTA)
+- ⚪ **Gris** (EMPATE)
+
+### C. Dashboard HUD de Estadísticas
+El balance de temporada se muestra en un cuadro de telemetría táctica:
+- **Barra Digital**: Indica la eficiencia de victorias con un degradado neón segmentado.
+- **Eficiencia**: El porcentaje se calcula automáticamente sumando victorias/empates/derrotas.
+- **Nota**: Al ser un componente Glassmorphism, adapta su transparencia al fondo.
+
+### D. Marcas de Agua HUD (Dinámicas)
 El sistema detecta la categoría y pone un código gigante de diseño en el fondo de la tarjeta automáticamente:
 - **SENIOR A / B** -> `A` / `B`
 - **ALEVÍN A / B** -> `AL-A` / `AL-B`

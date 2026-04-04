@@ -26,33 +26,33 @@ export default function Resultados() {
   const youthResults = results.filter(r => !r.category.includes("SENIOR"));
 
   return (
-    <div className={`flex flex-col gap-5 p-5 animate-in fade-in duration-700 transition-colors duration-1000 ${
+    <div className={`flex flex-col gap-8 p-6 animate-in fade-in duration-700 transition-colors duration-1000 ${
       theme === 'day' ? 'text-slate-900' : 'text-white'
     }`}>
       {/* Header */}
       <header className="flex items-center justify-between">
-        <h1 className={`text-3xl font-black tracking-tighter uppercase italic transition-colors duration-1000 ${
+        <h1 className={`text-4xl font-black tracking-tighter uppercase italic transition-colors duration-1000 ${
           theme === 'day' ? 'text-slate-900' : 'text-white'
         }`}>
           ÚLTIMA<br /><span className="text-primary tracking-norm">XORNADA</span>
         </h1>
         <div className="flex flex-col items-end">
-          <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
+          <span className={`text-[10px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
             theme === 'day' ? 'text-slate-400' : 'text-white/40'
           }`}>TEMP. 24/25</span>
-          <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors duration-1000 ${
+          <span className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-1000 ${
             theme === 'day' ? 'text-slate-300' : 'text-white/20'
           }`}>MARZO 2025</span>
         </div>
       </header>
 
       {/* Categories */}
-      <section className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+      <section className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
         {["SENIORS", "CANTEIRA"].map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveTab(cat)}
-            className={`whitespace-nowrap px-5 py-2 rounded-full text-[8px] font-black tracking-widest transition-all ${
+            className={`whitespace-nowrap px-6 py-2.5 rounded-full text-[9px] font-black tracking-widest transition-all ${
               activeTab === cat 
                 ? "bg-primary text-white shadow-lg shadow-primary/20" 
                 : theme === 'day' 
@@ -66,12 +66,12 @@ export default function Resultados() {
       </section>
 
       {/* Result Cards & Stats */}
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-6">
         {activeTab === "SENIORS" && (
           <>
             {/* Senior Masculino */}
             {maleResult && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 <ProResultCard 
                   home={maleResult.home}
                   away={maleResult.away}
@@ -94,7 +94,7 @@ export default function Resultados() {
 
             {/* Senior Feminino */}
             {femaleResult && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 <ProResultCard 
                   home={femaleResult.home}
                   away={femaleResult.away}
