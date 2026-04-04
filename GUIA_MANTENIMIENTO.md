@@ -1,58 +1,57 @@
 # 🛡️ Guía de Mantenimiento: Club Atlético Cercedense
 
-Esta guía explica cómo gestionar los contenidos de la aplicación y cómo funcionan las lógicas automáticas implementadas en el sistema.
+Esta guía explica cómo gestionar los contenidos de la aplicación y cómo funcionan las lógicas automáticas de diseño premium implementadas.
 
 ---
 
 ## ☁️ 1. Actualización de Datos (GitHub Gist)
 
-La aplicación consume los datos de un archivo **JSON** alojado en GitHub Gist. Para actualizar la información (resultados, clasificaciones, fotos), solo debes editar ese archivo.
+La aplicación consume los datos de un archivo **JSON** alojado en GitHub Gist. Para actualizar la información (resultados, clasificaciones, fotos), solo debes editar ese archivo. Los cambios se verán reflejados al abrir la app o al deslizar hacia abajo para actualizar.
 
 ---
 
-## ⚽ 2. Funcionamiento de los Partidos (MatchCarousel)
+## ⚽ 2. El Carrusel Master (MatchCarousel)
 
-El carrusel de partidos tiene funciones inteligentes basadas en lo que escribas en el JSON.
+El carrusel de la pantalla de inicio ahora es inteligente y de alta precisión:
 
-### A. Estados de Partido (Colores)
-Dependiendo de lo que pongas en el campo `"status"`, el texto aparecerá en un color diferente:
+### A. Paso Obligatorio (Strict Paging)
+Para mantener una estética profesional, el carrusel obliga a pasar las tarjetas **una a una**. Aunque deslices rápido, el sistema frenará en la siguiente tarjeta para asegurar que el usuario vea todos los partidos.
 
-| Texto en `status` | Color | Significado |
-| :--- | :--- | :--- |
-| `EN XOGO` | **Verde** | El partido está en directo (incluye punto parpadeante). |
-| `DESCANSO` o `PAUSA` | **Gris** | El partido está pausado (entre tiempos). |
-| `FIN` o `FINALIZADO` | **Rojo** | El partido ha terminado. |
+### B. Indicador "Pill Slider"
+Usamos un selector de cápsula de cristal traslúcida. El bloque rojo se mueve dinámicamente bajo el número de partido activo. Es 100% automático y se adapta al número de partidos que pongas en el JSON.
 
-### B. Etiqueta "LOCAL" (Diseño de Placa)
-Ahora **todas las tarjetas** muestran automáticamente una placa roja con letras blancas que dice **LOCAL** encima del equipo de la izquierda. No tienes que hacer nada en el JSON, el sistema lo pone siempre para mayor profesionalidad.
-
-### C. El Modo "DESCANSO" (Automático y Centrado)
-El sistema es inteligente. La tarjeta se volverá **minimalista, vacía y centrada** automáticamente si escribes la palabra `"DESCANSO"` en **cualquiera** de estos tres sitios del JSON:
-1.  En el campo `"status": "DESCANSO"`.
-2.  En el nombre del equipo local `"home": "DESCANSO"`.
-3.  En el nombre del equipo rival `"away": "DESCANSO"`.
-
-**Resultado**: Se ocultará toda la información de equipos y mapa, mostrando solo el título (ej: "ESTA XORNADA") y la palabra "DESCANSO" en el centro de la tarjeta.
-
-### D. Partidos Pendientes (Visualización "VS" u Hora)
-- **Si el marcador (`score`) es `"POR DEFINIR"`**: Se mostrará un elegante **"VS"** con opacidad suave en el centro.
-- **Si el marcador (`score`) incluye una hora**: Si el sistema detecta un **":"** o una **"H"** (ej: `17:00H`, `12:30`, `18h`), mostrará ese texto en el centro con un estilo de "pre-partido" limpio.
+### C. La Lógica "DESCANSA" (Automático)
+Si un equipo no juega esa semana, el sistema limpia la tarjeta y muestra un mensaje potente: **"DESCANSA"**. 
+- **Cómo activarlo**: Escribe la palabra `"DESCANSO"` en el campo `"home"` o `"away"` de tu JSON. El sistema hará el resto (ocultará escudos, mapas y centrará el texto).
 
 ---
 
-## 🏫 3. Sección de Escuelas (Canteira)
+## 🏆 3. Rediseño Elite Seniors (Tarjetas Hero)
 
-Para cambiar la foto de la sección "Únete á Canteira", usa el campo:
-`"uneteImage": "URL_DE_TU_IMAGEN"` dentro del objeto `escolas` en `homeContent`.
+En la sección de **Partidos**, hemos creado una jerarquía visual para los equipos principales:
+
+1.  **Senior A y B**: Estos equipos aparecen con **Tarjetas Hero** de gran formato (`190px`).
+2.  **Marca de Agua**: El sistema detecta si es el equipo "A" o el "B" y pone una letra gigante de fondo.
+3.  **Canteira**: El resto de categorías siguen apareciendo en una lista compacta y ágil para facilitar la lectura de muchos partidos seguidos.
 
 ---
 
-## 📋 4. Consejos para el JSON
-1. **Mayúsculas**: Se recomienda escribir los nombres de equipos y categorías en MAYÚSCULAS.
-2. **URLs de Imágenes**: Utiliza enlaces directos (que terminen en `.jpg` o `.png`). Recomendamos `postimg.cc`.
-3. **Puntos de Clasificación**: Los valores de `pts` y `pj` deben ser **números** (ej. `58`), no texto entre comillas (ej. `"58"`).
+## 🔄 4. Sincronización "Ethereal Liquid"
+
+Cuando deslizas hacia abajo para actualizar los datos:
+- Verás el texto **"DESLIZA PARA ACTUALIZAR"** con una animación de expansión de letras.
+- Al soltar, aparecerá **"ACTUALIZANDO"** con un pulso de luz roja atmosférico. Este sistema está optimizado por la GPU para que sea fluido incluso en móviles antiguos.
+
+---
+
+## 📋 5. Consejos para el JSON Profesional
+1. **Mayúsculas**: Escribe nombres de equipos y categorías en MAYÚSCULAS para mantener la estética HUD.
+2. **Resultados**: Si el partido no ha empezado, pon `"POR DEFINIR"` o la hora (ej: `"17:00H"`) en el campo `"score"`.
+3. **Imágenes**: Usa siempre enlaces directos `.jpg` o `.png`.
 
 ---
 
 > [!IMPORTANT]
-> Los cambios que realices en el **Gist** tardarán unos segundos en aparecer en la app. Si quieres que el cambio sea inmediato, cierra y vuelve a abrir la aplicación.
+> **Estabilidad en iOS/iPhone**: Si notas que al navegar la pantalla intenta subir sola, no te preocupes. Hemos implementado un reseteo de seguridad que fuerza el posicionamiento correcto 0.5ms después de cambiar de página.
+
+---
