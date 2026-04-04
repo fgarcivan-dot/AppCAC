@@ -77,8 +77,9 @@ export default function Resultados() {
                   away={maleResult.away}
                   score={maleResult.score}
                   date={maleResult.date}
-                  category={maleResult.category}
-                  result={maleResult.result}
+                  venue={maleResult.venue}
+                  category="SENIOR MASCULINO"
+                  result={maleResult.result as "VITORIA" | "DERROTA" | "EMPATE"}
                   index={0}
                   theme={theme}
                 />
@@ -100,8 +101,9 @@ export default function Resultados() {
                   away={femaleResult.away}
                   score={femaleResult.score}
                   date={femaleResult.date}
-                  category={femaleResult.category}
-                  result={femaleResult.result}
+                  venue={femaleResult.venue}
+                  category="SENIOR FEMININO"
+                  result={femaleResult.result as "VITORIA" | "DERROTA" | "EMPATE"}
                   index={1}
                   theme={theme}
                 />
@@ -119,16 +121,17 @@ export default function Resultados() {
 
         {activeTab === "CANTEIRA" && (
           <div className="flex flex-col gap-4">
-            {youthResults.map((res, i) => (
+            {youthResults.map((res, idx) => (
               <ProResultCard 
                 key={res.id}
                 home={res.home}
                 away={res.away}
                 score={res.score}
                 date={res.date}
+                venue={res.venue}
                 category={res.category}
-                result={res.result}
-                index={i}
+                result={res.result as "VITORIA" | "DERROTA" | "EMPATE"}
+                index={idx}
                 theme={theme}
               />
             ))}

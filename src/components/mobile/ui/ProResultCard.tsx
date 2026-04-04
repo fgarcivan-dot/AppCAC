@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, Calendar } from "lucide-react";
+import { Trophy, Calendar, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProResultCardProps {
@@ -9,13 +9,14 @@ interface ProResultCardProps {
   away: string;
   score: string;
   date: string;
+  venue: string;
   category: string;
   result: "VITORIA" | "DERROTA" | "EMPATE";
   index: number;
   theme?: "day" | "night";
 }
 
-export function ProResultCard({ home, away, score, date, category, result, index, theme = "night" }: ProResultCardProps) {
+export function ProResultCard({ home, away, score, date, venue, category, result, index, theme = "night" }: ProResultCardProps) {
   
   // 🏷️ DYNAMIC WATERMARK LOGIC
   const getWatermark = (cat: string) => {
@@ -100,6 +101,14 @@ export function ProResultCard({ home, away, score, date, category, result, index
                   theme === 'day' ? "text-slate-400" : "text-white/40"
                 }`}>
                   ÚLTIMA XORNADA · {date}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={9} className={theme === 'day' ? "text-slate-300" : "text-white/20"} />
+                <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
+                  theme === 'day' ? "text-slate-400" : "text-white/40"
+                }`}>
+                  {venue}
                 </span>
               </div>
             </div>

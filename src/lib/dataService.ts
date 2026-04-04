@@ -55,6 +55,7 @@ export interface ResultRow {
   away: string;
   score: string;
   date: string;
+  venue: string;
   category: string;
   result: "VITORIA" | "DERROTA" | "EMPATE";
 }
