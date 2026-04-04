@@ -12,11 +12,23 @@ import { useTheme } from "@/components/mobile/layout/AppProvider";
 import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Home() {
-  const { data, refreshKey } = useContent();
+  const { data, loading } = useContent();
   const { theme } = useTheme();
+
+  if (loading) return <div className="h-screen flex items-center justify-center bg-black"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
+
+  const manifesto = data.inicio?.manifesto;
+  const masculino = data.equipos?.masculino;
+  const femenino = data.equipos?.femenino;
+  const escuelas = data.inicio?.escolas;
+  const instaGrid = data.inicio?.instaGrid;
+  const membership = data.inicio?.membership;
+
   const [activeTab, setActiveTab] = useState<"masculino" | "femenino">("masculino"); 
 
-  const currentData = data[activeTab];
+  const currentData = activeTab === "masculino" ? masculino : femenino;
+
+  if (!currentData) return null;
 
   return (
     <div className={`flex min-h-screen flex-col items-center justify-start relative overflow-x-hidden`}>
@@ -106,22 +118,22 @@ export default function Home() {
 
             <div className="mt-12 mb-8 flex flex-col items-start justify-center text-left w-full px-6 overflow-hidden">
               <span className={`text-xs font-black tracking-[0.4em] uppercase mb-4 transition-colors duration-1000 ${theme === 'day' ? 'text-primary' : 'text-primary/90'}`} style={{ fontFamily: 'NeueMontreal' }}>
-                {data.homeContent?.manifesto?.line1 || "O Noso Manifesto"}
+                {manifesto?.line1 || "O Noso Manifesto"}
               </span>
               
               <h2 className={`text-[24px] sm:text-3xl md:text-4xl font-black leading-snug tracking-wider uppercase transition-colors duration-1000 ${
                 theme === 'day' ? 'text-slate-900' : 'text-white'
               }`} style={{ fontFamily: 'NeueMontreal' }}>
-                {data.homeContent?.manifesto?.line2 || "Non somos só un club."}<br/>
-                <span className={`text-primary ${theme === 'day' ? 'drop-shadow-sm' : 'drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]'}`}>{data.homeContent?.manifesto?.highlight || "Somos familia."}</span><br/>
-                {data.homeContent?.manifesto?.line3 || "Somos esfuerzo."}<br/>
-                <span className={`text-primary ${theme === 'day' ? 'drop-shadow-sm' : 'drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]'}`}>{data.homeContent?.manifesto?.line1 ? "" : "Somos Cerceda."}</span>
+                {manifesto?.line2 || "Non somos só un club."}<br/>
+                <span className={`text-primary ${theme === 'day' ? 'drop-shadow-sm' : 'drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]'}`}>{manifesto?.highlight || "Somos familia."}</span><br/>
+                {manifesto?.line3 || "Somos esfuerzo."}<br/>
+                <span className={`text-primary ${theme === 'day' ? 'drop-shadow-sm' : 'drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]'}`}>{manifesto?.line1 ? "" : "Somos Cerceda."}</span>
               </h2>
             </div>
 
-            <EscolasSection theme={theme} data={data.homeContent?.escolas} />
-            <InstaGrid theme={theme} data={data.homeContent?.instaGrid} />
-            <MembershipBanner theme={theme} data={data.homeContent?.membership} />
+            <EscolasSection theme={theme} data={escuelas} />
+            <InstaGrid theme={theme} data={instaGrid} />
+            <MembershipBanner theme={theme} data={membership} />
             
           </motion.div>
         </AnimatePresence>

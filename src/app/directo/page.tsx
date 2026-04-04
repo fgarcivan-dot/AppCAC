@@ -7,8 +7,11 @@ import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Directo() {
   const { theme } = useTheme();
-  const { data } = useContent();
-  const content = data.directoContent!;
+  const { data, loading } = useContent();
+
+  if (loading) return <div className="h-screen flex items-center justify-center bg-black"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
+
+  const content = data.directo;
 
   return (
     <div className={`flex flex-col gap-10 p-6  animate-in fade-in duration-700 transition-colors duration-1000 ${

@@ -7,8 +7,11 @@ import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Contacto() {
   const { theme } = useTheme();
-  const { data } = useContent();
-  const content = data.contactoContent!;
+  const { data, loading } = useContent();
+
+  if (loading) return <div className="h-screen flex items-center justify-center bg-black"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
+
+  const content = data.contacto;
 
   const infoItems = [
     { icon: MapPin, title: "DIRECCIÓN", value: content.address },

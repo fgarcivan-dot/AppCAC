@@ -92,7 +92,31 @@ export interface PartidosContent {
   }[];
 }
 
-export interface AppData {
+export interface AppConfig {
+  temporada: string;
+  mesResultados: string;
+  mesPartidos: string;
+}
+
+export interface ResultadosData {
+  lista: ResultRow[];
+  balanceMasculino: { victorias: number; empates: number; derrotas: number };
+  balanceFemenino: { victorias: number; empates: number; derrotas: number };
+}
+
+export interface PartidosData {
+  proximos: {
+    id: number | string;
+    home: string;
+    away: string;
+    date: string;
+    time: string;
+    category: string;
+    venue: string;
+  }[];
+}
+
+export interface EquiposData {
   masculino: {
     posicion: string;
     matches: Match[];
@@ -117,33 +141,16 @@ export interface AppData {
       date: string;
     };
   };
-  homeContent?: HomeContent;
-  resultadosContent?: {
-    results: ResultRow[];
-    maleSeasonWins: number;
-    maleSeasonDraws: number;
-    maleSeasonLosses: number;
-    femaleSeasonWins: number;
-    femaleSeasonDraws: number;
-    femaleSeasonLosses: number;
-    seasonLabel?: string;
-    monthLabel?: string;
-  };
-  directoContent?: DirectoContent;
-  contactoContent?: ContactoContent;
-  partidosContent?: {
-    matches: {
-      id: number | string;
-      home: string;
-      away: string;
-      date: string;
-      time: string;
-      category: string;
-      venue: string;
-    }[];
-    seasonLabel?: string;
-    monthLabel?: string;
-  };
+}
+
+export interface AppData {
+  config: AppConfig;
+  inicio: HomeContent;
+  equipos: EquiposData;
+  resultados: ResultadosData;
+  partidos: PartidosData;
+  directo: DirectoContent;
+  contacto: ContactoContent;
 }
 
 // Tu URL real de Gist configurada para actualizaciones en tiempo real

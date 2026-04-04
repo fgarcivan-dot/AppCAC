@@ -10,11 +10,15 @@ import { cn } from "@/lib/utils";
 import { useContent } from "@/components/mobile/layout/ContentProvider";
 
 export default function Partidos() {
-  const { data } = useContent();
-  const matches = data.partidosContent?.matches || [];
+  const { data, loading } = useContent();
+  const { theme } = useTheme();
+
+  if (loading) return <div className="h-screen flex items-center justify-center bg-black"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
+
+  const matches = data.partidos?.proximos || [];
+  const config = data.config;
   
   const [activeTab, setActiveTab] = useState("SENIORS");
-  const { theme } = useTheme();
 
   const filteredMatches = matches.filter(match => {
     const cat = match.category.toUpperCase();
@@ -36,12 +40,12 @@ export default function Partidos() {
           <span className={`text-[10px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
             theme === 'day' ? 'text-slate-400' : 'text-white/40'
           }`}>
-            {data.partidosContent?.seasonLabel || "TEMP. 24/25"}
+            {config?.temporada || "TEMP. 24/25"}
           </span>
           <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-1000 ${
             theme === 'day' ? 'text-slate-300' : 'text-white/20'
           }`}>
-            {data.partidosContent?.monthLabel || "ABRIL 2025"}
+            {config?.mesPartidos || "ABRIL 2025"}
           </span>
         </div>
       </header>
