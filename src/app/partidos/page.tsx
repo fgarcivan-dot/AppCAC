@@ -19,17 +19,7 @@ export default function Partidos() {
   const filteredMatches = matches.filter(match => {
     const cat = match.category.toUpperCase();
     if (activeTab === "SENIORS") return cat.includes("SENIOR");
-    if (activeTab === "ALEVÍNS") return cat.includes("ALEVÍN");
-    if (activeTab === "BENXAMÍNS") return cat.includes("BENXAMÍN");
-    if (activeTab === "PREBENXAMÍN") return cat.includes("PREBENXAMÍN");
-    if (activeTab === "BIBERÓNS") return cat.includes("BIBERÓN");
-    if (activeTab === "CANTEIRA") {
-       return !cat.includes("SENIOR") && 
-              !cat.includes("ALEVÍN") && 
-              !cat.includes("BENXAMÍN") && 
-              !cat.includes("PREBENXAMÍN") && 
-              !cat.includes("BIBERÓN");
-    }
+    if (activeTab === "CANTEIRA") return !cat.includes("SENIOR");
     return true;
   });
 
@@ -52,13 +42,13 @@ export default function Partidos() {
         </div>
       </header>
 
-      {/* Categories Horizontal HUD */}
-      <section className="flex gap-3 overflow-x-auto scrollbar-hide pb-4 -mx-6 px-6 snap-x snap-mandatory">
-        {["SENIORS", "ALEVÍNS", "BENXAMÍNS", "PREBENXAMÍN", "BIBERÓNS", "CANTEIRA"].map((cat) => (
+      {/* Categories Horizontal */}
+      <section className="flex gap-4 pb-4">
+        {["SENIORS", "CANTEIRA"].map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveTab(cat)}
-            className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black tracking-[0.2em] transition-all snap-start ${
+            className={`whitespace-nowrap px-10 py-3.5 rounded-full text-[10px] font-black tracking-[0.2em] transition-all ${
               activeTab === cat 
                 ? "bg-primary text-white shadow-[0_10px_25px_-5px_rgba(218,41,28,0.4)] scale-105" 
                 : theme === 'day' 
