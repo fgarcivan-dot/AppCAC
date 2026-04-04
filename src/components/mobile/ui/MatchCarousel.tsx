@@ -27,10 +27,10 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
   const [activeIndex, setActiveIndex] = useState(1);
   const [mounted, setMounted] = useState(false);
 
-  // 🛡️ REAL DIMENSIONS CENTERING: Ensures it only stops when measurements are non-zero.
+  // 🛡️ SURGICAL CENTERING: Pure Horizontal Math (No vertical jumps)
   useEffect(() => {
     let attempts = 0;
-    const maxAttempts = 120; // Extended grace period for splash exit
+    const maxAttempts = 80; // Extended safety range for slow Android loads
 
     const forceCenter = () => {
       const container = scrollRef.current;
@@ -47,11 +47,11 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
         
         container.scrollTo({
           left: targetScrollLeft,
-          behavior: 'auto' // Instant for the initial layout
+          behavior: 'auto' // 🚫 CRITICAL: Must be 'auto' to avoid fighting iOS inertia
         });
 
         // Verification: Check if we are physically close to the target
-        const isActuallyCentered = Math.abs(container.scrollLeft - targetScrollLeft) < 5;
+        const isActuallyCentered = Math.abs(container.scrollLeft - targetScrollLeft) < 10;
         
         // Only mark mounted/success if we have the dimensions and it's centered
         if (isActuallyCentered) {
@@ -66,8 +66,7 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
       attempts++;
       const success = forceCenter();
 
-      // THE CURE 2: Only stop if we actually have dimensions (success) AND 
-      // have enough confidence attempts after visibility.
+      // Only stop once it's confirmed centered AND layout is stable
       if (success && attempts > 15) {
         clearInterval(timer);
       }
@@ -96,12 +95,12 @@ export function MatchCarousel({ matches, theme = "night" }: MatchCarouselProps) 
     <div className={`relative w-full py-2 overflow-hidden transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
       <div className="flex flex-col gap-2">
 
-        {/* Full-Bleed Panoramic Swiper Container */}
+        {/* 🚫 NO SCROLL-SMOOTH: Mandatory for iOS stability. Fixed snapping via JS. */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
           className={`flex w-full overflow-x-auto scrollbar-hide px-0 gap-0 pb-4 ${
-            mounted ? "snap-x snap-mandatory scroll-smooth" : "overflow-hidden"
+            mounted ? "snap-x snap-mandatory scroll-auto" : "overflow-hidden"
           }`}
         >
           {matches.map((match, i) => {

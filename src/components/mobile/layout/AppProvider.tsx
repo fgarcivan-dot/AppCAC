@@ -2,6 +2,7 @@
 
 import { useState, useEffect, createContext, useContext } from "react";
 import { AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { SplashScreen } from "./SplashScreen";
 import { Header } from "./Header";
 
@@ -27,6 +28,22 @@ export function useTheme() {
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [theme, setTheme] = useState<Theme>("night"); // Default to night while detecting
+  const pathname = usePathname();
+
+  // 🛡️ ANTI-JUMP iOS: Atomic Scroll Reset on Route Change
+  useEffect(() => {
+    if (!isLoading) {
+      // 1. Instant reset
+      window.scrollTo(0, 0);
+      
+      // 2. Double-check for WebKit (iOS) after layout paint
+      const frameId = requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+      });
+      
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [pathname, isLoading]);
 
   // 📥 INITIAL LOAD: Memory & Solar Detection
   useEffect(() => {

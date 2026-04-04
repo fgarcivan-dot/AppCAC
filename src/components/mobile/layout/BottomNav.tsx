@@ -19,14 +19,6 @@ export function BottomNav() {
   const pathname = usePathname();
   const { theme } = useTheme();
 
-  // 🔴 ATOMIC RESET: Ensures any fragment or scroll memory is cleared on every navigation
-  const handleNavClick = () => {
-    // 1. Forced Instant Reset
-    window.scrollTo(0, 0);
-    // 2. Extra delay for slow rendering devices
-    setTimeout(() => window.scrollTo(0, 0), 10);
-  };
-
   return (
     <nav className={`fixed bottom-0 left-0 right-0 z-50 h-bottom-nav pb-safe border-t backdrop-blur-xl transition-all duration-1000 ${
       theme === 'day' ? "bg-slate-100/80 border-slate-200 shadow-lg" : "bg-black/90 border-white/5"
@@ -39,7 +31,6 @@ export function BottomNav() {
               key={item.name}
               href={item.path}
               scroll={false} // 🚫 Disable Next.js default scroll restoration
-              onClick={handleNavClick} // ⚡ Manual Atomic Reset
               className="relative flex h-full flex-1 flex-col items-center justify-center gap-1.5 transition-all"
             >
               {/* Active Dot Indicator with Layout Animation */}
