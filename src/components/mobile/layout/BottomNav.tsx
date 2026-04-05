@@ -26,7 +26,8 @@ export function BottomNav() {
             <Link
               key={item.name}
               href={item.path}
-              scroll={false} // 🚫 Disable Next.js default scroll restoration
+              scroll={false} 
+              prefetch={false} // 🚫 Prevent background loads causing memory spikes on iOS
               className="relative flex h-full flex-1 flex-col items-center justify-center gap-1.5 transition-all"
             >
               {/* Active Dot Indicator with Layout Animation */}

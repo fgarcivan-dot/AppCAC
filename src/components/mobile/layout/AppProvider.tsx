@@ -6,8 +6,11 @@ import { usePathname } from "next/navigation";
 import { SplashScreen } from "./SplashScreen";
 import { Header } from "./Header";
 
+// 🚀 SINGLETON BOOT CONTROL: Prevents splash screen on navigation
+let isAppBooted = false;
+
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!isAppBooted);
   const pathname = usePathname();
 
   // 🛡️ ANTI-JUMP iOS: Atomic Scroll Reset on Route Change
@@ -44,11 +47,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     hideNativeSplash();
 
     // 1. Initial Loading Timer (Splash)
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3500);
-
-    return () => clearTimeout(timer);
+    if (!isAppBooted) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        isAppBooted = true;
+      }, 3500);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
