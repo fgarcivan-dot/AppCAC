@@ -48,7 +48,7 @@ export default function Partidos() {
 
       {/* Categories Horizontal - ELITE HUD STYLE (Centered) */}
       <section className="w-full flex justify-center pb-4">
-        <div className="w-full max-w-[340px] relative rounded-full p-[3px] border border-white/10 flex items-center shadow-2xl bg-black/40">
+        <div className="w-full max-w-[340px] mt-4 relative rounded-full p-[3px] border border-white/10 flex items-center shadow-2xl bg-black/40">
           <motion.div 
             animate={{ x: activeTab === "SENIORS" ? 0 : "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -59,7 +59,7 @@ export default function Partidos() {
               key={cat}
               onClick={() => setActiveTab(cat)}
               className={cn(
-                "relative z-10 flex-1 py-3.5 text-[10px] font-black tracking-widest uppercase transition-colors duration-500",
+                "relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-500",
                 activeTab === cat ? 'text-white' : 'text-white opacity-40 hover:opacity-100'
               )}
             >
