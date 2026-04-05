@@ -40,20 +40,26 @@ export default function Resultados() {
         </div>
       </header>
 
-      {/* Categories Horizontal - Replicating Partidos tab style */}
-      <section className="flex gap-4 pb-2">
-        {["SENIOR", "CANTEIRA"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveTab(cat)}
-            className={`whitespace-nowrap px-10 py-3.5 rounded-full text-[10px] font-black tracking-[0.3em] transition-all duration-300 ${activeTab === cat
-                ? "bg-primary text-white shadow-[0_10px_25px_-5px_rgba(218,41,28,0.4)] scale-105"
-                : "bg-white/5 text-white opacity-40 border border-white/5 hover:opacity-100"
+      {/* Categories Horizontal - ELITE HUD STYLE (Centered) */}
+      <section className="w-full flex justify-center pb-4">
+        <div className="w-full max-w-[340px] relative rounded-full p-[3px] border border-white/10 flex items-center shadow-2xl bg-black/40">
+          <motion.div 
+            animate={{ x: activeTab === "SENIOR" ? 0 : "100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-br from-primary to-rose-700 rounded-full"
+          />
+          {["SENIOR", "CANTEIRA"].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveTab(cat)}
+              className={`relative z-10 flex-1 py-3.5 text-[10px] font-black tracking-widest uppercase transition-colors duration-500 ${
+                activeTab === cat ? 'text-white' : 'text-white opacity-40 hover:opacity-100'
               }`}
-          >
-            {cat}
-          </button>
-        ))}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </section>
 
       <AnimatePresence mode="wait">

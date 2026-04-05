@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { SeniorMatchCard } from "@/components/mobile/ui/SeniorMatchCard";
 import { useContent } from "@/components/mobile/layout/ContentProvider";
 import { cn } from "@/lib/utils";
@@ -45,22 +46,27 @@ export default function Partidos() {
         </div>
       </header>
 
-      {/* Categories Horizontal */}
-      <section className="flex gap-4 pb-4">
-        {["SENIORS", "CANTEIRA"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveTab(cat)}
-            className={cn(
-              "whitespace-nowrap px-10 py-3.5 rounded-full text-[10px] font-black tracking-[0.3em] transition-all",
-              activeTab === cat
-                ? "bg-primary text-white shadow-[0_10px_25px_-5px_rgba(218,41,28,0.4)] scale-105"
-                : "bg-white/5 text-white opacity-40 border border-white/5 hover:opacity-100"
-            )}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Categories Horizontal - ELITE HUD STYLE (Centered) */}
+      <section className="w-full flex justify-center pb-4">
+        <div className="w-full max-w-[340px] relative rounded-full p-[3px] border border-white/10 flex items-center shadow-2xl bg-black/40">
+          <motion.div 
+            animate={{ x: activeTab === "SENIORS" ? 0 : "100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-br from-primary to-rose-700 rounded-full"
+          />
+          {["SENIORS", "CANTEIRA"].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveTab(cat)}
+              className={cn(
+                "relative z-10 flex-1 py-3.5 text-[10px] font-black tracking-widest uppercase transition-colors duration-500",
+                activeTab === cat ? 'text-white' : 'text-white opacity-40 hover:opacity-100'
+              )}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </section>
 
       {/* Match List */}
