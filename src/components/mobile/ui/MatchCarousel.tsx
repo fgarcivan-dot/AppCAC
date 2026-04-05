@@ -111,8 +111,8 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
 
                     {isRestDay ? (
                       /* Minimalist Rest Day Mode */
-                      <div className="flex flex-col items-center justify-center flex-1">
-                        <span className="text-6xl font-black uppercase tracking-tighter leading-none text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
+                      <div className="flex flex-col items-center justify-center flex-1 pr-4">
+                        <span className="text-4xl sm:text-5xl font-black uppercase tracking-tighter leading-none text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
                           DESCANSA
                         </span>
                         <span className="text-[9px] font-black tracking-[0.5em] mt-3 opacity-40 text-white">
