@@ -1,4 +1,4 @@
-import { Ticket, ShoppingBag, Users } from "lucide-react";
+import { Ticket, ShoppingBag, Users, Zap } from "lucide-react";
 import { HomeContent } from '@/lib/dataService';
 
 interface MembershipBannerProps {
@@ -8,78 +8,75 @@ interface MembershipBannerProps {
 
 export function MembershipBanner({ theme, data }: MembershipBannerProps) {
   const isDay = theme === 'day';
+  
   return (
-    <div className="w-full flex flex-col items-center mt-6 mb-16 px-4">
-      {/* Main Section Title (matching A Nosa Xente) */}
-      <div className="w-full flex flex-col items-center text-center mt-2 mb-6">
-        <h2 className={`text-4xl font-black tracking-tighter uppercase transition-colors duration-1000 ${
-          isDay ? 'text-slate-900' : 'text-white'
-        }`}>
-          {data?.mainTitleLine1 || "FAITE"}<br /><span className="text-primary tracking-normal">{data?.mainTitleHighlight || "SOCIO"}</span>
-        </h2>
-      </div>
-
-      <div className={`w-full max-w-[100%] lg:max-w-md mx-auto relative overflow-hidden flex flex-col items-center px-6 py-10 rounded-[2.5rem] backdrop-blur-3xl shadow-xl transition-all duration-1000 ${
-        isDay ? 'bg-white border border-primary/10 shadow-[0_10px_30px_-15px_rgba(218,41,28,0.1)]' : 'bg-[#050505] border border-white/5 shadow-2xl'
-      }`}>
-      {/* Background Accent */}
-      <div
-        className="absolute -top-32 -left-32 w-64 h-64 rounded-full blur-[100px] pointer-events-none transition-opacity duration-1000"
-        style={{
-          background: isDay ? 'rgba(218, 41, 28, 0.1)' : 'rgba(218, 41, 28, 0.2)'
-        }}
-      />
+    <div className={`w-full relative py-16 px-6 transition-colors duration-1000 ${
+      isDay ? 'bg-slate-50' : 'bg-[#020202]'
+    }`}>
       
-      <p className={`relative z-10 text-sm md:text-base text-center font-medium leading-relaxed mb-8 ${
-        isDay ? 'text-slate-700' : 'text-slate-400'
-      }`}>
-        {data?.description ? data.description.split('\\n').map((line: string, i: number) => <span key={i}>{line}<br /></span>) : (
-          <>
-            Máis ca un club, somos unha comunidade. Facerse socio significa apoiar aos nosos equipos, dende o prebenxamín ata o primeiro equipo. 
-            <br/><br/>
-            As túas cores, o teu escudo, a túa xente.
-          </>
-        )}
-      </p>
+      {/* 🔮 Cinematic Moving Light Streaks */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent animate-pulse" />
 
-      {/* Benefits */}
-      <div className="w-full flex flex-col gap-4 mb-8 relative z-10">
-        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white border border-primary/5 shadow-sm' : 'bg-black border border-white/5'}`}>
-          <div className="w-10 h-10 min-w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary">
-            <Ticket size={18} />
-          </div>
-          <span className={`text-[13px] md:text-sm font-semibold tracking-wide ${isDay ? 'text-slate-800' : 'text-white/90'}`}>{data?.benefit1 || "Acceso a todos os partidos na casa"}</span>
-        </div>
+      <div className={`relative z-10 w-full rounded-[3rem] overflow-hidden transition-all duration-1000 shadow-2xl border ${
+        isDay 
+          ? 'bg-white border-white' 
+          : 'bg-[#0a0a0a] border-white/5'
+      }`}>
         
-        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white border border-primary/5 shadow-sm' : 'bg-black border border-white/5'}`}>
-          <div className="w-10 h-10 min-w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary">
-            <ShoppingBag size={18} />
+        {/* Holographic Header Background */}
+        <div className="absolute right-0 top-0 w-48 h-48 bg-primary/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-40 animate-pulse" />
+        
+        <div className="p-10 relative z-10">
+          {/* Header */}
+          <div className="flex flex-col gap-6 mb-10">
+            <div className="flex items-center gap-3">
+              <Zap size={12} className="text-secondary fill-secondary animate-pulse" />
+              <span className={`text-[9px] font-black tracking-[0.5em] uppercase ${isDay ? 'text-slate-400' : 'text-white/20'}`}>
+                CAC ELITE PASS
+              </span>
+            </div>
+            <h2 className={`text-5xl font-black tracking-tighter uppercase leading-[0.8] transition-colors duration-1000 ${
+              isDay ? 'text-slate-900' : 'text-white'
+            }`}>
+              {data?.mainTitleLine1 || "FAITE"}<br />
+              <span className="text-primary italic tracking-normal drop-shadow-[0_0_15px_rgba(218,41,28,0.3)]">{data?.mainTitleHighlight || "SOCIO"}</span>
+            </h2>
           </div>
-          <span className={`text-[13px] md:text-sm font-semibold tracking-wide ${isDay ? 'text-slate-800' : 'text-white/90'}`}>{data?.benefit2 || "Descontos en merchandising oficial"}</span>
-        </div>
 
-        <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDay ? 'bg-white border border-primary/5 shadow-sm' : 'bg-black border border-white/5'}`}>
-          <div className="w-10 h-10 min-w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary">
-            <Users size={18} />
+          {/* Cinematic Benefits Flow - Refined Spacing */}
+          <div className="flex flex-col gap-3 mb-12">
+            {[
+              { icon: <Ticket size={18} />, text: data?.benefit1 || "Entrada libre partidos" },
+              { icon: <ShoppingBag size={18} />, text: data?.benefit2 || "15% Desconto Tenda" },
+              { icon: <Users size={18} />, text: data?.benefit3 || "Voz e Voto Activo" }
+            ].map((benefit, i) => (
+              <div key={i} className={`flex items-center gap-6 p-5 rounded-[1.8rem] border transition-all duration-500 group ${
+                isDay ? 'bg-slate-50 border-slate-100 hover:border-primary/10' : 'bg-white/5 border-white/5 hover:border-primary/10'
+              }`}>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform bg-primary/5">
+                  {benefit.icon}
+                </div>
+                <span className={`text-[12px] font-black uppercase tracking-widest transition-colors duration-500 ${isDay ? 'text-slate-800' : 'text-white'}`}>
+                  {benefit.text}
+                </span>
+              </div>
+            ))}
           </div>
-          <span className={`text-[13px] md:text-sm font-semibold tracking-wide ${isDay ? 'text-slate-800' : 'text-white/90'}`}>{data?.benefit3 || "Voz e voto nas asembleas do club"}</span>
+
+          {/* Luxury Action Button - Refined Size */}
+          <a 
+            href={data?.btnLink || "/contacto"}
+            className={`flex items-center justify-center gap-5 w-full py-6 rounded-[1.8rem] font-black uppercase text-[10px] tracking-[0.5em] transition-all active:scale-[0.98] ${
+              isDay 
+                ? 'bg-slate-900 text-white shadow-xl hover:bg-primary' 
+                : 'bg-primary text-white shadow-[0_0_40px_rgba(218,41,28,0.3)] hover:bg-white hover:text-black'
+            }`}
+          >
+            {data?.btnText || "INSCRICIÓN DIRECTA" }
+          </a>
+
         </div>
       </div>
-
-      {/* Button CTA */}
-      <a 
-        href={data?.btnLink || "/contacto"}
-        className="relative z-10 w-full flex items-center justify-center gap-2 py-4 rounded-full bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(218,41,28,0.4)] hover:bg-primary-dark hover:scale-105 active:scale-95 transition-all"
-      >
-        <span>{data?.btnText || "Solicitar Alta"}</span>
-      </a>
-      
-      <p className={`relative font-medium tracking-wide mt-6 uppercase text-center w-full transition-colors duration-1000 ${
-        isDay ? 'text-slate-500' : 'text-white/40'
-      } text-[10px]`}>
-        {data?.footerNote || "Tamén dispoñemos de abono familiar e xubilado."}
-      </p>
-    </div>
     </div>
   );
 }

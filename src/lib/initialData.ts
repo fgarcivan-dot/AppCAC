@@ -8,10 +8,10 @@ export const INITIAL_DATA: AppData = {
   },
   inicio: {
     manifesto: {
-      line1: "FORXA DE",
-      line2: "CERCEDENSE",
-      line3: "ORGULLO",
-      highlight: "VIVO"
+      line1: "O NOSO MANIFESTO",
+      line2: "NON SOMOS SÓ UN CLUB.",
+      line3: "SOMOS ESFORZO. SOMOS CERCEDA.",
+      highlight: "SOMOS FAMILIA."
     },
     escolas: {
       headerTitleLine1: "ESCOLA DE FÚTBOL",
@@ -33,12 +33,14 @@ export const INITIAL_DATA: AppData = {
     instaGrid: {
       title1: "VIVE A NOSA",
       title2Highlight: "PAIXÓN",
-      description: "Sigue o día a día do club en tempo real. Fotos de adestramentos, partidos e toda a vida do CAC.",
+      description: "Momentos de paixón. Xogadores, afección e canteira unidos por un mesmo sentimento.",
       images: [
         "/images/insta1.webp",
         "/images/insta2.webp",
         "/images/insta3.webp",
-        "/images/insta4.webp"
+        "/images/insta4.webp",
+        "/images/insta1.webp",
+        "/images/insta2.webp"
       ],
       btnText: "SEGUIR NO INSTAGRAM",
       instagramUrl: "https://instagram.com/atleticocercedense"
