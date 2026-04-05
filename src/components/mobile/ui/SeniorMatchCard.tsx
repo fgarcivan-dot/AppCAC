@@ -40,7 +40,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-      className="relative w-full h-[190px] rounded-[2rem] overflow-hidden border transition-all duration-1000 bg-[#0a0a0a] border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
+      className="relative w-full min-h-[210px] h-auto rounded-[2.2rem] overflow-hidden border transition-all duration-1000 bg-[#0a0a0a] border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)] pb-6"
     >
       {/* 🔮 Background Watermark */}
       <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-white/[0.03]">
@@ -50,7 +50,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
       {/* 🔴 Accent Glow */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
 
-      <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
+      <div className="absolute inset-0 p-5 flex flex-col justify-between z-10 pl-7">
 
         {/* Top: Metadata */}
         <div className="flex justify-between items-start">
@@ -95,7 +95,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
                 "h-6 w-1 rounded-full transition-all duration-1000",
                 isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-white/10"
               )} />
-              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${isHomeCercedense ? "text-primary" : "text-white"}`}>
+              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${isHomeCercedense ? "text-primary" : "text-white"}`}>
                 {home}
               </span>
             </div>
@@ -104,7 +104,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
                 "h-6 w-1 rounded-full transition-all duration-1000",
                 !isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-white/10"
               )} />
-              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${!isHomeCercedense ? "text-primary" : "text-white"}`}>
+              <span className={`text-lg font-black uppercase tracking-tighter leading-tight transition-colors duration-1000 ${!isHomeCercedense ? "text-primary" : "text-white"}`}>
                 {away}
               </span>
             </div>

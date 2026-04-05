@@ -101,13 +101,13 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                 id={`match-card-${i}`}
                 className="flex-none w-screen max-w-full px-6 snap-center snap-always"
               >
-                {/* Elite Hero Card Container (190px) */}
-                <div className="w-full h-[190px] relative transition-all duration-1000 rounded-[2rem] overflow-hidden border bg-[#0a0a0a] border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]">
+                {/* Elite Hero Card Container (Flexible min-height) */}
+                <div className="w-full min-h-[200px] h-auto relative transition-all duration-1000 rounded-[2.2rem] overflow-hidden border bg-[#0a0a0a] border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)] pb-4">
 
                   {/* 🔴 Status Bar (Indicator) */}
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-primary opacity-50 shadow-[0_0_20px_rgba(218,41,28,0.4)]" />
 
-                  <div className="absolute inset-0 p-6 flex flex-col justify-between z-20 pl-8">
+                  <div className="absolute inset-0 p-5 flex flex-col justify-between z-20 pl-7">
 
                     {isRestDay ? (
                       /* Minimalist Rest Day Mode */
@@ -174,7 +174,7 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                                 "h-5 w-1 rounded-full",
                                 isHomeCercedense ? "bg-primary" : "bg-white/10"
                                )} />
-                               <span className={`text-lg font-black uppercase tracking-tighter leading-tight ${isHomeCercedense ? "text-primary" : "text-white"}`}>
+                               <span className={`text-base sm:text-lg font-black uppercase tracking-tighter leading-tight ${isHomeCercedense ? "text-primary" : "text-white"}`}>
                                  {match.home}
                                </span>
                              </div>
@@ -183,7 +183,7 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                                  "h-5 w-1 rounded-full",
                                  !isHomeCercedense ? "bg-primary" : "bg-white/10"
                                )} />
-                               <span className={`text-lg font-black uppercase tracking-tighter leading-tight ${!isHomeCercedense ? "text-primary" : "text-white"}`}>
+                               <span className={`text-base sm:text-lg font-black uppercase tracking-tighter leading-tight ${!isHomeCercedense ? "text-primary" : "text-white"}`}>
                                  {match.away}
                                </span>
                             </div>
