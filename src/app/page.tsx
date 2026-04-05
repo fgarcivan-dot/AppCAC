@@ -112,15 +112,12 @@ export default function Home() {
                 <div className="w-6 h-[1px] bg-primary" />
               </div>
               
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] tracking-tighter uppercase z-10 text-white">
-                <span className="block mb-2">
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.2] tracking-tighter uppercase z-10 text-white">
+                <span className="block mb-4">
                   NON SOMOS SÓ UN CLUB.
                 </span>
-                <span className="block mb-2 text-primary drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]">
-                  SOMOS FAMILIA.
-                </span>
                 <span className="block">
-                  SOMOS ESFORZO. <span className="text-primary drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]">SOMOS CERCEDA.</span>
+                  <span className="text-primary drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]">SOMOS FAMILIA.</span> SOMOS ESFORZO. <span className="text-primary drop-shadow-[0_0_20px_rgba(218,41,28,0.5)]">SOMOS CERCEDA.</span>
                 </span>
               </h2>
 
