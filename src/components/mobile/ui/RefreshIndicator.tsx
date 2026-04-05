@@ -7,7 +7,7 @@ interface RefreshIndicatorProps {
   theme?: "day" | "night";
 }
 
-export function RefreshIndicator({ isRefreshing, yPosition, theme = "night" }: RefreshIndicatorProps) {
+export function RefreshIndicator({ isRefreshing, yPosition }: RefreshIndicatorProps) {
   // 🌊 Liquid Physics & Atmospheric Glow
   const opacity = useTransform(yPosition, [0, 40], [0, 1]);
   const glowHeight = useTransform(yPosition, [0, 100], [0, 120]);
@@ -43,19 +43,18 @@ export function RefreshIndicator({ isRefreshing, yPosition, theme = "night" }: R
         <div className="relative group">
           <motion.span
             animate={isRefreshing ? { 
-              letterSpacing: ["0.4em", "0.8em", "0.4em"],
+              letterSpacing: ["0.6em", "1em", "0.6em"],
               opacity: [0.3, 1, 0.3]
             } : { 
-              letterSpacing: "0.4em",
+              letterSpacing: "0.6em",
               opacity: 1
             }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             className={`text-[8px] font-black uppercase transition-colors duration-1000 ${
               isRefreshing 
                 ? "text-primary drop-shadow-[0_0_10px_rgba(218,41,28,0.5)]" 
-                : (theme === 'day' ? "text-slate-500" : "text-white/30")
+                : "text-white opacity-40"
             }`}
-            style={{ fontFamily: 'NeueMontreal' }}
           >
             {isRefreshing ? "ACTUALIZANDO" : "CERCEDENSE SYNC"}
           </motion.span>

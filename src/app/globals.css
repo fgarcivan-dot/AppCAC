@@ -15,16 +15,16 @@
 }
 
 @theme inline {
-  --color-background: #000000;
+  --color-background: #050505;
   --color-foreground: #ffffff;
   --color-primary: #da291c;
   --color-primary-dark: #8b1b12;
-  --color-accent: #facc15;
+  --color-accent: #ffffff; /* Redefining accent as White for strict theme */
   --color-surface: #0a0a0a;
-  --color-surface-light: #121212;
-  --color-success: #22c55e;
-  --color-success-vibrant: #00ff41;
-  --color-error: #ef4444;
+  --color-surface-light: #111111;
+  --color-success: #ffffff; /* Radical: Use White for success/vitoria */
+  --color-success-vibrant: #da291c; /* Or use Red for intensity */
+  --color-error: #da291c;
   
   /* Alias de colores */
   --color-vitoria: var(--color-success-vibrant);
@@ -44,7 +44,7 @@
 }
 
 body {
-  background-color: #000000;
+  background-color: #050505;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

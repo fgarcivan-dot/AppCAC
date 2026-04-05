@@ -43,7 +43,7 @@ const products = [
 
 export default function MerchGallery() {
   return (
-    <section className="py-12 md:py-24 bg-background relative overflow-hidden" id="merchandising">
+    <section className="py-12 md:py-24 bg-[#050505] relative overflow-hidden" id="merchandising">
       {/* Background elements */}
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-full bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
       
@@ -62,7 +62,7 @@ export default function MerchGallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-white/60 text-lg lg:text-xl mt-4 max-w-2xl mx-auto font-light"
+            className="text-white text-lg lg:text-xl mt-4 max-w-2xl mx-auto font-light opacity-60"
           >
             Viste as nosas cores con orgullo. Descobre a liña oficial de roupa e accesorios do Club Atlético Cercedense.
           </motion.p>
@@ -76,9 +76,9 @@ export default function MerchGallery() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-surface border border-white/5 rounded-sm overflow-hidden flex flex-col hover:border-white/20 transition-all duration-300 shadow-xl"
+              className="group bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden flex flex-col hover:border-primary/20 transition-all duration-300 shadow-2xl"
             >
-              <div className="aspect-square relative bg-surface-light overflow-hidden flex items-center justify-center p-8">
+              <div className="aspect-square relative bg-[#111] overflow-hidden flex items-center justify-center p-8">
                 {/* Fallback pattern */}
                 <div className="absolute inset-0 bg-primary/5 flex flex-col items-center justify-center opacity-20">
                   <span className="font-heading font-black text-6xl italic">CAC</span>
@@ -94,8 +94,8 @@ export default function MerchGallery() {
                 />
               </div>
               
-              <div className="p-8 flex flex-col items-center text-center border-t border-white/5 relative z-20 bg-surface">
-                <span className="text-primary font-bold uppercase tracking-widest text-xs mb-3">{product.category}</span>
+              <div className="p-8 flex flex-col items-center text-center border-t border-white/5 relative z-20 bg-[#0a0a0a]">
+                <span className="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-3">{product.category}</span>
                 <h3 className="font-heading font-black text-2xl text-white uppercase leading-tight mb-2 group-hover:text-primary transition-colors">{product.name}</h3>
               </div>
             </motion.div>
@@ -106,11 +106,11 @@ export default function MerchGallery() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 max-w-3xl mx-auto bg-surface-light border border-white/10 rounded-sm p-8 md:p-12 text-center shadow-2xl relative overflow-hidden"
+          className="mt-20 max-w-3xl mx-auto bg-[#0a0a0a] border border-white/10 rounded-sm p-8 md:p-12 text-center shadow-2xl relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
           <h4 className="font-heading font-black text-3xl md:text-4xl text-white uppercase mb-4">¿Queres conseguir o teu?</h4>
-          <p className="text-white/70 text-lg md:text-xl font-light leading-relaxed">
+          <p className="text-white text-lg md:text-xl font-light leading-relaxed opacity-70">
             Todo o noso merchandising oficial está dispoñible para a súa venda exclusivamente nas <span className="text-white font-medium">oficinas do club</span> ou na nosa cantina os <span className="text-primary font-bold">días de partido</span>.
           </p>
         </motion.div>

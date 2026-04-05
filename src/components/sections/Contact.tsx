@@ -5,7 +5,7 @@ import { Mail, MapPin, Send } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section className="py-24 bg-background" id="contacto">
+    <section className="py-24 bg-[#050505]" id="contacto">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
@@ -31,7 +31,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-white/60 text-lg font-light leading-relaxed mb-12" // Added mb-12 to match original spacing
+                className="text-white text-lg font-light leading-relaxed mb-12 opacity-70" // Added mb-12 to match original spacing
               >
                 Tes algunha dúbida, queres inscribir ao teu fillo/a ou desexas colaborar co club? Escríbenos e responderemos o antes posible.
               </motion.p>
@@ -44,12 +44,12 @@ export default function Contact() {
                 transition={{ delay: 0.1 }}
                 className="flex items-start gap-6"
               >
-                <div className="w-14 h-14 bg-surface border border-white/10 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 bg-[#0a0a0a] border border-white/10 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="text-white font-heading font-bold uppercase tracking-wider text-xl mb-2">Dirección</h4>
-                  <p className="text-white/60 leading-relaxed font-light text-lg">Campo de Fútbol O Roxo<br/>Cerceda, A Coruña, Galicia</p>
+                  <p className="text-white leading-relaxed font-light text-lg opacity-60">Campo de Fútbol O Roxo<br/>Cerceda, A Coruña, Galicia</p>
                 </div>
               </motion.div>
               
@@ -60,12 +60,12 @@ export default function Contact() {
                 transition={{ delay: 0.2 }}
                 className="flex items-start gap-6"
               >
-                <div className="w-14 h-14 bg-surface border border-white/10 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 bg-[#0a0a0a] border border-white/10 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="text-white font-heading font-bold uppercase tracking-wider text-xl mb-2">Email</h4>
-                  <p className="text-white/60 leading-relaxed font-light text-lg break-all">info@clubatleticocercedense.es</p>
+                  <p className="text-white leading-relaxed font-light text-lg break-all opacity-60">info@clubatleticocercedense.es</p>
                 </div>
               </motion.div>
 
@@ -86,7 +86,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="bg-surface border border-white/5 p-8 md:p-12 rounded-sm shadow-xl" // Kept original styling for consistency
+            className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm shadow-xl" // Kept original styling for consistency
           >
             <h3 className="font-heading font-bold text-3xl text-white uppercase mb-8">Envíanos unha mensaxe</h3> {/* Updated text */}
             <form className="flex flex-col gap-5"> {/* Kept original gap-5 */}
@@ -96,7 +96,7 @@ export default function Contact() {
                     <input 
                       type="text" 
                       placeholder="O teu nome completo" // Updated placeholder
-                      className="bg-background border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
+                      className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
                     />
                 </div>
                 <div> {/* Added div for label */}
@@ -104,7 +104,7 @@ export default function Contact() {
                     <input 
                       type="email" 
                       placeholder="ti@email.com" // Updated placeholder
-                      className="bg-background border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
+                      className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
                     />
                 </div>
               </div>
@@ -113,7 +113,7 @@ export default function Contact() {
                 <input 
                   type="text" 
                   placeholder="Sobre que nos escribes?" // Updated placeholder
-                  className="bg-background border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
+                  className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
                 />
               </div>
               <div> {/* Added div for label */}
@@ -121,7 +121,7 @@ export default function Contact() {
                 <textarea 
                   placeholder="Escribe a túa mensaxe aquí..." // Updated placeholder
                   rows={5}
-                  className="bg-background border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full resize-none" // Kept original styling
+                  className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full resize-none" // Kept original styling
                 ></textarea>
               </div>
               <button 

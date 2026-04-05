@@ -15,7 +15,7 @@ const categories = [
 
 export default function YouthAcademy() {
   return (
-    <section className="py-24 md:py-32 bg-background border-t border-white/5 relative overflow-hidden" id="escuelas">
+    <section className="py-24 md:py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden" id="escuelas">
       {/* Decorative background overlay */}
       <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
 
@@ -36,14 +36,14 @@ export default function YouthAcademy() {
               <h2 className="font-heading font-black text-fluid-h2 text-white uppercase tracking-tighter mb-4">
                 A Nosa <span className="text-primary">Canteira</span>
               </h2>
-              <p className="text-white/60 text-lg mb-8 font-light leading-relaxed">
+              <p className="text-white text-lg mb-8 font-light leading-relaxed opacity-70">
                 As Escolas de Fútbol do Concello de Cerceda.
               </p>
               <motion.p
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="text-white/80 border-l-2 border-primary pl-4 italic text-lg"
+                className="text-white border-l-2 border-primary pl-4 italic text-lg"
               >
                 O noso maior orgullo é ver medrar ás futuras promesas. Sete categorías dedicadas á formación integral, onde os valores son tan importantes como os resultados no terreo de xogo.
               </motion.p>
@@ -67,7 +67,7 @@ export default function YouthAcademy() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="group inline-flex gap-3 items-center text-white/60 border-b-2 border-white/20 pb-1 font-heading font-bold uppercase tracking-wider hover:text-white hover:border-white transition-all duration-300 pr-2 hover:pr-4"
+                className="group inline-flex gap-3 items-center text-white/50 border-b-2 border-white/10 pb-1 font-heading font-bold uppercase tracking-wider hover:text-white hover:border-white transition-all duration-300 pr-2 hover:pr-4"
               >
                 Ver Resultados
                 <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -84,7 +84,7 @@ export default function YouthAcademy() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
-                className="group relative aspect-square bg-surface border border-white/5 flex flex-col items-center justify-center p-6 text-center hover:bg-primary transition-colors duration-300 cursor-pointer overflow-hidden rounded-sm"
+                className="group relative aspect-square bg-[#0a0a0a] border border-white/5 flex flex-col items-center justify-center p-6 text-center hover:bg-primary transition-colors duration-300 cursor-pointer overflow-hidden rounded-sm"
               >
                 <div className="absolute right-0 bottom-0 text-white/5 group-hover:text-white/20 font-heading font-black text-8xl md:text-9xl transition-colors duration-500 translate-x-4 translate-y-4 select-none pointer-events-none transform group-hover:scale-110">
                   {(i + 1).toString().padStart(2, '0')}
@@ -101,7 +101,7 @@ export default function YouthAcademy() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.7, duration: 0.4 }}
-              className="col-span-2 md:col-span-2 group relative overflow-hidden bg-surface border border-white/5 rounded-sm flex items-center justify-center p-6 text-center"
+              className="col-span-2 md:col-span-2 group relative overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm flex items-center justify-center p-6 text-center"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-30 filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"

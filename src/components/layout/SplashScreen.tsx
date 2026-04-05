@@ -7,10 +7,10 @@ export default function SplashScreen() {
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black overflow-hidden animate-splash-hide"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505] overflow-hidden animate-splash-hide"
     >
       {/* Background radial gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(225,29,72,0.15)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,41,28,0.15)_0%,transparent_70%)]" />
 
       <div className="relative flex flex-col items-center">
         {/* Animated Glow Circle */}
@@ -42,7 +42,7 @@ export default function SplashScreen() {
             src="/escudo.png"
             alt="Club Atlético Cercedense Logo"
             fill
-            className="object-contain"
+            className="object-contain filter brightness-110 contrast-125"
             priority
           />
         </motion.div>
@@ -53,11 +53,11 @@ export default function SplashScreen() {
           animate={{ opacity: 1 }}
           className="text-center"
         >
-          <h1 className="font-heading text-2xl md:text-3xl font-black tracking-tighter text-white mb-1 uppercase">
-            At. <span className="text-primary">Cercedense</span>
+          <h1 className="font-heading text-3xl md:text-4xl font-black tracking-tighter text-white mb-2 uppercase">
+            AT. <span className="text-primary">CERCEDENSE</span>
           </h1>
-          <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">
-            Orgullo de Cerceda
+          <p className="font-heading text-[10px] uppercase tracking-[0.4em] text-white font-black opacity-40">
+            ORGULLO DE CERCEDA
           </p>
         </motion.div>
       </div>

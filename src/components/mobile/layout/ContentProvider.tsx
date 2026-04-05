@@ -25,14 +25,11 @@ export function useContent() {
   return context;
 }
 
-import { useTheme } from "./AppProvider";
-
 export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<AppData>(INITIAL_DATA);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
-  const { theme } = useTheme();
 
   // Use MotionValue for high-performance visual syncing
   const yPosition = useMotionValue(0);
@@ -153,12 +150,12 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [theme]); // Re-bind on theme change for type safety if needed
+  }, []); // Static logic
 
   return (
     <ContentContext.Provider value={{ data, loading, isRefreshing, pullDistance: pullDistanceState, handleRefresh, refreshKey }}>
       <div className={`relative w-full ${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-700`}>
-        <RefreshIndicator isRefreshing={isRefreshing} yPosition={yPosition} theme={theme as "day" | "night"} />
+        <RefreshIndicator isRefreshing={isRefreshing} yPosition={yPosition} />
         
         <motion.div
           style={{ y: yPosition }}

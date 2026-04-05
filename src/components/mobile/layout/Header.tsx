@@ -6,13 +6,11 @@ import { useState } from "react";
 import Image from "next/image";
 
 interface HeaderProps {
-  theme: 'day' | 'night';
-  toggleTheme: () => void;
   pullDistance?: number;
   isRefreshing?: boolean;
 }
 
-export function Header({ theme, toggleTheme }: HeaderProps) {
+export function Header({ }: HeaderProps) {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -35,11 +33,7 @@ export function Header({ theme, toggleTheme }: HeaderProps) {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full h-header pt-safe border-b backdrop-blur-xl transition-colors duration-1000 ${
-        theme === 'day' 
-        ? 'bg-slate-50/85 border-slate-200/60 shadow-sm shadow-slate-200/20' 
-        : 'bg-black/70 border-white/5'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 w-full h-header pt-safe border-b border-white/5 backdrop-blur-xl bg-black/70 shadow-2xl transition-colors duration-1000"
     >
       <div className="relative w-full h-full flex items-center px-4">
         
@@ -58,36 +52,14 @@ export function Header({ theme, toggleTheme }: HeaderProps) {
             />
           </motion.div>
           <div className="flex flex-col gap-0.5 leading-none">
-            <span 
-              className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${
-                theme === 'day' ? 'text-slate-600' : 'text-white/30'
-              }`}
-              style={{ fontFamily: 'NeueMontreal' }}
-            >
-              CLUB ATLÉTICO
+            <span className="text-[9px] font-black tracking-[0.5em] uppercase text-white opacity-40">
+              CAC ELITE PASS
             </span>
-            <h1 
-              className={`text-xl font-normal tracking-tight uppercase transition-colors duration-1000 ${
-                theme === 'day' ? 'text-slate-900' : 'text-white'
-              }`}
-              style={{ fontFamily: 'Quakerhack' }}
-            >
+            <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.8] text-white italic">
               CERCEDENSE
-            </h1>
+            </h2>
           </div>
         </div>
-
-        {/* Theme Toggle Button (Flotando a la derecha) */}
-        <button
-          onClick={toggleTheme}
-          className={`absolute right-4 p-2.5 rounded-2xl transition-all duration-500 active:scale-90 ${
-            theme === 'day' 
-              ? 'bg-white text-orange-500 border border-slate-200 shadow-sm' 
-              : 'bg-white/5 text-yellow-400 border border-white/5'
-          }`}
-        >
-          {theme === 'day' ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}
-        </button>
       </div>
     </motion.header>
   );

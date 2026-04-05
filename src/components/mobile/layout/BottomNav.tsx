@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Home, Calendar, Trophy, Radio, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/mobile/layout/AppProvider";
 
 const navItems = [
   { name: "INICIO", icon: Home, path: "/" },
@@ -17,12 +16,9 @@ const navItems = [
 
 export function BottomNav() {
   const pathname = usePathname();
-  const { theme } = useTheme();
 
   return (
-    <nav className={`fixed bottom-0 left-0 right-0 z-50 h-bottom-nav pb-safe border-t backdrop-blur-xl transition-all duration-1000 ${
-      theme === 'day' ? "bg-slate-100/80 border-slate-200 shadow-lg" : "bg-black/90 border-white/5"
-    }`}>
+    <nav className="fixed bottom-0 left-0 right-0 z-50 h-bottom-nav pb-safe border-t backdrop-blur-xl transition-all duration-1000 bg-black/90 border-white/5">
       <div className="flex h-20 items-center justify-around px-2">
         {navItems.map((item) => {
           const isActive = pathname === item.path;
@@ -44,14 +40,14 @@ export function BottomNav() {
               
               <div className={cn(
                 "p-1.5 rounded-xl transition-all",
-                isActive ? "text-primary mt-1" : (theme === 'day' ? "text-slate-500" : "text-white/40")
+                isActive ? "text-primary mt-1" : "text-white opacity-40 hover:opacity-100"
               )}>
                 <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
               </div>
               
               <span className={cn(
-                "text-[9px] font-black tracking-widest",
-                isActive ? "text-primary" : (theme === 'day' ? "text-slate-600" : "text-white/40")
+                "text-[9px] font-black tracking-widest uppercase",
+                isActive ? "text-primary" : "text-white opacity-30"
               )}>
                 {item.name}
               </span>

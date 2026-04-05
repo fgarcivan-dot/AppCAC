@@ -41,7 +41,7 @@ const upcomingMatches = [
 
 export default function Matches() {
   return (
-    <section className="py-24 bg-surface min-h-[80vh] relative overflow-hidden" id="partidos">
+    <section className="py-24 bg-[#050505] min-h-[80vh] relative overflow-hidden" id="partidos">
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-full bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
       <div className="fluid-container relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -53,7 +53,7 @@ export default function Matches() {
               Próximos Partidos
             </h2>
           </div>
-          <button className="text-white/60 hover:text-white uppercase font-bold tracking-wider text-sm mt-4 md:mt-0 transition-colors hidden md:block border-b border-white/20 hover:border-white pb-1">
+          <button className="text-white font-bold tracking-wider text-sm mt-4 md:mt-0 transition-colors hidden md:block border-b border-primary/40 hover:border-primary pb-1">
             Ver Calendario Completo
           </button>
         </div>
@@ -66,7 +66,7 @@ export default function Matches() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`${match.featured ? 'bg-primary border-primary-dark' : 'bg-background border-white/5'} border rounded-sm p-6 md:p-8 flex flex-col justify-between relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-xl`}
+              className={`${match.featured ? 'bg-primary border-primary-dark' : 'bg-[#0a0a0a] border-white/5'} border rounded-sm p-6 md:p-8 flex flex-col justify-between relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-2xl`}
             >
               {match.featured && (
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700 z-0" />
@@ -74,22 +74,22 @@ export default function Matches() {
               
               <div className={`flex flex-col gap-1 mb-8 border-b ${match.featured ? 'border-white/20' : 'border-white/10'} pb-4 relative z-10`}>
                 <span className={`${match.featured ? 'text-white' : 'text-primary'} uppercase font-black text-sm tracking-widest`}>{match.team}</span>
-                <span className={`${match.featured ? 'text-white/80' : 'text-white/50'} uppercase font-bold text-xs tracking-widest`}>{match.competition}</span>
+                <span className={`${match.featured ? 'text-white/80' : 'text-white/40'} uppercase font-bold text-xs tracking-widest`}>{match.competition}</span>
               </div>
               
               <div className="flex justify-between items-center gap-4 py-2 relative z-10">
                 <div className="flex flex-col justify-center items-center gap-1 shrink-0">
-                  <span className={`font-heading font-black text-5xl ${match.featured ? 'text-white' : 'text-white'}`}>{match.date}</span>
-                  <span className={`uppercase font-bold text-xs tracking-widest ${match.featured ? 'text-white/90' : 'text-primary'}`}>{match.month}</span>
+                  <span className="font-heading font-black text-5xl text-white">{match.date}</span>
+                  <span className={`uppercase font-bold text-xs tracking-widest ${match.featured ? 'text-white' : 'text-primary'}`}>{match.month}</span>
                 </div>
                 <div className={`h-12 w-px ${match.featured ? 'bg-white/30' : 'bg-white/10'}`} />
                 <div className="flex-1 px-4 flex flex-col justify-center">
-                  <h3 className={`font-heading font-black text-xl md:text-2xl ${match.featured ? 'text-white' : 'text-white'} uppercase tracking-tight leading-tight mb-4`}>
-                    {match.home} <br/> <span className={`${match.featured ? 'text-white/60' : 'text-white/40'} text-lg md:text-xl`}>vs {match.away}</span>
+                  <h3 className="font-heading font-black text-xl md:text-2xl text-white uppercase tracking-tight leading-tight mb-4">
+                    {match.home} <br/> <span className={`${match.featured ? 'text-white/60' : 'text-white/30'} text-lg md:text-xl`}>vs {match.away}</span>
                   </h3>
-                  <div className={`flex flex-col gap-2 ${match.featured ? 'text-white/90' : 'text-white/60'} text-xs font-medium uppercase tracking-wider`}>
-                    <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> {match.time}</div>
-                    <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {match.location}</div>
+                  <div className={`flex flex-col gap-2 ${match.featured ? 'text-white' : 'text-white/60'} text-xs font-medium uppercase tracking-wider`}>
+                    <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /> {match.time}</div>
+                    <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-primary" /> {match.location}</div>
                   </div>
                 </div>
               </div>

@@ -24,17 +24,17 @@ export function BentoCard({ title, subtitle, icon: Icon, badge, className, child
     >
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
-          <h4 className="text-[10px] font-black tracking-widest text-white/40 uppercase">
+          <h4 className="text-[10px] font-black tracking-[0.3em] text-white opacity-40 uppercase">
             {title}
           </h4>
           {subtitle && (
-            <span className="text-[9px] font-bold text-white/20 uppercase tracking-wider">
+            <span className="text-[9px] font-black text-white opacity-20 uppercase tracking-widest">
               {subtitle}
             </span>
           )}
         </div>
         {Icon && (
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/5 text-primary group-active:text-white transition-colors">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/5 text-primary group-active:text-white transition-all duration-300">
             <Icon size={18} strokeWidth={2.5} />
           </div>
         )}
@@ -45,7 +45,7 @@ export function BentoCard({ title, subtitle, icon: Icon, badge, className, child
       </div>
 
       {badge && (
-        <div className="absolute right-4 top-4 flex h-5 items-center justify-center rounded-full bg-success/20 px-3 py-1 font-black text-[8px] tracking-[0.2em] text-success uppercase">
+        <div className="absolute right-4 top-4 flex h-5 items-center justify-center rounded-full bg-primary/20 px-3 py-1 font-black text-[8px] tracking-[0.3em] text-primary uppercase shadow-[0_0_15px_rgba(218,41,28,0.3)]">
           {badge}
         </div>
       )}

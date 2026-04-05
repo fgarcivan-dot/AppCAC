@@ -12,10 +12,10 @@ const HeroActionItem = ({ icon: Icon, text, delay }: { icon: React.ElementType, 
         transition={{ delay, duration: 0.5 }}
         className="flex items-center gap-4 group cursor-pointer"
     >
-        <div className="w-10 h-10 rounded-lg bg-surface-light border border-white/5 flex items-center justify-center transition-all group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:scale-110 shadow-lg">
-            <Icon className="w-5 h-5 text-white/70 group-hover:text-primary transition-colors" />
+        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:bg-primary group-hover:border-primary group-hover:scale-110 shadow-lg">
+            <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
         </div>
-        <span className="text-white/60 font-heading font-black text-xs tracking-[0.2em] uppercase group-hover:text-white transition-colors">
+        <span className="text-white font-heading font-black text-xs tracking-[0.2em] uppercase opacity-40 group-hover:opacity-100 transition-opacity">
             {text}
         </span>
     </motion.div>
@@ -37,11 +37,11 @@ const ResultCard = ({ team, result, opponent, win, draw, loss, delay }: any) => 
         className="flex flex-col bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-md min-w-[130px] flex-1 hover:bg-white/10 transition-colors cursor-default group"
     >
         <div className="flex justify-between items-start mb-2">
-            <span className="text-[9px] text-white/40 uppercase font-black tracking-widest">{team}</span>
-            <div className={`w-1.5 h-1.5 rounded-full ${win ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' : draw ? 'bg-yellow-500' : 'bg-red-500'}`} />
+            <span className="text-[9px] text-white/50 uppercase font-black tracking-widest">{team}</span>
+            <div className={`w-1.5 h-1.5 rounded-full ${win ? 'bg-primary shadow-[0_0_8px_rgba(218,41,28,0.6)]' : 'bg-white/40'}`} />
         </div>
-        <div className="font-marker text-2xl text-white group-hover:text-primary transition-colors">{result}</div>
-        <span className="text-[9px] text-white/60 uppercase font-bold truncate mt-1">vs {opponent}</span>
+        <div className="font-heading font-black text-2xl text-white group-hover:text-primary transition-colors transition-all">{result}</div>
+        <span className="text-[9px] text-white/30 uppercase font-bold truncate mt-1 tracking-widest">vs {opponent}</span>
     </motion.div>
 );
 
@@ -157,7 +157,7 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    <motion.p variants={itemVariants} className="max-w-xl mx-auto text-white/40 text-sm md:text-base font-bold uppercase tracking-[0.3em] mb-16 leading-relaxed">
+                    <motion.p variants={itemVariants} className="max-w-xl mx-auto text-white font-bold uppercase tracking-[0.3em] mb-16 leading-relaxed opacity-40">
                         Máis ca un club, somos o latexo dun pobo unido polas cores <span className="text-primary italic">vermella e branca</span>.
                     </motion.p>
 

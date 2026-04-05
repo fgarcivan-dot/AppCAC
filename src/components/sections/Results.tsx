@@ -48,9 +48,9 @@ const youthResults = [
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 const outcomeColor = (o: string) => {
-  if (o === "Victoria") return { badge: "bg-green-500/15 text-green-400 border-green-500/25", bar: "bg-green-500" };
-  if (o === "Empate")   return { badge: "bg-gray-500/15 text-gray-400 border-gray-500/25",   bar: "bg-gray-500" };
-  if (o === "Derrota")  return { badge: "bg-red-500/15 text-red-400 border-red-500/25",       bar: "bg-red-500" };
+  if (o === "Victoria") return { badge: "bg-primary/20 text-white border-primary/30", bar: "bg-primary" };
+  if (o === "Empate")   return { badge: "bg-white/10 text-white/60 border-white/20",   bar: "bg-white/40" };
+  if (o === "Derrota")  return { badge: "bg-primary/10 text-primary border-primary/20",       bar: "bg-primary/60" };
   return { badge: "bg-white/5 text-white/30 border-white/10", bar: "bg-white/10" };
 };
 
@@ -73,7 +73,7 @@ export default function Results() {
   const total  = played.length;
 
   return (
-    <section className="py-20 bg-surface min-h-screen relative overflow-hidden" id="resultados">
+    <section className="py-20 bg-[#050505] min-h-screen relative overflow-hidden" id="resultados">
       {/* Background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vh] bg-primary/8 blur-[120px] rounded-full pointer-events-none" />
 
@@ -103,7 +103,7 @@ export default function Results() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="flex bg-background border border-white/10 rounded-sm p-1 max-w-xs mx-auto mb-10"
+          className="flex bg-[#0a0a0a] border border-white/10 rounded-sm p-1 max-w-xs mx-auto mb-10"
         >
           {(["seniors", "canteira"] as const).map((t) => (
             <button
@@ -137,7 +137,7 @@ export default function Results() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="relative bg-background border border-white/8 rounded-sm overflow-hidden group hover:-translate-y-0.5 transition-transform duration-300"
+                  className="relative bg-[#0a0a0a] border border-white/8 rounded-sm overflow-hidden group hover:-translate-y-0.5 transition-transform duration-300"
                 >
                   {/* Top accent bar */}
                   <div className={`absolute top-0 left-0 right-0 h-0.5 ${outcomeColor(match.outcome).bar}`} />
@@ -158,7 +158,7 @@ export default function Results() {
                     </div>
 
                     {/* Score row */}
-                    <div className="flex items-center justify-between gap-4 bg-surface/60 border border-white/5 rounded-sm p-4 md:p-6">
+                    <div className="flex items-center justify-between gap-4 bg-white/[0.02] border border-white/5 rounded-sm p-4 md:p-6">
                       <div className="flex-1 text-center">
                         <span className={`font-heading font-black text-lg md:text-2xl uppercase tracking-tight leading-tight ${match.isHome ? "text-white" : "text-white/50"}`}>
                           {match.home}
@@ -199,20 +199,20 @@ export default function Results() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-3xl mx-auto mb-8 bg-background border border-white/8 rounded-sm p-5 md:p-6"
+                className="max-w-3xl mx-auto mb-8 bg-[#0a0a0a] border border-white/8 rounded-sm p-5 md:p-6"
               >
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-white/40 font-black text-[10px] uppercase tracking-[0.2em]">Balance da Xornada</span>
                   <div className="flex gap-4 text-xs font-black uppercase tracking-widest">
-                    <span className="text-green-400">{wins}V</span>
-                    <span className="text-gray-400">{draws}E</span>
-                    <span className="text-red-400">{losses}D</span>
+                    <span className="text-white/80">{wins}V</span>
+                    <span className="text-white/40">{draws}E</span>
+                    <span className="text-primary">{losses}D</span>
                   </div>
                 </div>
                 <div className="flex h-2.5 w-full rounded-full overflow-hidden bg-white/5">
-                  <div style={{ width: `${total ? (wins / total) * 100 : 0}%` }} className="bg-green-500 transition-all duration-700" />
-                  <div style={{ width: `${total ? (draws / total) * 100 : 0}%` }} className="bg-gray-500 transition-all duration-700" />
-                  <div style={{ width: `${total ? (losses / total) * 100 : 0}%` }} className="bg-red-500 transition-all duration-700" />
+                  <div style={{ width: `${total ? (wins / total) * 100 : 0}%` }} className="bg-white/80 transition-all duration-700" />
+                  <div style={{ width: `${total ? (draws / total) * 100 : 0}%` }} className="bg-white/20 transition-all duration-700" />
+                  <div style={{ width: `${total ? (losses / total) * 100 : 0}%` }} className="bg-primary transition-all duration-700" />
                 </div>
               </motion.div>
 
@@ -224,7 +224,7 @@ export default function Results() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.06 }}
-                    className="relative bg-background border border-white/8 rounded-sm overflow-hidden group hover:border-primary/30 transition-all duration-300"
+                    className="relative bg-[#0a0a0a] border border-white/8 rounded-sm overflow-hidden group hover:border-primary/30 transition-all duration-300"
                   >
                     <div className={`absolute top-0 left-0 right-0 h-0.5 ${outcomeColor(cat.outcome).bar} opacity-60 group-hover:opacity-100 transition-opacity`} />
 
@@ -237,11 +237,11 @@ export default function Results() {
                       </div>
 
                       {cat.outcome === "Descanso" ? (
-                        <div className="flex items-center justify-center bg-surface/50 border border-white/5 rounded-sm p-4 min-h-[4rem]">
+                        <div className="flex items-center justify-center bg-white/[0.02] border border-white/5 rounded-sm p-4 min-h-[4rem]">
                           <span className="font-heading font-black text-base text-white/20 uppercase tracking-[0.3em]">DESCANSO</span>
                         </div>
                       ) : (
-                        <div className="flex items-center justify-between bg-surface/50 border border-white/5 rounded-sm p-4 gap-2">
+                        <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 rounded-sm p-4 gap-2">
                           <span className="font-heading font-black text-sm text-white uppercase tracking-tight text-center flex-1 leading-tight">
                             {cat.home ? "Cercedense" : cat.opponent}
                           </span>

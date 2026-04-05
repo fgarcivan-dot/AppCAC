@@ -90,7 +90,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[60] bg-background border-l border-white/10 flex flex-col"
+            className="fixed inset-0 z-[60] bg-[#050505] border-l border-white/10 flex flex-col"
           >
             <div className="p-6 flex justify-end" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1.5rem)' }}>
               <button onClick={() => setIsOpen(false)} className="text-white p-2 flex items-center justify-center">
@@ -103,7 +103,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="font-heading text-4xl uppercase font-bold tracking-tighter hover:text-primary transition-colors"
+                  className="font-heading text-4xl uppercase font-black tracking-tighter text-white hover:text-primary transition-colors"
                 >
                   {link.name}
                 </Link>

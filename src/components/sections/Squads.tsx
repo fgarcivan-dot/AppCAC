@@ -39,7 +39,7 @@ export default function Squads() {
   const [activeTab, setActiveTab] = useState<"mens" | "womens">("mens");
   
   return (
-    <section className="py-12 md:py-24 bg-background relative overflow-hidden" id="plantillas">
+    <section className="py-12 md:py-24 bg-[#050505] relative overflow-hidden" id="plantillas">
       <div className="fluid-container relative z-10 px-6">
         <div className="flex flex-col gap-8 mb-16 items-center">
           <div className="flex flex-col gap-2 items-center">
@@ -60,7 +60,7 @@ export default function Squads() {
           </div>
 
           {/* Elite Tab Selector */}
-          <div className="w-full max-w-[400px] relative backdrop-blur-3xl rounded-full p-[2px] border border-white/10 flex items-center bg-black/40 shadow-2xl">
+          <div className="w-full max-w-[400px] relative backdrop-blur-3xl rounded-full p-[2px] border border-white/10 flex items-center bg-[#0a0a0a] shadow-2xl">
             <motion.div 
               animate={{ x: activeTab === "mens" ? 0 : "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -93,9 +93,9 @@ export default function Squads() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group relative rounded-[2rem] overflow-hidden border border-white/5 bg-zinc-900 flex flex-col shadow-2xl hover:border-primary/20 transition-all duration-500"
+              className="group relative rounded-[2rem] overflow-hidden border border-white/5 bg-[#0a0a0a] flex flex-col shadow-2xl hover:border-primary/20 transition-all duration-500"
             >
-              <div className="aspect-[3/4.5] overflow-hidden relative bg-zinc-800 shrink-0">
+              <div className="aspect-[3/4.5] overflow-hidden relative bg-[#111] shrink-0">
                 {/* Number Watermark HUD */}
                 <div className="absolute top-6 right-6 z-20 w-12 h-12 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl flex items-center justify-center">
                    <span className="text-white font-black text-xl tracking-tighter">{player.number}</span>
@@ -110,7 +110,7 @@ export default function Squads() {
                   }}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent z-10" />
               </div>
 
               <div className="p-6 pt-0 relative z-20 flex flex-col items-center text-center -mt-16">

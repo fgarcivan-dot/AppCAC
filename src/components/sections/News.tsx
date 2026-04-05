@@ -26,7 +26,7 @@ const news = [
 
 export default function News() {
   return (
-    <section className="py-24 bg-background overflow-hidden" id="noticias">
+    <section className="py-24 bg-[#050505] overflow-hidden" id="noticias">
         <div className="fluid-container relative z-10 px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16">
             <div className="flex flex-col gap-2">
@@ -45,9 +45,9 @@ export default function News() {
                 Últimas <span className="text-primary">Novas</span>
               </motion.h2>
             </div>
-            <button className="hidden md:flex items-center gap-3 text-white/40 hover:text-white uppercase font-black tracking-[0.3em] text-[10px] transition-all duration-500 group">
+            <button className="hidden md:flex items-center gap-3 text-white font-black tracking-[0.3em] text-[10px] transition-all duration-500 group">
               VER ARQUIVO COMPLETO
-              <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+              <div className="w-8 h-8 rounded-full border border-primary/40 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
                 <ArrowRight size={12} className="text-white" />
               </div>
             </button>
@@ -60,7 +60,7 @@ export default function News() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="md:col-span-4 group cursor-pointer relative h-[450px] rounded-[2.5rem] overflow-hidden border border-white/5 bg-zinc-900 group shadow-2xl transition-all duration-700 hover:border-primary/30"
+              className="md:col-span-4 group cursor-pointer relative h-[450px] rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#0a0a0a] group shadow-2xl transition-all duration-700 hover:border-primary/30"
             >
               <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
@@ -107,7 +107,7 @@ export default function News() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
-                  className="flex-1 group cursor-pointer relative rounded-[2rem] overflow-hidden border border-white/5 bg-zinc-900 shadow-xl transition-all duration-500 hover:border-primary/20"
+                  className="flex-1 group cursor-pointer relative rounded-[2rem] overflow-hidden border border-white/5 bg-[#0a0a0a] shadow-xl transition-all duration-500 hover:border-primary/20"
                 >
                   <div className="absolute inset-0 z-0">
                     <img 

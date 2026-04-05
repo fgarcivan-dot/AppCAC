@@ -17,7 +17,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md z-50 glass-modern rounded-2xl lg:hidden overflow-hidden shadow-2xl border-white/10">
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md z-50 glass-premium rounded-2xl lg:hidden overflow-hidden shadow-2xl border-white/10">
       <div className="flex justify-around items-center h-16 px-2 relative">
         {/* Subtle background glow for the active item */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 pointer-events-none" />
@@ -32,7 +32,7 @@ export default function BottomNav() {
               href={item.href}
               className="relative flex flex-col items-center justify-center flex-1 h-full group transition-all duration-300 active:scale-90"
             >
-              <div className={`relative p-2 rounded-xl transition-all duration-300 ${isActive ? "text-primary bg-primary/10" : "text-white/40 group-hover:text-white"}`}>
+              <div className={`relative p-2 rounded-xl transition-all duration-300 ${isActive ? "text-primary bg-primary/10" : "text-white opacity-40 group-hover:opacity-100"}`}>
                 <Icon className="w-5 h-5" />
                 {isActive && (
                   <motion.div
@@ -42,7 +42,7 @@ export default function BottomNav() {
                   />
                 )}
               </div>
-              <span className={`text-[8px] uppercase font-black tracking-widest mt-1 transition-colors ${isActive ? "text-primary" : "text-white/20"}`}>
+              <span className={`text-[8px] uppercase font-black tracking-widest mt-1 transition-all ${isActive ? "text-primary" : "text-white opacity-20"}`}>
                 {item.name}
               </span>
             </Link>

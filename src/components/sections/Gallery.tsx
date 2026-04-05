@@ -14,7 +14,7 @@ const images = [
 
 export default function Gallery() {
   return (
-    <section className="py-24 bg-background" id="galeria">
+    <section className="py-24 bg-[#050505]" id="galeria">
       <div className="container mx-auto px-4 md:px-6">
 
         {/* Header */}
@@ -28,7 +28,7 @@ export default function Gallery() {
               <h2 className="font-heading font-black text-5xl md:text-6xl text-white uppercase tracking-tighter mb-4">
                 A Nosa <span className="text-primary">Xente</span>
               </h2>
-              <p className="text-white/60 text-lg max-w-xl mx-auto font-light">
+              <p className="text-white text-lg max-w-xl mx-auto font-light opacity-70">
                 Momentos de paixón. Xogadores, afección e canteira unidos por un mesmo sentimento.
               </p>
             </div>
@@ -61,14 +61,14 @@ export default function Gallery() {
                 />
 
                 {/* Overlay oscuro */}
-                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10" />
+                <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition duration-500 z-10" />
 
                 {/* Texto hover */}
                 <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition duration-500">
-                  <p className="text-xs text-white/70 uppercase tracking-wider">
+                  <p className="text-[10px] text-primary font-black uppercase tracking-widest">
                     Club Atlético
                   </p>
-                  <h3 className="text-lg font-bold text-white">
+                  <h3 className="text-xl font-heading font-black text-white uppercase tracking-tighter">
                     Cercedense
                   </h3>
                 </div>
@@ -82,7 +82,7 @@ export default function Gallery() {
           <a
             href="https://instagram.com"
             target="_blank"
-            className="inline-block text-white border-2 border-white/20 hover:border-white hover:bg-white hover:text-black font-heading font-bold uppercase tracking-wider px-8 py-4 rounded-sm transition-all duration-300"
+            className="inline-block text-white border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-white font-heading font-bold uppercase tracking-widest px-8 py-4 rounded-sm transition-all duration-300"
           >
             Ver Instagram Oficial
           </a>

@@ -36,7 +36,7 @@ export default function Membership() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="text-white/40 text-lg mb-12 font-bold uppercase tracking-widest leading-relaxed"
+                            className="text-white text-lg mb-12 font-bold uppercase tracking-widest leading-relaxed opacity-40"
                         >
                             A túa paixón é o noso motor. Sé parte da familia Cercedense e vive cada partido coma se estiveses no campo.
                         </motion.p>
@@ -56,10 +56,10 @@ export default function Membership() {
                                     transition={{ delay: 0.2 + (i * 0.1) }}
                                     className="flex items-center gap-4 group"
                                 >
-                                    <div className="w-10 h-10 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/50 transition-all">
-                                        <item.icon className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
+                                    <div className="w-10 h-10 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary transition-all">
+                                        <item.icon className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
                                     </div>
-                                    <span className="text-white/60 font-bold uppercase text-[10px] tracking-widest group-hover:text-white transition-colors">
+                                    <span className="text-white font-bold uppercase text-[10px] tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
                                         {item.text}
                                     </span>
                                 </motion.div>
@@ -90,8 +90,8 @@ export default function Membership() {
                                             <img src="/escudo.png" alt="CAC" className="w-full h-full object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity" />
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-primary font-black text-xs tracking-widest uppercase">Elite Access</div>
-                                            <div className="text-white/20 text-[8px] font-black tracking-[0.3em] uppercase">Season 24/25</div>
+                                            <div className="text-primary font-black text-xs tracking-[0.2em] uppercase">Elite Access</div>
+                                            <div className="text-white text-[8px] font-black tracking-[0.3em] uppercase opacity-20">Season 24/25</div>
                                         </div>
                                     </div>
                                     
@@ -104,7 +104,7 @@ export default function Membership() {
                                         <span className="font-heading font-black text-8xl text-white tracking-tighter">50</span>
                                         <div className="flex flex-col">
                                             <span className="text-primary font-black text-2xl leading-none">€</span>
-                                            <span className="text-white/20 font-black text-[10px] tracking-widest uppercase">Anual</span>
+                                            <span className="text-white font-black text-[10px] tracking-widest uppercase opacity-20">Anual</span>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@ export default function Membership() {
                                         Solicitar Alta
                                     </button>
                                     <div className="flex items-center justify-between px-2">
-                                        <span className="text-white/20 text-[9px] font-black uppercase tracking-widest">Digital Member ID: #2024-XXXX</span>
+                                        <span className="text-white text-[9px] font-black uppercase tracking-widest opacity-20">Digital Member ID: #2024-XXXX</span>
                                         <div className="flex gap-1">
                                             {[1,2,3,4].map(i => <div key={i} className="w-1 h-3 bg-white/10" />)}
                                         </div>

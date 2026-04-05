@@ -60,7 +60,7 @@ export const INITIAL_DATA: AppData = {
   },
   equipos: {
     masculino: {
-      posicion: "4º",
+      posicion: "3º",
       matches: [
         {
           title: "ÚLTIMO RESULTADO",
@@ -93,13 +93,13 @@ export const INITIAL_DATA: AppData = {
         }
       ],
       standings: [
-        { pos: 1, team: "ORDES CF", pts: 58, pj: 24 },
-        { pos: 2, team: "SD ABRENSE", pts: 54, pj: 24 },
-        { pos: 3, team: "BETANZOS CF", pts: 51, pj: 24 },
-        { pos: 4, team: "CERCEDENSE", pts: 49, pj: 24 },
-        { pos: 5, team: "MEIRÁS", pts: 45, pj: 24 }
+        { pos: 1, team: "CLUB MEIRAMA", pts: 68, pj: 24 },
+        { pos: 2, team: "C.D. CONREXO", pts: 57, pj: 24 },
+        { pos: 3, team: "CERCEDENSE", pts: 53, pj: 24 },
+        { pos: 4, team: "BERGANTIÑOS \"B\"", pts: 51, pj: 24 },
+        { pos: 5, team: "C.D. X. ARANGA", pts: 42, pj: 24 }
       ],
-      externalUrl: "https://www.siguetuliga.com/liga/galicia-segunda-autonomica-coruna-grupo-2",
+      externalUrl: "https://futgal.es/pnfg/NPcd/NFG_VisClasificacion?cod_primaria=1000120&codgrupo=24967593&codcompeticion=24123231&codjornada=&codtemporada=21",
       socialPost: {
         imageUrl: "/images/social_masc.webp",
         caption: "Gran vitoria no campo do Portomazo. Seguimos escalando! #ForzaCac",
@@ -108,7 +108,7 @@ export const INITIAL_DATA: AppData = {
       }
     },
     femenino: {
-      posicion: "2ª",
+      posicion: "1ª",
       matches: [
         {
           title: "ÚLTIMO RESULTADO",
@@ -141,15 +141,16 @@ export const INITIAL_DATA: AppData = {
         }
       ],
       standings: [
-        { pos: 1, team: "ORDES CF", pts: 62, pj: 22 },
-        { pos: 2, team: "CERCEDENSE", pts: 58, pj: 22 },
-        { pos: 3, team: "AD CULLEREDO", pts: 45, pj: 22 },
-        { pos: 4, team: "MEIRÁS CF", pts: 41, pj: 22 }
+        { pos: 1, team: "CERCEDENSE", pts: 47, pj: 17 },
+        { pos: 2, team: "C.C.D. CURTIS", pts: 43, pj: 17 },
+        { pos: 3, team: "XUVENTUDE CRENDES", pts: 41, pj: 17 },
+        { pos: 4, team: "S. MEICENDE", pts: 38, pj: 17 },
+        { pos: 5, team: "A.D. CULLEREDO", pts: 28, pj: 17 }
       ],
-      externalUrl: "https://www.siguetuliga.com/liga/galicia-femenina-coruna",
+      externalUrl: "https://futgal.es/pnfg/NPcd/NFG_VisClasificacion?cod_primaria=1000120&codgrupo=26188029&codcompeticion=24123314&codjornada=&codtemporada=21",
       socialPost: {
         imageUrl: "/images/social_fem.webp",
-        caption: "Goleada histórica en Culleredo. Imos polo ascenso! #OrgulloCac",
+        caption: "Líderes en solitario tras a gran vitoria en Culleredo. Imos polo campionato! #OrgulloCac",
         postUrl: "https://instagram.com/p/femenino",
         date: "Fai 1 semana"
       }

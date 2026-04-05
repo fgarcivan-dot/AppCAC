@@ -15,7 +15,7 @@ interface SeniorMatchCardProps {
   theme?: "day" | "night";
 }
 
-export function SeniorMatchCard({ home, away, date, time, category, venue, index, theme = "night" }: SeniorMatchCardProps) {
+export function SeniorMatchCard({ home, away, date, time, category, venue, index }: SeniorMatchCardProps) {
 
   // 🏷️ DYNAMIC WATERMARK LOGIC
   const getWatermark = (cat: string) => {
@@ -40,14 +40,10 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-      className={`relative w-full h-[190px] rounded-[2rem] overflow-hidden border transition-all duration-1000 ${theme === 'day'
-          ? "bg-white border-slate-200 shadow-[0_20px_40px_-15px_rgba(218,41,28,0.1)]"
-          : "bg-zinc-900 border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
-        }`}
+      className="relative w-full h-[190px] rounded-[2rem] overflow-hidden border transition-all duration-1000 bg-[#0a0a0a] border-white/5 shadow-[0_0_40px_-10px_rgba(218,41,28,0.2)]"
     >
       {/* 🔮 Background Watermark */}
-      <div className={`absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 ${theme === 'day' ? "text-slate-100" : "text-white/[0.03]"
-        }`}>
+      <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-white/[0.03]">
         {watermarkText}
       </div>
 
@@ -61,16 +57,14 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2">
               <Trophy size={10} className="text-primary" />
-              <span className={`text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-slate-600" : "text-white/40"
-                }`}>
+              <span className="text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 text-white opacity-40">
                 {category}
               </span>
             </div>
             {!isRestDay && (
               <div className="flex items-center gap-2">
-                <MapPin size={9} className={theme === 'day' ? "text-slate-500" : "text-white/20"} />
-                <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 ${theme === 'day' ? "text-slate-600" : "text-white/40"
-                  }`}>
+                <MapPin size={9} className="text-white opacity-20" />
+                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-white opacity-40">
                   {venue}
                 </span>
               </div>
@@ -78,10 +72,8 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           </div>
 
           {!isRestDay && (
-            <div className={`px-3 py-1 rounded-xl border backdrop-blur-xl flex items-center justify-center transition-all duration-1000 ${theme === 'day' ? "bg-white border-slate-200 shadow-sm" : "bg-white/5 border-white/5 shadow-inner"
-              }`}>
-              <span className={`text-[8px] font-black tracking-widest transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white"
-                }`}>LIGA</span>
+            <div className="px-3 py-1 rounded-xl border backdrop-blur-xl flex items-center justify-center transition-all duration-1000 bg-white/5 border-white/5 shadow-inner">
+              <span className="text-[8px] font-black tracking-widest transition-colors duration-1000 text-white">LIGA</span>
             </div>
           )}
         </div>
@@ -89,11 +81,10 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
         {/* Middle: Teams or Rest Message */}
         {isRestDay ? (
           <div className="flex flex-col justify-center items-center py-2">
-            <span className={`text-5xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white drop-shadow-[0_0_20px_rgba(218,41,28,0.4)]"
-              }`}>
+            <span className="text-5xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 text-white drop-shadow-[0_0_20px_rgba(218,41,28,0.4)]">
               DESCANSA
             </span>
-            <span className={`text-[9px] font-black tracking-[0.5em] mt-3 opacity-20 ${theme === 'day' ? 'text-slate-900' : 'text-white'}`}>
+            <span className="text-[9px] font-black tracking-[0.5em] mt-3 opacity-20 text-white">
               {category}
             </span>
           </div>
@@ -102,20 +93,18 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
             <div className="flex items-center gap-3">
               <div className={cn(
                 "h-6 w-1 rounded-full transition-all duration-1000",
-                isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-slate-500/20"
+                isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-white/10"
               )} />
-              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-primary") : (theme === 'day' ? "text-slate-500" : "text-white")
-                }`}>
+              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${isHomeCercedense ? "text-primary" : "text-white"}`}>
                 {home}
               </span>
             </div>
             <div className="flex items-center gap-3">
               <div className={cn(
                 "h-6 w-1 rounded-full transition-all duration-1000",
-                !isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-slate-500/20"
+                !isHomeCercedense ? "bg-primary shadow-[0_0_10px_rgba(218,41,28,0.5)]" : "bg-white/10"
               )} />
-              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${!isHomeCercedense ? (theme === 'day' ? "text-slate-900" : "text-primary") : (theme === 'day' ? "text-slate-500" : "text-white")
-                }`}>
+              <span className={`text-xl font-black uppercase tracking-tighter leading-none transition-colors duration-1000 ${!isHomeCercedense ? "text-primary" : "text-white"}`}>
                 {away}
               </span>
             </div>
@@ -126,10 +115,8 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
         <div className="flex justify-between items-end border-t border-white/5 pt-3 mt-1">
           <div className="flex items-center gap-3">
             <div className="flex flex-col">
-              <span className={`text-[8px] font-black uppercase tracking-[0.2em] transition-colors duration-1000 ${theme === 'day' ? "text-slate-500" : "text-white/30"
-                }`}>DOMINGO</span>
-              <span className={`text-base font-black tabular-nums transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white"
-                }`}>{date}</span>
+              <span className="text-[8px] font-black uppercase tracking-[0.2em] transition-colors duration-1000 text-white opacity-20">DOMINGO</span>
+              <span className="text-base font-black tabular-nums transition-colors duration-1000 text-white">{date}</span>
             </div>
           </div>
 
@@ -139,11 +126,9 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
               <>
                 <div className="flex items-center gap-2 mb-0.5">
                   <Clock size={16} className="text-primary" />
-                  <span className={`text-2xl font-black tabular-nums transition-colors duration-1000 ${theme === 'day' ? "text-slate-900" : "text-white"
-                    }`}>{time}</span>
+                  <span className="text-2xl font-black tabular-nums transition-colors duration-1000 text-white">{time}</span>
                 </div>
-                <span className={`text-[8px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 ${theme === 'day' ? "text-primary" : "text-primary/60"
-                  }`}>
+                <span className="text-[8px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 text-primary opacity-60">
                   HORA DO PARTIDO
                 </span>
               </>
