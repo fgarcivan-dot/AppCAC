@@ -14,7 +14,7 @@ const images = [
 
 export default function Gallery() {
   return (
-    <section className="py-24 bg-[#050505]" id="galeria">
+    <section className="py-24 bg-white border-t border-black/5" id="galeria">
       <div className="container mx-auto px-4 md:px-6">
 
         {/* Header */}
@@ -25,10 +25,10 @@ export default function Gallery() {
             className="mb-12 flex flex-col items-center gap-6"
           >
             <div className="text-center">
-              <h2 className="font-heading font-black text-5xl md:text-6xl text-white uppercase tracking-tighter mb-4">
+              <h2 className="font-heading font-black text-5xl md:text-6xl text-foreground uppercase tracking-tighter mb-4">
                 A Nosa <span className="text-primary">Xente</span>
               </h2>
-              <p className="text-white text-lg max-w-xl mx-auto font-light opacity-70">
+              <p className="text-foreground text-lg max-w-xl mx-auto font-light opacity-70">
                 Momentos de paixón. Xogadores, afección e canteira unidos por un mesmo sentimento.
               </p>
             </div>
@@ -61,7 +61,7 @@ export default function Gallery() {
                 />
 
                 {/* Overlay oscuro */}
-                <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition duration-500 z-10" />
+                <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/30 transition duration-500 z-10" />
 
                 {/* Texto hover */}
                 <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition duration-500">
@@ -82,7 +82,7 @@ export default function Gallery() {
           <a
             href="https://instagram.com"
             target="_blank"
-            className="inline-block text-white border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-white font-heading font-bold uppercase tracking-widest px-8 py-4 rounded-sm transition-all duration-300"
+            className="inline-block text-foreground border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-white font-heading font-bold uppercase tracking-widest px-8 py-4 rounded-sm transition-all duration-300"
           >
             Ver Instagram Oficial
           </a>

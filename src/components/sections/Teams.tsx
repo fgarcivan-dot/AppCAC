@@ -8,7 +8,7 @@ export default function Teams() {
   const { data, loading } = useContent();
 
   if (loading || !data?.equipos) {
-    return <div className="py-24 bg-[#050505] flex items-center justify-center min-h-[400px]">
+    return <div className="py-24 bg-background flex items-center justify-center min-h-[400px]">
       <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
     </div>;
   }
@@ -35,7 +35,7 @@ export default function Teams() {
   ];
 
   return (
-    <section className="py-24 bg-[#050505] overflow-hidden" id="equipos">
+    <section className="py-24 bg-white overflow-hidden" id="equipos">
       <div className="fluid-container relative z-10 px-6">
         <div className="flex flex-col gap-2 mb-16">
           <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export default function Teams() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="font-heading font-black text-5xl md:text-7xl text-white uppercase tracking-tighter leading-none"
+            className="font-heading font-black text-5xl md:text-7xl text-foreground uppercase tracking-tighter leading-none"
           >
             Equipos <span className="text-primary">Seniors</span>
           </motion.h2>
@@ -67,18 +67,18 @@ export default function Teams() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="group relative rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#0a0a0a] flex flex-col h-full shadow-2xl transition-all duration-700 hover:border-primary/20"
+                className="group relative rounded-[2.5rem] overflow-hidden border border-black/5 bg-white flex flex-col h-full shadow-lg transition-all duration-700 hover:border-primary/20"
               >
                 <div className="aspect-[16/10] overflow-hidden relative shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10" />
                   <img
                     src={team.image}
                     alt={team.name}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-80"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out opacity-40 grayscale group-hover:grayscale-0"
                   />
                   <div className="absolute top-6 left-6 z-20">
-                    <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/10 backdrop-blur-xl">
-                      <span className="text-[8px] font-black tracking-[0.4em] text-white uppercase">{team.squad}</span>
+                    <div className="px-4 py-1.5 rounded-full bg-slate-100 border border-black/5 backdrop-blur-xl shadow-sm">
+                      <span className="text-[8px] font-black tracking-[0.4em] text-foreground uppercase">{team.squad}</span>
                     </div>
                   </div>
                 </div>
@@ -86,47 +86,47 @@ export default function Teams() {
                 <div className="p-8 pb-10 relative flex-1 flex flex-col gap-6">
                   <div className="flex flex-col gap-1">
                     <div className="flex justify-between items-start">
-                      <h3 className="font-heading font-black text-3xl text-white uppercase tracking-tighter group-hover:text-primary transition-colors leading-none">{team.name}</h3>
-                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                      <h3 className="font-heading font-black text-3xl text-foreground uppercase tracking-tighter group-hover:text-primary transition-colors leading-none">{team.name}</h3>
+                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 border border-primary/10 shadow-sm">
                          <span className="text-[9px] font-black text-primary uppercase">{team.dynamic?.posicion || "-º"}</span>
                       </div>
                     </div>
-                    <span className="text-white/30 font-black uppercase tracking-[0.3em] text-[9px] mt-2">{team.category}</span>
+                    <span className="text-foreground/30 font-black uppercase tracking-[0.3em] text-[9px] mt-2">{team.category}</span>
                   </div>
 
                   <div className="grid grid-cols-1 gap-2">
-                    <div className="flex justify-between items-center px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/5">
-                      <span className="text-[8px] font-black tracking-[0.3em] text-white/30 uppercase">Corpo Técnico</span>
-                      <span className="text-[9px] font-bold text-white uppercase tracking-widest truncate max-w-[60%]">{team.staff}</span>
+                    <div className="flex justify-between items-center px-4 py-3 rounded-2xl bg-slate-50 border border-black/5">
+                      <span className="text-[8px] font-black tracking-[0.3em] text-foreground/30 uppercase">Corpo Técnico</span>
+                      <span className="text-[9px] font-bold text-foreground uppercase tracking-widest truncate max-w-[60%]">{team.staff}</span>
                     </div>
                   </div>
 
                   {/* Último Resultado Panel - Mini Elite Style */}
-                  <div className="mt-auto bg-white/[0.03] border border-white/5 rounded-[1.8rem] p-6 relative overflow-hidden group-hover:bg-white/[0.05] transition-all">
+                  <div className="mt-auto bg-slate-50 border border-black/5 rounded-[1.8rem] p-6 relative overflow-hidden group-hover:bg-slate-100 transition-all shadow-inner">
                     <div className="flex justify-between items-center mb-5">
                       <div className="flex items-center gap-2">
                         <div className="w-1 h-1 rounded-full bg-primary" />
-                        <span className="text-white/40 uppercase font-black text-[8px] tracking-[0.4em]">ÚLTIMO RESULTADO</span>
+                        <span className="text-foreground/40 uppercase font-black text-[8px] tracking-[0.4em]">ÚLTIMO RESULTADO</span>
                       </div>
-                      <span className="text-white/20 uppercase font-black text-[8px] tracking-[0.4em]">{lastMatch?.date || "-"}</span>
+                      <span className="text-foreground/20 uppercase font-black text-[8px] tracking-[0.4em]">{lastMatch?.date || "-"}</span>
                     </div>
 
                     <div className="flex justify-between items-center gap-4">
                       <div className="flex flex-col gap-2 flex-1">
-                        <span className={`text-sm font-black uppercase tracking-tight ${isHomeCercedense ? 'text-white' : 'text-white/40'}`}>
+                        <span className={`text-sm font-black uppercase tracking-tight ${isHomeCercedense ? 'text-foreground' : 'text-foreground/40'}`}>
                           {lastMatch?.home || "CLUB A"}
                         </span>
-                        <span className={`text-sm font-black uppercase tracking-tight ${!isHomeCercedense ? 'text-white' : 'text-white/40'}`}>
+                        <span className={`text-sm font-black uppercase tracking-tight ${!isHomeCercedense ? 'text-foreground' : 'text-foreground/40'}`}>
                           {lastMatch?.away || "CLUB B"}
                         </span>
                       </div>
 
-                      <div className="flex flex-col items-center justify-center p-3 px-4 bg-black/60 rounded-2xl border border-white/10 min-w-[70px]">
+                      <div className="flex flex-col items-center justify-center p-3 px-4 bg-primary rounded-2xl border border-primary min-w-[70px] shadow-xl shadow-primary/20">
                         <span className="font-heading font-black text-2xl text-white tabular-nums tracking-tighter shadow-sm">{lastMatch?.score || "0-0"}</span>
                         <span className={`uppercase font-black text-[7px] tracking-[0.3em] mt-1 px-2 py-0.5 rounded-full ${
-                          result.toLowerCase().includes('vitoria') ? 'bg-primary/20 text-primary' :
-                          result.toLowerCase().includes('empate') ? 'bg-white/10 text-white/40' :
-                          'bg-primary/20 text-primary'
+                          result.toLowerCase().includes('vitoria') ? 'bg-white/20 text-white' :
+                          result.toLowerCase().includes('empate') ? 'bg-white/10 text-white/80' :
+                          'bg-white/20 text-white'
                         }`}>
                           {result.toUpperCase()}
                         </span>

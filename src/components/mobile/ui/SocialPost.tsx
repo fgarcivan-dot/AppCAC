@@ -20,7 +20,7 @@ export function SocialPost({ imageUrl, caption, postUrl, date }: SocialPostProps
       animate={{ opacity: 1, y: 0 }}
       className="block w-full group overflow-hidden"
     >
-      <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden active:scale-[0.98] transition-all duration-1000 shadow-3xl shadow-black/80">
+      <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden active:scale-[0.98] transition-all duration-1000 shadow-xl shadow-black/5">
         
         {/* Full Bleed Image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -31,10 +31,10 @@ export function SocialPost({ imageUrl, caption, postUrl, date }: SocialPostProps
         />
         
         {/* Deep Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent opacity-90 transition-opacity duration-1000 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity duration-1000 group-hover:opacity-100" />
         
         {/* Instagram Floating Icon */}
-        <div className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-xl border border-white/20 text-white transition-all duration-500 group-hover:bg-primary group-hover:border-primary group-hover:scale-110">
+        <div className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white transition-all duration-500 group-hover:bg-primary group-hover:border-primary group-hover:scale-110">
           <Instagram size={20} />
         </div>
 

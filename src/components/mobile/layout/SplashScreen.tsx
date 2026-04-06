@@ -106,7 +106,7 @@ export function SplashScreen() {
             initial={{ opacity: 0, letterSpacing: "1.2em" }}
             animate={{ opacity: 0.6, letterSpacing: "0.8em" }}
             transition={{ duration: 1.5, delay: 0.4 }}
-            className="text-[10px] font-black text-slate-900 uppercase"
+            className="text-[10px] font-black text-foreground uppercase"
             style={{ fontFamily: 'NeueMontreal' }}
           >
             CLUB ATLÉTICO
@@ -136,7 +136,7 @@ export function SplashScreen() {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-16 flex flex-col items-center gap-1"
       >
-        <span className="text-[12px] font-black tracking-[0.6em] text-slate-500 uppercase">XUNTOS POLOS NOSOS</span>
+        <span className="text-[12px] font-black tracking-[0.6em] text-foreground opacity-50 uppercase">XUNTOS POLOS NOSOS</span>
         <div className="w-24 h-[2px] bg-primary mt-1" />
       </motion.div>
     </motion.div>

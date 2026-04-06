@@ -5,7 +5,7 @@ import { Mail, MapPin, Send } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section className="py-24 bg-[#050505]" id="contacto">
+    <section className="py-24 bg-white" id="contacto">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
@@ -22,7 +22,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="font-heading font-black text-5xl md:text-6xl text-white uppercase tracking-tighter mb-4"
+                className="font-heading font-black text-5xl md:text-6xl text-foreground uppercase tracking-tighter mb-4"
               >
                 Ponte en <span className="text-primary">Contacto</span>
               </motion.h2>
@@ -31,7 +31,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-white text-lg font-light leading-relaxed mb-12 opacity-70" // Added mb-12 to match original spacing
+                className="text-foreground text-lg font-light leading-relaxed mb-12 opacity-70" // Added mb-12 to match original spacing
               >
                 Tes algunha dúbida, queres inscribir ao teu fillo/a ou desexas colaborar co club? Escríbenos e responderemos o antes posible.
               </motion.p>
@@ -44,12 +44,12 @@ export default function Contact() {
                 transition={{ delay: 0.1 }}
                 className="flex items-start gap-6"
               >
-                <div className="w-14 h-14 bg-[#0a0a0a] border border-white/10 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 bg-slate-50 border border-black/5 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-heading font-bold uppercase tracking-wider text-xl mb-2">Dirección</h4>
-                  <p className="text-white leading-relaxed font-light text-lg opacity-60">Campo de Fútbol O Roxo<br/>Cerceda, A Coruña, Galicia</p>
+                  <h4 className="text-foreground font-heading font-bold uppercase tracking-wider text-xl mb-2">Dirección</h4>
+                  <p className="text-foreground leading-relaxed font-light text-lg opacity-60">Campo de Fútbol O Roxo<br/>Cerceda, A Coruña, Galicia</p>
                 </div>
               </motion.div>
               
@@ -60,22 +60,22 @@ export default function Contact() {
                 transition={{ delay: 0.2 }}
                 className="flex items-start gap-6"
               >
-                <div className="w-14 h-14 bg-[#0a0a0a] border border-white/10 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 bg-slate-50 border border-black/5 rounded-sm flex flex-shrink-0 items-center justify-center text-primary group-hover:scale-110 transition-transform">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-heading font-bold uppercase tracking-wider text-xl mb-2">Email</h4>
-                  <p className="text-white leading-relaxed font-light text-lg break-all opacity-60">info@clubatleticocercedense.es</p>
+                  <h4 className="text-foreground font-heading font-bold uppercase tracking-wider text-xl mb-2">Email</h4>
+                  <p className="text-foreground leading-relaxed font-light text-lg break-all opacity-60">info@clubatleticocercedense.es</p>
                 </div>
               </motion.div>
 
               {/* Added Social Media Section */}
-              <div className="pt-8 border-t border-white/10">
-                  <h4 className="font-heading font-bold text-white uppercase tracking-wider mb-4">Séguenos</h4>
+              <div className="pt-8 border-t border-black/5">
+                  <h4 className="font-heading font-bold text-foreground uppercase tracking-wider mb-4">Séguenos</h4>
                   <div className="flex gap-4">
-                    <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white hover:border-primary transition-all">Instagram</a>
-                    <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white hover:border-primary transition-all">Twitter</a>
-                    <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white hover:border-primary transition-all">Facebook</a>
+                    <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-black/5 flex items-center justify-center text-foreground/70 hover:bg-primary hover:text-white hover:border-primary transition-all">Instagram</a>
+                    <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-black/5 flex items-center justify-center text-foreground/70 hover:bg-primary hover:text-white hover:border-primary transition-all">Twitter</a>
+                    <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-black/5 flex items-center justify-center text-foreground/70 hover:bg-primary hover:text-white hover:border-primary transition-all">Facebook</a>
                   </div>
                 </div>
             </div>
@@ -86,47 +86,47 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm shadow-xl" // Kept original styling for consistency
+            className="bg-white border border-black/5 p-8 md:p-12 rounded-sm shadow-2xl shadow-black/5" // Kept original styling for consistency
           >
-            <h3 className="font-heading font-bold text-3xl text-white uppercase mb-8">Envíanos unha mensaxe</h3> {/* Updated text */}
+            <h3 className="font-heading font-bold text-3xl text-foreground uppercase mb-8">Envíanos unha mensaxe</h3> {/* Updated text */}
             <form className="flex flex-col gap-5"> {/* Kept original gap-5 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5"> {/* Kept original gap-5 */}
                 <div> {/* Added div for label */}
-                    <label className="block text-white/50 uppercase tracking-widest text-xs font-bold mb-2">Nome</label> {/* Added label */}
+                    <label className="block text-foreground/50 uppercase tracking-widest text-xs font-bold mb-2">Nome</label> {/* Added label */}
                     <input 
                       type="text" 
                       placeholder="O teu nome completo" // Updated placeholder
-                      className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
+                      className="bg-slate-50 border border-black/5 text-foreground px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
                     />
                 </div>
                 <div> {/* Added div for label */}
-                    <label className="block text-white/50 uppercase tracking-widest text-xs font-bold mb-2">Correo Electrónico</label> {/* Added label */}
+                    <label className="block text-foreground/50 uppercase tracking-widest text-xs font-bold mb-2">Correo Electrónico</label> {/* Added label */}
                     <input 
                       type="email" 
                       placeholder="ti@email.com" // Updated placeholder
-                      className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
+                      className="bg-slate-50 border border-black/5 text-foreground px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
                     />
                 </div>
               </div>
               <div> {/* Added div for label */}
-                <label className="block text-white/50 uppercase tracking-widest text-xs font-bold mb-2">Asunto</label> {/* Added label */}
+                <label className="block text-foreground/50 uppercase tracking-widest text-xs font-bold mb-2">Asunto</label> {/* Added label */}
                 <input 
                   type="text" 
                   placeholder="Sobre que nos escribes?" // Updated placeholder
-                  className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
+                  className="bg-slate-50 border border-black/5 text-foreground px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full" // Kept original styling
                 />
               </div>
               <div> {/* Added div for label */}
-                <label className="block text-white/50 uppercase tracking-widest text-xs font-bold mb-2">Mensaxe</label> {/* Added label */}
+                <label className="block text-foreground/50 uppercase tracking-widest text-xs font-bold mb-2">Mensaxe</label> {/* Added label */}
                 <textarea 
                   placeholder="Escribe a túa mensaxe aquí..." // Updated placeholder
                   rows={5}
-                  className="bg-[#050505] border border-white/10 text-white px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full resize-none" // Kept original styling
+                  className="bg-slate-50 border border-black/5 text-foreground px-5 py-4 rounded-sm focus:outline-none focus:border-primary transition-colors focus:ring-1 focus:ring-primary w-full resize-none" // Kept original styling
                 ></textarea>
               </div>
               <button 
                 type="button" 
-                className="w-full group flex items-center justify-center gap-2 bg-primary text-white py-5 font-heading font-bold uppercase tracking-widest rounded-sm hover:bg-white hover:text-black transition-colors text-lg mt-4" // Adjusted styling to match new button, kept original mt-4
+                className="w-full group flex items-center justify-center gap-2 bg-primary text-white py-5 font-heading font-bold uppercase tracking-widest rounded-sm hover:bg-foreground hover:text-white transition-colors text-lg mt-4" // Adjusted styling to match new button, kept original mt-4
               >
                 Enviar Mensaxe {/* Updated text */}
                 <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> {/* Added Send icon */}

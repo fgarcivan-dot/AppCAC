@@ -1,5 +1,6 @@
-import { GraduationCap, Shield, Users, Trophy } from "lucide-react";
+import { Target, Database, Activity, Trophy } from "lucide-react";
 import { HomeContent } from '@/lib/dataService';
+import { cn } from "@/lib/utils";
 
 interface EscolasSectionProps {
   data?: HomeContent['escolas'];
@@ -8,84 +9,97 @@ interface EscolasSectionProps {
 export function EscolasSection({ data }: EscolasSectionProps) {
   const FEATURES = [
     { 
-      icon: <GraduationCap size={28} />, 
-      title: data?.tecnificacion?.title || "Tecnificación", 
-      desc: data?.tecnificacion?.desc || "Desenvolvemento deportivo e persoal dende os 4 anos.",
-      span: "col-span-1"
+      icon: <Target size={24} />, 
+      title: "TECNIFICACIÓN", 
+      subtitle: "PROGRAMA DE DESENROLO E TECNIFICACIÓN DE XOGADORES",
+      desc: "Fomento de habilidades técnicas individuais adaptadas a cada etapa do crecemento deportivo profundo."
     },
     { 
-      icon: <Shield size={28} />, 
-      title: data?.metodoloxia?.title || "Método", 
-      desc: data?.metodoloxia?.desc || "Respecto e esforzo.",
-      span: "col-span-1"
+      icon: <Database size={24} />, 
+      title: "METODOLOXÍA", 
+      subtitle: "METODOLOXÍA DE ADESTRAAAMENTO PROPIA",
+      desc: "Sistema de traballo cohesionado en todas as categorías para unha evolución progresiva e sólida."
     },
     { 
-      icon: <Users size={28} />, 
-      title: data?.cafyd?.title || "Staff", 
-      desc: data?.cafyd?.desc || "Dirección Elite.",
-      span: "col-span-1"
+      icon: <Activity size={24} />, 
+      title: "ÁREA CAFYD", 
+      subtitle: "POTENCIACIÓN DO FÍSICO",
+      desc: "Preparación física especializada e prevención de lesións supervisada por licenciados en CAFYD."
     },
     { 
-      icon: <Trophy size={28} />, 
-      title: data?.direccion?.title || "Ligas", 
-      desc: data?.direccion?.desc || "Competición autonómica.",
-      span: "col-span-1"
+      icon: <Trophy size={24} />, 
+      title: "DIRECCIÓN", 
+      subtitle: "DIRECCIÓN DEPORTIVA PROFESIONAL",
+      desc: "Supervisión profesional do equipo técnico e seguimento individualizado de cada alumno e categoría."
     }
   ];
 
   return (
-    <div className="w-full py-14 px-6 transition-colors duration-1000 relative overflow-hidden bg-[#050505]">
+    <div className="w-full py-20 px-6 bg-white border-t border-black/5 relative overflow-hidden">
       
-      {/* Cinematic Aura */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* 🏛️ Official Header Structure - Scaling Up */}
-      <div className="flex flex-col items-center text-center mb-12 relative z-10">
+      {/* 🏛️ Header - App-Synced Color Scheme */}
+      <div className="flex flex-col items-center text-center mb-16 relative z-10">
         
-        {/* Main Title - Impactful Typography */}
-        <h2 className="text-4xl font-black tracking-tighter uppercase leading-none mb-3 text-white">
-          ESCOLAS DE<br />
-          <span className="text-primary italic drop-shadow-[0_0_15px_rgba(218,41,28,0.3)]">FÚTBOL</span>
-        </h2>
-        <span className="text-[9px] font-black uppercase tracking-[0.5em] text-white opacity-40">
-          CONCELLO DE CERCEDA
-        </span>
-
-        {/* Cinematic Badge Integration */}
-        <div className="relative h-[280px] w-full flex items-center justify-center mt-[-100px] pointer-events-none">
+        {/* Main Title - App Standard Typography */}
+        <div className="flex flex-col items-center">
+          <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.95] text-slate-950">
+            ESCOLAS DE <br />
+            <span className="text-primary italic block mt-1 tracking-normal">FÚTBOL</span>
+          </h2>
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mt-4">
+            CONCELLO DE CERCEDA
+          </p>
+        </div>
+        
+        {/* Cinematic Badge Integration - App Mode */}
+        <div className="relative h-[240px] w-full flex items-center justify-center mt-[-80px] pointer-events-none">
           <img 
             src="/images/escolas_concello_logo.png" 
             alt="Cerceda Badge" 
-            className="h-[280px] max-w-full w-auto object-contain transition-all duration-1000 opacity-90 brightness-110 contrast-125"
+            className="h-[240px] max-w-full w-auto object-contain transition-all duration-1000 opacity-90"
           />
         </div>
 
-        <p className="-mt-10 text-[10px] font-black tracking-[0.3em] uppercase leading-relaxed max-w-[320px] mx-auto transition-colors duration-1000 text-white opacity-60">
-          O noso maior orgullo é ver medrar ás futuras promesas. Nove categorías dedicadas á formación integral, onde los valores son tan importantes como los resultados no terreo de xogo.
+        <p className="-mt-8 text-[11px] font-bold tracking-[0.2em] uppercase leading-relaxed max-w-[320px] mx-auto text-slate-400">
+          FORMACIÓN DE FUTURAS PROMESAS <br /> VALORES • DEPORTE • ELITE
         </p>
 
       </div>
 
-      {/* Categories Grid - 2 High-End Vertical Cards */}
-      <div className="grid grid-cols-2 gap-4 w-full relative z-10">
+      {/* Categories Grid - Light Mode Adaptation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full relative z-10">
         {FEATURES.map((item, i) => (
-          <div key={i} className={`p-5 rounded-[1.8rem] flex flex-col gap-4 border transition-all duration-500 group active:scale-95 ${item.span} bg-white/5 border-white/5 hover:border-primary/30 shadow-2xl shadow-black`}>
-            <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 shadow-lg bg-white/5 text-primary group-hover:bg-primary group-hover:text-white">
-              {item.icon}
+          <div 
+            key={i} 
+            className={cn(
+              "relative bg-white border border-black/5 p-8 rounded-[2rem] transition-all duration-500 group active:scale-[0.98] overflow-hidden shadow-sm flex flex-col",
+              "hover:border-primary/20 hover:bg-slate-50/50"
+            )}
+          >
+            {/* 🚩 Feature Icon - Compact Standard block */}
+            <div className="relative w-10 h-10 flex items-center justify-center mb-6 bg-primary/10 rounded-xl text-primary group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                {item.icon}
             </div>
             
-            <div className="flex flex-col gap-2">
-              <h3 className="text-[15px] font-black uppercase tracking-tight transition-colors duration-500 text-white">
+            <div className="flex flex-col gap-3">
+              {/* Title - Compact App Black */}
+              <h3 className="font-black text-xl uppercase tracking-tighter text-slate-950 leading-none">
                 {item.title}
               </h3>
-              <p className="text-[10px] font-black leading-relaxed transition-colors duration-1000 text-white opacity-40 uppercase tracking-widest">
+
+              {/* Subtitle - Club Red */}
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary leading-snug">
+                {item.subtitle}
+              </p>
+
+              {/* Description - Standard App Gray */}
+              <p className="text-[12px] font-medium leading-relaxed text-slate-500">
                 {item.desc}
               </p>
             </div>
           </div>
         ))}
       </div>
-
     </div>
   );
 }

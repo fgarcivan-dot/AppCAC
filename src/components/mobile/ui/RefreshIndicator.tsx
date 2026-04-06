@@ -53,7 +53,7 @@ export function RefreshIndicator({ isRefreshing, yPosition }: RefreshIndicatorPr
             className={`text-[8px] font-black uppercase transition-colors duration-1000 ${
               isRefreshing 
                 ? "text-primary drop-shadow-[0_0_10px_rgba(218,41,28,0.5)]" 
-                : "text-white opacity-40"
+                : "text-foreground opacity-40"
             }`}
           >
             {isRefreshing ? "ACTUALIZANDO" : "CERCEDENSE SYNC"}

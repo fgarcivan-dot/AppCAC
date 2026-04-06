@@ -10,7 +10,7 @@ export default function EquiposPage() {
   const { data, loading } = useContent();
 
   if (loading) {
-    return <div className="h-screen flex items-center justify-center bg-black">
+    return <div className="h-screen flex items-center justify-center bg-background">
       <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
     </div>;
   }
@@ -18,7 +18,7 @@ export default function EquiposPage() {
   const equipos = data?.equipos;
 
   return (
-    <main className="flex min-h-screen flex-col bg-[#050505] text-white">
+    <main className="flex min-h-screen flex-col bg-background text-foreground">
       <div className="flex-1 w-full pb-24 min-h-[80vh]">
         {/* Team Overview Cards */}
         <Teams />
@@ -29,7 +29,7 @@ export default function EquiposPage() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-              <h2 className="text-[10px] font-black tracking-[0.4em] uppercase text-white opacity-40">Clasificación Senior Masculino</h2>
+              <h2 className="text-[10px] font-black tracking-[0.4em] uppercase text-foreground opacity-30">Clasificación Senior Masculino</h2>
             </div>
             {equipos?.masculino?.standings && (
               <ClassificationTable 
@@ -43,7 +43,7 @@ export default function EquiposPage() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-              <h2 className="text-[10px] font-black tracking-[0.4em] uppercase text-white opacity-40">Clasificación Senior Femenino</h2>
+              <h2 className="text-[10px] font-black tracking-[0.4em] uppercase text-foreground opacity-30">Clasificación Senior Femenino</h2>
             </div>
             {equipos?.femenino?.standings && (
               <ClassificationTable 

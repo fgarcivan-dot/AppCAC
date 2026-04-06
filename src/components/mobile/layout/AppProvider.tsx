@@ -61,7 +61,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       <AnimatePresence mode="wait">
         {isLoading && <SplashScreen key="splash" />}
       </AnimatePresence>
-      <div className={`transition-colors duration-1000 min-h-screen bg-[#050505] text-white ${isLoading ? "hidden" : "block animate-in fade-in duration-1000"}`}>
+      <div className={`transition-colors duration-1000 min-h-screen bg-background text-foreground ${isLoading ? "hidden" : "block animate-in fade-in duration-1000"}`}>
         {!isLoading && <Header />}
         <div className="pt-header">
           {children}

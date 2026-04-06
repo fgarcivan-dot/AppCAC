@@ -18,7 +18,7 @@ const BentoTile = ({ children, className, delay = 0 }: { children: React.ReactNo
 
 export default function ClubHub() {
     return (
-        <section className="py-24 md:py-32 bg-[#050505] relative overflow-hidden" id="club-hub">
+        <section className="py-24 md:py-32 bg-white relative overflow-hidden" id="club-hub">
             <div className="fluid-container">
                 <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
                     <div>
@@ -34,9 +34,9 @@ export default function ClubHub() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="font-heading font-black text-6xl md:text-8xl text-white uppercase tracking-tighter leading-none"
+                            className="font-heading font-black text-6xl md:text-8xl text-foreground uppercase tracking-tighter leading-none"
                         >
-                            CLUB <span className="opacity-10">ARENA</span>
+                            CLUB <span className="opacity-5">ARENA</span>
                         </motion.h2>
                     </div>
                 </div>
@@ -65,42 +65,42 @@ export default function ClubHub() {
                     </BentoTile>
 
                     {/* Latest Result */}
-                    <BentoTile className="md:col-span-2 bg-[#0a0a0a] border-white/5">
+                    <BentoTile className="md:col-span-2 bg-slate-50 border-black/5 shadow-sm">
                         <div className="flex justify-between items-start mb-6">
-                            <span className="text-white font-black uppercase tracking-[0.3em] text-[10px] opacity-40">Último Resultado</span>
+                            <span className="text-foreground font-black uppercase tracking-[0.3em] text-[10px] opacity-40">Último Resultado</span>
                             <Trophy className="w-5 h-5 text-primary" />
                         </div>
                         <div className="flex items-center justify-between">
                             <div>
-                                <div className="text-white text-xs mb-1 font-bold uppercase opacity-60">Senior Fem.</div>
-                                <div className="font-heading font-black text-5xl text-white">3 - 0</div>
+                                <div className="text-foreground text-xs mb-1 font-bold uppercase opacity-60">Senior Fem.</div>
+                                <div className="font-heading font-black text-5xl text-foreground">3 - 0</div>
                                 <div className="text-primary text-[10px] font-black uppercase tracking-widest mt-1">Vitoria Crucial</div>
                             </div>
                             <div className="text-right">
-                                <div className="text-white text-xs mb-1 font-bold uppercase opacity-30">Rival</div>
-                                <div className="font-neue text-3xl text-white uppercase italic tracking-tighter">BOIRO</div>
+                                <div className="text-foreground text-xs mb-1 font-bold uppercase opacity-30">Rival</div>
+                                <div className="font-heading text-3xl text-foreground uppercase italic tracking-tighter">BOIRO</div>
                             </div>
                         </div>
                     </BentoTile>
 
                     {/* Academy Stats */}
-                    <BentoTile className="bg-[#0a0a0a] border-white/5">
+                    <BentoTile className="bg-slate-50 border-black/5 shadow-sm">
                         <div className="flex flex-col h-full justify-between">
                             <Star className="w-6 h-6 text-primary mb-4" />
                             <div>
-                                <div className="text-4xl font-heading font-black text-white mb-1">+200</div>
-                                <div className="text-white font-black uppercase tracking-widest text-[10px] opacity-40">Nenos na Escola</div>
+                                <div className="text-4xl font-heading font-black text-foreground mb-1">+200</div>
+                                <div className="text-foreground font-black uppercase tracking-widest text-[10px] opacity-40">Nenos na Escola</div>
                             </div>
                         </div>
                     </BentoTile>
 
                     {/* Quick Link: Squads */}
-                    <BentoTile className="bg-[#0a0a0a] border-white/5 group hover:!bg-white transition-colors duration-500">
+                    <BentoTile className="bg-slate-50 border-black/5 shadow-sm group hover:!bg-primary transition-all duration-500">
                         <Link href="/teams" className="flex flex-col h-full justify-between">
-                            <Users className="w-6 h-6 text-white group-hover:text-black transition-colors" />
+                            <Users className="w-6 h-6 text-foreground group-hover:text-white transition-colors" />
                             <div className="flex items-end justify-between">
-                                <span className="font-heading font-black text-3xl text-white group-hover:text-black transition-colors uppercase leading-none">Plantillas</span>
-                                <ArrowUpRight className="w-6 h-6 text-white/20 group-hover:text-black transition-colors" />
+                                <span className="font-heading font-black text-3xl text-foreground group-hover:text-white transition-colors uppercase leading-none">Plantillas</span>
+                                <ArrowUpRight className="w-6 h-6 text-foreground/20 group-hover:text-white transition-colors" />
                             </div>
                         </Link>
                     </BentoTile>

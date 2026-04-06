@@ -12,7 +12,7 @@ export default function Partidos() {
   const [activeTab, setActiveTab] = useState("SENIORS");
 
   if (loading) return (
-    <div className="h-screen flex items-center justify-center bg-black">
+    <div className="h-screen flex items-center justify-center bg-background">
       <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
     </div>
   );
@@ -30,17 +30,17 @@ export default function Partidos() {
   });
 
   return (
-    <div className="flex flex-col gap-8 p-6 animate-in fade-in duration-700 bg-[#050505] text-white">
+    <div className="flex flex-col gap-8 p-6 animate-in fade-in duration-700 bg-background text-foreground">
       {/* Header */}
       <header className="flex items-center justify-between">
-        <h1 className="text-4xl font-black tracking-tighter uppercase italic text-white">
+        <h1 className="text-4xl font-black tracking-tighter uppercase italic text-foreground">
           PRÓXIMOS<br /><span className="text-primary tracking-norm">PARTIDOS</span>
         </h1>
         <div className="flex flex-col items-end text-right">
-          <span className="text-[10px] font-black tracking-[0.3em] uppercase text-white opacity-40">
+          <span className="text-[10px] font-black tracking-[0.3em] uppercase text-foreground opacity-30">
             {temporada}
           </span>
-          <span className="text-[10px] font-black uppercase tracking-widest text-white opacity-20">
+          <span className="text-[10px] font-black uppercase tracking-widest text-foreground opacity-20">
             {mes}
           </span>
         </div>
@@ -48,7 +48,7 @@ export default function Partidos() {
 
       {/* Categories Horizontal - ELITE HUD STYLE (Centered) */}
       <section className="w-full flex justify-center pb-4">
-        <div className="w-full max-w-[340px] relative rounded-full p-[3px] border border-white/10 flex items-center shadow-2xl bg-black/40">
+        <div className="w-full max-w-[340px] relative rounded-full p-[3px] border border-black/5 flex items-center shadow-lg bg-slate-50/50">
           <motion.div 
             animate={{ x: activeTab === "SENIORS" ? 0 : "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -60,7 +60,7 @@ export default function Partidos() {
               onClick={() => setActiveTab(cat)}
               className={cn(
                 "relative z-10 flex-1 py-3.5 text-[10px] font-black tracking-widest uppercase transition-colors duration-500",
-                activeTab === cat ? 'text-white' : 'text-white opacity-40 hover:opacity-100'
+                activeTab === cat ? 'text-white' : 'text-foreground opacity-40 hover:opacity-100'
               )}
             >
               {cat}
@@ -79,7 +79,7 @@ export default function Partidos() {
           />
         ))}
         {filteredMatches.length === 0 && (
-          <div className="py-12 text-center text-[10px] font-black uppercase tracking-[0.3em] text-white opacity-20">
+          <div className="py-12 text-center text-[10px] font-black uppercase tracking-[0.3em] text-foreground opacity-20">
             Non hai partidos programados
           </div>
         )}

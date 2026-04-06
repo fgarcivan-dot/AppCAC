@@ -25,10 +25,10 @@ export default function Manifesto() {
   };
 
   return (
-    <section ref={ref} className="py-32 md:py-64 bg-[#050505] relative overflow-hidden" id="manifesto">
+    <section ref={ref} className="py-32 md:py-64 bg-white relative overflow-hidden" id="manifesto">
         {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-full md:w-2/3 h-full bg-primary/5 blur-[180px] rounded-full pointer-events-none" />
-        <div className="absolute -left-20 bottom-0 w-80 h-80 bg-white/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-full md:w-2/3 h-full bg-primary/[0.03] blur-[180px] rounded-full pointer-events-none" />
+        <div className="absolute -left-20 bottom-0 w-80 h-80 bg-slate-100/50 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="fluid-container relative z-10">
             <motion.div
@@ -46,23 +46,23 @@ export default function Manifesto() {
                 </motion.div>
                 
                 <div className="flex flex-col gap-12 md:gap-20">
-                    <h2 className="font-heading font-black text-[12vw] md:text-[8vw] lg:text-[10vw] leading-[0.85] uppercase text-white flex flex-col items-start select-none">
+                    <h2 className="font-heading font-black text-[12vw] md:text-[8vw] lg:text-[10vw] leading-[0.85] uppercase text-foreground flex flex-col items-start select-none">
                         <motion.span 
                             variants={itemVariants} 
-                            className="text-stroke hover:text-white transition-all duration-700 cursor-default opacity-20 hover:opacity-100"
+                            className="text-stroke hover:text-foreground transition-all duration-700 cursor-default opacity-20 hover:opacity-100"
                         >
                             Non somos só
                         </motion.span>
                         <motion.span 
                             variants={itemVariants} 
-                            className="text-stroke hover:text-white transition-all duration-700 cursor-default mb-8 md:mb-12 opacity-20 hover:opacity-100"
+                            className="text-stroke hover:text-foreground transition-all duration-700 cursor-default mb-8 md:mb-12 opacity-20 hover:opacity-100"
                         >
                             un club.
                         </motion.span>
                         
                         <motion.span 
                             variants={itemVariants} 
-                            className="text-white drop-shadow-[0_20px_40px_rgba(218,41,28,0.2)] relative"
+                            className="text-foreground relative"
                         >
                             Somos familia.
                             <div className="absolute -right-12 top-0 text-primary text-4xl animate-pulse">!</div>
@@ -93,7 +93,7 @@ export default function Manifesto() {
                 {/* Stats Shortcut Overlay */}
                 <motion.div 
                     variants={itemVariants}
-                    className="mt-32 grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-white/5 pt-16"
+                    className="mt-32 grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-black/5 pt-16"
                 >
                     {[
                         { label: "Fundación", val: "1974" },
@@ -103,7 +103,7 @@ export default function Manifesto() {
                     ].map((stat, i) => (
                         <div key={i} className="group">
                             <div className="text-primary font-black text-xs uppercase tracking-widest mb-2 group-hover:translate-x-1 transition-transform">{stat.label}</div>
-                            <div className="text-white font-heading font-black text-4xl">{stat.val}</div>
+                            <div className="text-foreground font-heading font-black text-4xl">{stat.val}</div>
                         </div>
                     ))}
                 </motion.div>

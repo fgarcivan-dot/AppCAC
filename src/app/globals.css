@@ -15,20 +15,20 @@
 }
 
 @theme inline {
-  --color-background: #050505;
-  --color-foreground: #ffffff;
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
   --color-primary: #da291c;
   --color-primary-dark: #8b1b12;
-  --color-accent: #ffffff; /* Redefining accent as White for strict theme */
-  --color-surface: #0a0a0a;
-  --color-surface-light: #111111;
-  --color-success: #ffffff; /* Radical: Use White for success/vitoria */
-  --color-success-vibrant: #da291c; /* Or use Red for intensity */
-  --color-error: #da291c;
+  --color-accent: #da291c; 
+  --color-surface: #f5f5f5;
+  --color-surface-light: #fafafa;
+  --color-success: #da291c; 
+  --color-success-vibrant: #da291c; 
+  --color-error: #555555;
   
   /* Alias de colores */
-  --color-vitoria: var(--color-success-vibrant);
-  --color-derrota: var(--color-error);
+  --color-vitoria: var(--color-primary);
+  --color-derrota: #666666;
 
   --font-sans: var(--font-inter);
   --font-heading: var(--font-roboto-condensed);
@@ -44,8 +44,8 @@
 }
 
 body {
-  background-color: #050505;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #0a0a0a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -53,10 +53,10 @@ body {
 
 @layer utilities {
   .glass-premium {
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(40px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
   }
   .glass-glow-red {
     box-shadow: 0 0 30px -5px rgba(218, 41, 28, 0.3);

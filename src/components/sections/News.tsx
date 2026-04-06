@@ -26,7 +26,7 @@ const news = [
 
 export default function News() {
   return (
-    <section className="py-24 bg-[#050505] overflow-hidden" id="noticias">
+    <section className="py-24 bg-white overflow-hidden" id="noticias">
         <div className="fluid-container relative z-10 px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16">
             <div className="flex flex-col gap-2">
@@ -40,15 +40,15 @@ export default function News() {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="font-heading font-black text-5xl md:text-7xl text-white uppercase tracking-tighter leading-none"
+                className="font-heading font-black text-5xl md:text-7xl text-foreground uppercase tracking-tighter leading-none"
               >
                 Últimas <span className="text-primary">Novas</span>
               </motion.h2>
             </div>
-            <button className="hidden md:flex items-center gap-3 text-white font-black tracking-[0.3em] text-[10px] transition-all duration-500 group">
+            <button className="hidden md:flex items-center gap-3 text-foreground font-black tracking-[0.3em] text-[10px] transition-all duration-500 group">
               VER ARQUIVO COMPLETO
-              <div className="w-8 h-8 rounded-full border border-primary/40 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
-                <ArrowRight size={12} className="text-white" />
+              <div className="w-8 h-8 rounded-full border border-primary/40 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all shadow-sm">
+                <ArrowRight size={12} className="text-foreground group-hover:text-white" />
               </div>
             </button>
           </div>
@@ -60,7 +60,7 @@ export default function News() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="md:col-span-4 group cursor-pointer relative h-[450px] rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#0a0a0a] group shadow-2xl transition-all duration-700 hover:border-primary/30"
+              className="md:col-span-4 group cursor-pointer relative h-[450px] rounded-[2.5rem] overflow-hidden border border-black/5 bg-slate-50 group shadow-lg transition-all duration-700 hover:border-primary/30"
             >
               <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
@@ -107,31 +107,31 @@ export default function News() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
-                  className="flex-1 group cursor-pointer relative rounded-[2rem] overflow-hidden border border-white/5 bg-[#0a0a0a] shadow-xl transition-all duration-500 hover:border-primary/20"
+                  className="flex-1 group cursor-pointer relative rounded-[2rem] overflow-hidden border border-black/5 bg-slate-50 shadow-md transition-all duration-500 hover:border-primary/20"
                 >
                   <div className="absolute inset-0 z-0">
                     <img 
                       src={item.image} 
                       alt={item.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1.5s] opacity-30 grayscale group-hover:grayscale-0"
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1.5s] opacity-20 grayscale group-hover:grayscale-0"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
                   </div>
                   <div className="relative z-10 p-8 h-full flex flex-col justify-between">
                     <div className="flex flex-col gap-3">
                        <span className="text-primary text-[8px] font-black uppercase tracking-[0.3em]">{item.category}</span>
-                       <h3 className="font-heading font-black text-xl text-white uppercase leading-tight tracking-tighter group-hover:text-primary transition-colors">
+                       <h3 className="font-heading font-black text-xl text-foreground uppercase leading-tight tracking-tighter group-hover:text-primary transition-colors">
                         {item.title}
                       </h3>
                     </div>
-                    <span className="text-white/20 text-[8px] font-black uppercase tracking-[0.4em] mt-auto">{item.date}</span>
+                    <span className="text-foreground/20 text-[8px] font-black uppercase tracking-[0.4em] mt-auto">{item.date}</span>
                   </div>
                 </motion.div>
               ))}
             </div>
           </div>
           
-          <button className="w-full flex items-center justify-center gap-4 text-white/40 hover:text-white uppercase font-black tracking-[0.3em] text-[10px] mt-12 transition-all md:hidden border-t border-white/5 pt-8">
+          <button className="w-full flex items-center justify-center gap-4 text-foreground/40 hover:text-foreground uppercase font-black tracking-[0.3em] text-[10px] mt-12 transition-all md:hidden border-t border-black/5 pt-8">
             VER TODAS AS NOVAS
             <ArrowRight size={12} />
           </button>

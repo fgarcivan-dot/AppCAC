@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2, Trophy, Star, Users } from "lucide-react";
 
 export default function Membership() {
   return (
-        <section className="py-32 md:py-48 bg-[#050505] relative overflow-hidden" id="socios">
+        <section className="py-32 md:py-48 bg-white border-t border-black/5 relative overflow-hidden" id="socios">
             {/* Background Texture & Glows */}
             <div className="absolute inset-0 bg-grid-tech opacity-5" />
             <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
@@ -27,16 +27,16 @@ export default function Membership() {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="font-heading font-black text-6xl md:text-8xl text-white uppercase tracking-tighter leading-[0.85] mb-10"
+                            className="font-heading font-black text-6xl md:text-8xl text-foreground uppercase tracking-tighter leading-[0.85] mb-10"
                         >
-                            ÚNETE Á <br /> <span className="text-stroke">LENDA VIVA.</span>
+                            ÚNETE Á <br /> <span className="text-stroke-light">LENDA VIVA.</span>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="text-white text-lg mb-12 font-bold uppercase tracking-widest leading-relaxed opacity-40"
+                            className="text-foreground text-lg mb-12 font-bold uppercase tracking-widest leading-relaxed opacity-40"
                         >
                             A túa paixón é o noso motor. Sé parte da familia Cercedense e vive cada partido coma se estiveses no campo.
                         </motion.p>
@@ -56,10 +56,10 @@ export default function Membership() {
                                     transition={{ delay: 0.2 + (i * 0.1) }}
                                     className="flex items-center gap-4 group"
                                 >
-                                    <div className="w-10 h-10 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary transition-all">
+                                    <div className="w-10 h-10 rounded-sm bg-slate-50 border border-black/5 flex items-center justify-center group-hover:bg-primary transition-all shadow-sm">
                                         <item.icon className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
                                     </div>
-                                    <span className="text-white font-bold uppercase text-[10px] tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <span className="text-foreground font-bold uppercase text-[10px] tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
                                         {item.text}
                                     </span>
                                 </motion.div>
@@ -75,11 +75,11 @@ export default function Membership() {
                         transition={{ duration: 0.8 }}
                         className="relative perspective-1000 group"
                     >
-                        <div className="w-[340px] md:w-[420px] h-[550px] md:h-[600px] bg-gradient-to-br from-[#111] to-black rounded-[2.5rem] p-1 border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)] relative overflow-hidden transition-transform duration-500 group-hover:scale-[1.02] group-hover:-rotate-1">
+                        <div className="w-[340px] md:w-[420px] h-[550px] md:h-[600px] bg-gradient-to-br from-white to-slate-100 rounded-[2.5rem] p-1 border border-black/10 shadow-2xl relative overflow-hidden transition-transform duration-500 group-hover:scale-[1.02] group-hover:-rotate-1">
                             
                             {/* Card Texture */}
-                            <div className="absolute inset-0 bg-grid-tech opacity-10 mix-blend-overlay" />
-                            <div className="absolute top-0 right-0 p-12 text-white/5 font-heading font-black text-[15rem] leading-none pointer-events-none select-none -translate-y-12 translate-x-12">
+                            <div className="absolute inset-0 bg-grid-tech opacity-[0.03] mix-blend-overlay" />
+                            <div className="absolute top-0 right-0 p-12 text-black/[0.03] font-heading font-black text-[15rem] leading-none pointer-events-none select-none -translate-y-12 translate-x-12">
                                 CAC
                             </div>
 
@@ -87,24 +87,24 @@ export default function Membership() {
                                 <div>
                                     <div className="flex justify-between items-start mb-12">
                                         <div className="w-16 h-16 relative">
-                                            <img src="/escudo.png" alt="CAC" className="w-full h-full object-contain filter brightness-0 invert opacity-40 group-hover:opacity-100 transition-opacity" />
+                                            <img src="/escudo.png" alt="CAC" className="w-full h-full object-contain opacity-40 group-hover:opacity-100 transition-opacity" />
                                         </div>
                                         <div className="text-right">
                                             <div className="text-primary font-black text-xs tracking-[0.2em] uppercase">Elite Access</div>
-                                            <div className="text-white text-[8px] font-black tracking-[0.3em] uppercase opacity-20">Season 24/25</div>
+                                            <div className="text-foreground text-[8px] font-black tracking-[0.3em] uppercase opacity-20">Season 24/25</div>
                                         </div>
                                     </div>
                                     
                                     <div className="mb-8">
-                                        <h3 className="font-heading font-black text-5xl text-white uppercase tracking-tighter mb-1">SOCIO</h3>
+                                        <h3 className="font-heading font-black text-5xl text-foreground uppercase tracking-tighter mb-1">SOCIO</h3>
                                         <div className="h-1 w-12 bg-primary" />
                                     </div>
 
                                     <div className="flex items-center gap-2">
-                                        <span className="font-heading font-black text-8xl text-white tracking-tighter">50</span>
+                                        <span className="font-heading font-black text-8xl text-foreground tracking-tighter">50</span>
                                         <div className="flex flex-col">
                                             <span className="text-primary font-black text-2xl leading-none">€</span>
-                                            <span className="text-white font-black text-[10px] tracking-widest uppercase opacity-20">Anual</span>
+                                            <span className="text-foreground font-black text-[10px] tracking-widest uppercase opacity-20">Anual</span>
                                         </div>
                                     </div>
                                 </div>
@@ -114,9 +114,9 @@ export default function Membership() {
                                         Solicitar Alta
                                     </button>
                                     <div className="flex items-center justify-between px-2">
-                                        <span className="text-white text-[9px] font-black uppercase tracking-widest opacity-20">Digital Member ID: #2024-XXXX</span>
+                                        <span className="text-foreground text-[9px] font-black uppercase tracking-widest opacity-20">Digital Member ID: #2024-XXXX</span>
                                         <div className="flex gap-1">
-                                            {[1,2,3,4].map(i => <div key={i} className="w-1 h-3 bg-white/10" />)}
+                                            {[1,2,3,4].map(i => <div key={i} className="w-1 h-3 bg-black/10" />)}
                                         </div>
                                     </div>
                                 </div>

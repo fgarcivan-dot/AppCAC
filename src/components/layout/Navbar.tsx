@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[1536px] z-50 transition-all duration-500 rounded-2xl ${isScrolled ? "glass-premium py-3 px-4 shadow-2xl translate-y-2 border-white/10" : "bg-transparent py-5 px-6"}`}
+        className={`fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[1536px] z-50 transition-all duration-500 rounded-2xl ${isScrolled ? "bg-white/80 backdrop-blur-xl py-3 px-4 shadow-xl translate-y-2 border border-black/5" : "bg-transparent py-5 px-6"}`}
         style={{ marginTop: 'env(safe-area-inset-top, 0px)' }}
       >
         <div className="mx-auto flex items-center justify-between">
@@ -42,12 +42,12 @@ export default function Navbar() {
               <img
                 src="/escudo.png"
                 alt="Escudo Cercedense"
-                className="w-full h-full object-contain filter contrast-125 brightness-110 drop-shadow-[0_0_12px_rgba(218,41,28,0.6)]"
+                className="w-full h-full object-contain filter contrast-125 brightness-110 drop-shadow-[0_4px_12px_rgba(218,41,28,0.2)]"
               />
             </div>
 
             {/* Title */}
-            <span className="font-heading font-black text-xl md:text-2xl tracking-tighter uppercase leading-none block">
+            <span className="font-heading font-black text-xl md:text-2xl tracking-tighter uppercase leading-none block text-foreground">
               Cercedense
             </span>
           </Link>
@@ -58,7 +58,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-[11px] font-black uppercase tracking-[0.3em] hover:text-primary transition-all hover:scale-105 transform duration-300 relative group"
+                className="text-[11px] font-black uppercase tracking-[0.3em] text-foreground/60 hover:text-primary transition-all hover:scale-105 transform duration-300 relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300" />
@@ -66,7 +66,7 @@ export default function Navbar() {
             ))}
             <Link
               href="/#socios"
-              className="ml-4 bg-primary text-white px-8 py-3 rounded-sm font-heading font-black uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all duration-500 shadow-xl shadow-primary/20"
+              className="ml-4 bg-primary text-white px-8 py-3 rounded-sm font-heading font-black uppercase tracking-widest text-[10px] hover:bg-foreground hover:text-white transition-all duration-500 shadow-xl shadow-primary/10"
             >
               Socio
             </Link>
@@ -74,7 +74,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden text-white p-2 bg-white/10 border border-white/10 rounded-xl"
+            className="lg:hidden text-foreground p-2 bg-black/5 border border-black/5 rounded-xl"
             onClick={() => setIsOpen(true)}
           >
             <Menu className="w-6 h-6" />
@@ -90,10 +90,10 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[60] bg-[#050505] border-l border-white/10 flex flex-col"
+            className="fixed inset-0 z-[60] bg-white border-l border-black/5 flex flex-col"
           >
             <div className="p-6 flex justify-end" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1.5rem)' }}>
-              <button onClick={() => setIsOpen(false)} className="text-white p-2 flex items-center justify-center">
+              <button onClick={() => setIsOpen(false)} className="text-foreground p-2 flex items-center justify-center">
                 <X className="w-8 h-8" />
               </button>
             </div>
@@ -103,7 +103,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="font-heading text-4xl uppercase font-black tracking-tighter text-white hover:text-primary transition-colors"
+                  className="font-heading text-4xl uppercase font-black tracking-tighter text-foreground hover:text-primary transition-colors"
                 >
                   {link.name}
                 </Link>
@@ -111,7 +111,7 @@ export default function Navbar() {
               <Link
                 href="#socios"
                 onClick={() => setIsOpen(false)}
-                className="mt-8 bg-primary text-white px-8 py-4 rounded-sm font-heading text-xl font-bold uppercase tracking-wide hover:bg-primary-dark transition-colors"
+                className="mt-8 bg-primary text-white px-8 py-4 rounded-sm font-heading text-xl font-bold uppercase tracking-wide hover:bg-foreground transition-colors shadow-lg shadow-primary/20"
               >
                 Faite Socio
               </Link>
