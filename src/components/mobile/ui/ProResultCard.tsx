@@ -77,7 +77,7 @@ export function ProResultCard({ home, away, score, date, venue, category, result
       className="relative w-full h-[190px] rounded-[2rem] overflow-hidden border transition-all duration-1000 bg-white border-black/5 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.05)]"
     >
       {/* 🔮 Background Watermark */}
-      <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-black/[0.02]">
+      <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-black/[0.07]">
         {watermarkText}
       </div>
 
@@ -99,19 +99,19 @@ export function ProResultCard({ home, away, score, date, venue, category, result
             <div className="flex flex-col gap-0.5">
               <div className="flex items-center gap-2">
                 <Trophy size={10} className="text-primary" />
-                <span className="text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 text-foreground opacity-40">
+                <span className="text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 text-foreground opacity-60">
                   {category}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Calendar size={9} className="text-foreground opacity-20" />
-                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-foreground opacity-40">
+                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-foreground opacity-60">
                   ÚLTIMA XORNADA · {date}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin size={9} className="text-foreground opacity-20" />
-                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-foreground opacity-40">
+                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-foreground opacity-60">
                   {venue}
                 </span>
               </div>
@@ -140,7 +140,7 @@ export function ProResultCard({ home, away, score, date, venue, category, result
             <span className="text-6xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 text-foreground">
               DESCANSA
             </span>
-            <span className="text-[9px] font-black tracking-[0.5em] mt-3 opacity-20 text-foreground">
+            <span className="text-[9px] font-black tracking-[0.5em] mt-3 opacity-40 text-foreground">
                {category}
             </span>
             <div className="mt-4 flex flex-col items-center gap-1 opacity-20">

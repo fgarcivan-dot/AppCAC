@@ -43,7 +43,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
       className="relative w-full min-h-[210px] h-auto rounded-[2.2rem] overflow-hidden border transition-all duration-1000 bg-white border-black/5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] pb-6"
     >
       {/* 🔮 Background Watermark */}
-      <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-black/[0.02]">
+      <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-black/[0.07]">
         {watermarkText}
       </div>
 
@@ -57,14 +57,14 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2">
               <Trophy size={10} className="text-primary" />
-              <span className="text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 text-foreground opacity-40">
+              <span className="text-[9px] font-black tracking-[0.3em] uppercase transition-colors duration-1000 text-foreground opacity-60">
                 {category}
               </span>
             </div>
             {!isRestDay && (
               <div className="flex items-center gap-2">
                 <MapPin size={9} className="text-foreground opacity-20" />
-                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-foreground opacity-40">
+                <span className="text-[8px] font-bold uppercase tracking-widest transition-colors duration-1000 text-foreground opacity-60">
                   {venue}
                 </span>
               </div>
@@ -84,7 +84,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
             <span className="text-5xl font-black uppercase tracking-tighter leading-none transition-all duration-1000 text-foreground">
               DESCANSA
             </span>
-            <span className="text-[9px] font-black tracking-[0.5em] mt-3 opacity-20 text-foreground">
+            <span className="text-[9px] font-black tracking-[0.5em] mt-3 opacity-40 text-foreground">
               {category}
             </span>
           </div>
@@ -115,7 +115,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
         <div className="flex justify-between items-end border-t border-black/5 pt-3 mt-1">
           <div className="flex items-center gap-3">
             <div className="flex flex-col">
-              <span className="text-[8px] font-black uppercase tracking-[0.2em] transition-colors duration-1000 text-foreground opacity-20">DOMINGO</span>
+              <span className="text-[8px] font-black uppercase tracking-[0.2em] transition-colors duration-1000 text-foreground opacity-40">DOMINGO</span>
               <span className="text-base font-black tabular-nums transition-colors duration-1000 text-foreground">{date}</span>
             </div>
           </div>
