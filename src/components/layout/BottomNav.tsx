@@ -19,11 +19,25 @@ export default function BottomNav() {
   return (
     <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md z-50 glass-premium rounded-2xl lg:hidden overflow-hidden shadow-2xl border-white/10">
       <div className="flex justify-around items-center h-16 px-2 relative">
+        {/* Debug Pathname (Hidden but accessible) */}
+        <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-[6px] text-white/5 font-mono">{pathname || "null"}</span>
+        
         {/* Subtle background glow for the active item */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 pointer-events-none" />
         
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const normalize = (p: string | null) => {
+            if (!p) return "/";
+            // Remove protocol, hostname, query params, hashes, .html and trailing slashes
+            const pathOnly = p.split('?')[0].split('#')[0];
+            const cleanPath = pathOnly.replace(/^(?:https?|capacitor|file):\/\/[^\/]+/, '');
+            return cleanPath.replace(/\.html$/, "").replace(/\/$/, "") || "/";
+          };
+          
+          const normalizedPath = normalize(pathname);
+          const normalizedItem = normalize(item.href);
+          
+          const isActive = normalizedPath === normalizedItem || (normalizedItem !== "/" && normalizedPath.startsWith(normalizedItem));
           const Icon = item.icon;
 
           return (
