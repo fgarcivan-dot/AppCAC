@@ -53,7 +53,7 @@ export function Header({ }: HeaderProps) {
           </motion.div>
           <div className="flex flex-col gap-0.5 leading-none">
             <span className="text-[9px] font-black tracking-[0.5em] uppercase text-foreground opacity-40">
-              CLUB ATLETICO
+              CLUB ATLÉTICO
             </span>
             <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.8] text-primary italic">
               CERCEDENSE
