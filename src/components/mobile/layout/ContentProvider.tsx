@@ -189,10 +189,10 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     };
     setup();
 
-    // 🕒 PERIODIC HUD SYNC: Poll for status changes every 30 seconds (Optimized for instant updates)
+    // 🕒 PERIODIC HUD SYNC: Poll for status changes every 15 seconds (Optimized for instant updates)
     const interval = setInterval(() => {
       initData(true);
-    }, 30000);
+    }, 15000);
 
     return () => clearInterval(interval);
   }, []);

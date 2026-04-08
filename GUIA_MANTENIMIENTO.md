@@ -124,8 +124,9 @@ La aplicación cuenta con un **"Robot" (GitHub Action)** que vigila el archivo `
 
 ### ⚡ ¿Cómo funcionan?
 1.  **Activación por Guardado**: En el momento exacto en que guardas un cambio en el archivo de GitHub, el robot se activa.
-2.  **Diferenciación de Goles**: Si cambias el marcador de un partido en "EN XOGO", la app detecta si es gol del Cercedense o del rival.
-3.  **Seguimiento de Cantera**: Si añades un resultado a la lista general o fijas una hora para un partido de cantera, el sistema envía un aviso a todos los usuarios.
+2.  **Sincronización:** La app revisa si hay cambios en GitHub cada **15 segundos** automáticamente. No hace falta cerrar y abrir la app.
+3.  **Diferenciación de Goles**: Si cambias el marcador de un partido en "EN XOGO", la app detecta si es gol del Cercedense o del rival.
+4.  **Seguimiento de Cantera**: Si añades un resultado a la lista general o fijas una hora para un partido de cantera, el sistema envía un aviso a todos los usuarios.
 
 ### 📝 Cómo enviar una notificación:
 1.  Entra en tu repositorio **AppCAC** en GitHub.
