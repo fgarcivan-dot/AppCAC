@@ -14,6 +14,10 @@ const config: CapacitorConfig = {
       smallIcon: "ic_stat_logo",
       iconColor: "#DA291C",
     }
+  },
+  ios: {
+    // @ts-ignore - Bypass lint for current Capacitor version
+    useSwiftPackageManager: false
   }
 };
 
