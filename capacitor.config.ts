@@ -16,8 +16,15 @@ const config: CapacitorConfig = {
     }
   },
   ios: {
-    // @ts-ignore - Bypass lint for current Capacitor version
+    // @ts-ignore
     useSwiftPackageManager: false
+  },
+  experimental: {
+    ios: {
+      spm: {
+        swiftToolsVersion: '5.9'
+      }
+    }
   }
 };
 
