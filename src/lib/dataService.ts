@@ -153,23 +153,36 @@ export interface AppData {
   contacto: ContactoContent;
 }
 
-// Tu URL real de Gist configurada para actualizaciones en tiempo real
-const DEFAULT_GIST_URL = "https://raw.githubusercontent.com/fgarcivan-dot/AppCAC/master/public/app_data.json";
+// URL de la API de GitHub para evitar la caché agresiva de raw.githubusercontent.com
+const DEFAULT_API_URL = "https://api.github.com/repos/fgarcivan-dot/AppCAC/contents/public/app_data.json?ref=master";
 
-export async function fetchAppData(url: string = DEFAULT_GIST_URL): Promise<AppData | null> {
+export async function fetchAppData(url: string = DEFAULT_API_URL): Promise<AppData | null> {
   try {
-    // Add timestamp to prevent caching issues on mobile
-    const cacheBuster = `?t=${new Date().getTime()}`;
-    const response = await fetch(url + cacheBuster);
+    // Add timestamp to prevent caching issues
+    const cacheBuster = `&t=${new Date().getTime()}`;
+    const response = await fetch(url + cacheBuster, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'Cache-Control': 'no-cache'
+      }
+    });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch: ${response.statusText}`);
+      throw new Error(`Failed to fetch from GitHub API: ${response.statusText}`);
     }
 
-    const data = await response.json();
-    return data as AppData;
+    const json = await response.json();
+    
+    // La API de GitHub devuelve el contenido en base64
+    if (json.content) {
+      const decodedContent = atob(json.content.replace(/\n/g, ''));
+      const data = JSON.parse(decodedContent);
+      return data as AppData;
+    }
+
+    return json as AppData; // Fallback if it's already parsed
   } catch (error) {
-    console.error("Error fetching app data from Gist:", error);
-    return null; // Fallback to local static data
+    console.error("Error fetching app data:", error);
+    return null;
   }
 }

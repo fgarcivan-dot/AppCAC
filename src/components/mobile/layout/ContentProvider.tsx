@@ -167,16 +167,34 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const setup = async () => {
       if (Capacitor.getPlatform() !== 'web') {
         try {
-          // Modern initialization for Capacitor 8 using OttoOneSignal
-          const { OttoOneSignal } = await import('capacitor-otto-onesignal');
+          // Robust initialization for OneSignal SDK v5
+          let OneSignalObj: any = (window as any).plugins?.OneSignal;
           
-          const { initialized } = await OttoOneSignal.initialize({
-            appId: "791bfab7-3758-4426-b7ce-d2dba13d2f37"
-          });
+          if (!OneSignalObj) {
+            try {
+              // Fallback to dynamic import
+              const OneSignalModule = await import('onesignal-cordova-plugin');
+              OneSignalObj = OneSignalModule.default || OneSignalModule;
+            } catch (e) {
+              console.error("Failed to import OneSignal module:", e);
+            }
+          }
 
-          if (initialized) {
-            const { accepted } = await OttoOneSignal.requestPermission();
-            console.log("User accepted notifications: " + accepted);
+          if (OneSignalObj) {
+            // OneSignal SDK v5 uses initialize instead of setAppId
+            OneSignalObj.initialize("791bfab7-3758-4426-b7ce-d2dba13d2f37");
+            
+            // Request permissions (v5 API)
+            if (OneSignalObj.Notifications) {
+              OneSignalObj.Notifications.requestPermission(true).then((accepted: boolean) => {
+                console.log("User accepted notifications: " + accepted);
+              });
+            } else {
+              // Fallback for older interface if somehow present
+              OneSignalObj.promptForPushNotificationsWithUserResponse?.((accepted: any) => {
+                console.log("User accepted notifications: " + accepted);
+              });
+            }
           } else {
             console.error("OneSignal failed to initialize");
           }
@@ -189,10 +207,10 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     };
     setup();
 
-    // 🕒 PERIODIC HUD SYNC: Poll for status changes every 60 seconds
+    // 🕒 PERIODIC HUD SYNC: Poll for status changes every 30 seconds (Optimized for instant updates)
     const interval = setInterval(() => {
       initData(true);
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
