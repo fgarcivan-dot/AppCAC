@@ -153,9 +153,9 @@ export interface AppData {
   contacto: ContactoContent;
 }
 
-import axios from 'axios';
+import { CapacitorHttp } from '@capacitor/core';
 
-// ... (existing interfaces)
+// Interfaces (no cambiadas) ...
 
 // URL de la API de GitHub para evitar la caché agresiva de raw.githubusercontent.com
 const DEFAULT_API_URL = "https://api.github.com/repos/fgarcivan-dot/AppCAC/contents/public/app_data.json?ref=master";
@@ -163,24 +163,34 @@ const DEFAULT_API_URL = "https://api.github.com/repos/fgarcivan-dot/AppCAC/conte
 const FALLBACK_URL = "https://raw.githubusercontent.com/fgarcivan-dot/AppCAC/master/public/app_data.json";
 
 export async function fetchAppData(url: string = DEFAULT_API_URL): Promise<AppData | null> {
+  console.log("[DEBUG_CAC] Iniciando descarga de datos...");
   try {
-    const cacheBuster = `&t=${new Date().getTime()}`;
+    const cacheBuster = `${new Date().getTime()}`;
     
-    // Intentamos primero con la API de GitHub (Sin Caché)
-    const response = await axios.get(url + cacheBuster, {
+    // 🛠️ USO DE CAPACITOR HTTP NATIVO (Más robusto para móviles)
+    const options = {
+      url: url + `&t=${cacheBuster}`,
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache'
       },
-      timeout: 10000 // 10 segundos de espera
-    });
+      connectTimeout: 15000,
+      readTimeout: 15000
+    };
+
+    console.log("[DEBUG_CAC] Llamando a GitHub API Nativa...");
+    const response = await CapacitorHttp.get(options);
+
+    if (response.status !== 200) {
+      throw new Error(`Status ${response.status}`);
+    }
 
     const json = response.data;
     
     // La API de GitHub devuelve el contenido en base64. 
-    // Usamos TextDecoder para soportar correctamente caracteres con tildes (UTF-8).
     if (json.content) {
+      console.log("[DEBUG_CAC] Contenido recibido (Base64), decodificando...");
       const binaryString = atob(json.content.replace(/\n/g, ''));
       const bytes = new Uint8Array(binaryString.length);
       for (let i = 0; i < binaryString.length; i++) {
@@ -188,26 +198,30 @@ export async function fetchAppData(url: string = DEFAULT_API_URL): Promise<AppDa
       }
       const decodedContent = new TextDecoder('utf-8').decode(bytes);
       const data = JSON.parse(decodedContent);
+      console.log("[DEBUG_CAC] ¡Datos decodificados y listos!");
       return data as AppData;
     }
 
-    // Si por alguna razón la API devolviera el JSON ya parseado
     if (json.config) return json as AppData;
 
   } catch (error) {
-    console.warn("GitHub API failed or rate limited, trying fallback URL...", error);
+    console.warn("[DEBUG_CAC] GitHub API Nativa falló, intentando Fallback...", error);
     
-    // Segundo intento: URL directa (Fallback)
+    // Segundo intento: URL directa (Fallback) Nativa
     try {
-      const cacheBuster = `?t=${new Date().getTime()}`;
-      const fallbackResponse = await axios.get(FALLBACK_URL + cacheBuster, {
+      const cacheBuster = `${new Date().getTime()}`;
+      const fallbackOptions = {
+        url: FALLBACK_URL + `?t=${cacheBuster}`,
         headers: { 'Cache-Control': 'no-cache' }
-      });
-      if (fallbackResponse.data && fallbackResponse.data.config) {
+      };
+      const fallbackResponse = await CapacitorHttp.get(fallbackOptions);
+      
+      if (fallbackResponse.status === 200 && fallbackResponse.data && fallbackResponse.data.config) {
+        console.log("[DEBUG_CAC] ¡Carga recuperada por Fallback Nativo!");
         return fallbackResponse.data as AppData;
       }
     } catch (fallbackError) {
-      console.error("All data fetch attempts failed:", fallbackError);
+      console.error("[DEBUG_CAC] Todos los intentos de descarga fallaron:", fallbackError);
     }
   }
   

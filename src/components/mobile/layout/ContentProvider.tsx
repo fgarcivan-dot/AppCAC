@@ -49,8 +49,10 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
 
   // 🔔 Status Tracking for Notifications (Persisted)
   const initData = async (isBackground = false) => {
+    console.log(`[DEBUG_CAC] Sincronización ${isBackground ? 'en segundo plano' : 'inicial'} iniciada...`);
     const remoteData = await fetchAppData();
     if (remoteData) {
+      console.log("[DEBUG_CAC] Datos remotos recibidos, procesando mezcla...");
       // Check for notifications before updating state
       if (remoteData.equipos) {
         ['masculino' as const, 'femenino' as const].forEach(cat => {
