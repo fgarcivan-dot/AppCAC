@@ -167,15 +167,24 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const setup = async () => {
       if (Capacitor.getPlatform() !== 'web') {
         try {
-          // Dynamic import to avoid "window is not defined" error during build
-          const OneSignal = (await import('onesignal-cordova-plugin')).default;
-          // Initialize OneSignal (Cordova Plugin API)
-          (OneSignal as any).setAppId("791bfab7-3758-4426-b7ce-d2dba13d2f37");
-          (OneSignal as any).promptForPushNotificationsWithUserResponse((accepted: any) => {
-            console.log("User accepted notifications: " + accepted);
-          });
+          // Robust initialization for Capacitor/Cordova
+          let OneSignalObj: any = (window as any).plugins?.OneSignal;
+          
+          if (!OneSignalObj) {
+            // Fallback to dynamic import
+            OneSignalObj = (await import('onesignal-cordova-plugin')).default;
+          }
+
+          if (OneSignalObj) {
+            OneSignalObj.setAppId("791bfab7-3758-4426-b7ce-d2dba13d2f37");
+            OneSignalObj.promptForPushNotificationsWithUserResponse((accepted: any) => {
+              console.log("User accepted notifications: " + accepted);
+            });
+          } else {
+            console.error("OneSignal plugin not found on window or via import");
+          }
         } catch (e) {
-          console.error("OneSignal init failed:", e);
+          console.error("OneSignal setup error:", e);
         }
       }
       await notificationService.requestPermissions();
