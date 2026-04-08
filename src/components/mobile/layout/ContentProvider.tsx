@@ -6,7 +6,6 @@ import { RefreshIndicator } from "../ui/RefreshIndicator";
 import { AppData, fetchAppData } from "@/lib/dataService";
 import { INITIAL_DATA } from "@/lib/initialData";
 import { notificationService } from "@/lib/notificationService";
-import OneSignal from 'onesignal-cordova-plugin';
 import { Capacitor } from '@capacitor/core';
 
 interface ContentContextType {
@@ -60,11 +59,12 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
             const currentMatch = remoteMatches[1]; // Middle card
             const currentStatus = currentMatch.status?.trim().toUpperCase() || "";
             
-            // Read prev from localStorage for cross-session persistence
+            // Read prev from localStorage for cross-session persistence (client-side only)
+            const isClient = typeof window !== 'undefined';
             const storageKey = `last_status_${cat}`;
             const scoreKey = `last_score_${cat}`;
-            const prevStatus = localStorage.getItem(storageKey);
-            const prevScore = localStorage.getItem(scoreKey);
+            const prevStatus = isClient ? localStorage.getItem(storageKey) : null;
+            const prevScore = isClient ? localStorage.getItem(scoreKey) : null;
 
             const teamTitle = cat === 'masculino' ? "Sénior Masc." : "Sénior Fem.";
 
@@ -98,8 +98,10 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
               }
             }
 
-            localStorage.setItem(storageKey, currentStatus);
-            localStorage.setItem(scoreKey, currentMatch.score);
+            if (isClient) {
+              localStorage.setItem(storageKey, currentStatus);
+              localStorage.setItem(scoreKey, currentMatch.score);
+            }
           }
         });
       }
@@ -165,6 +167,8 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const setup = async () => {
       if (Capacitor.getPlatform() !== 'web') {
         try {
+          // Dynamic import to avoid "window is not defined" error during build
+          const OneSignal = (await import('onesignal-cordova-plugin')).default;
           // Initialize OneSignal (Cordova Plugin API)
           (OneSignal as any).setAppId("791bfab7-3758-4426-b7ce-d2dba13d2f37");
           (OneSignal as any).promptForPushNotificationsWithUserResponse((accepted: any) => {
