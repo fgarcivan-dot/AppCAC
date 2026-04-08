@@ -5,6 +5,9 @@ import { motion, useMotionValue } from "framer-motion";
 import { RefreshIndicator } from "../ui/RefreshIndicator";
 import { AppData, fetchAppData } from "@/lib/dataService";
 import { INITIAL_DATA } from "@/lib/initialData";
+import { notificationService } from "@/lib/notificationService";
+import OneSignal from 'onesignal-cordova-plugin';
+import { Capacitor } from '@capacitor/core';
 
 interface ContentContextType {
   data: AppData;
@@ -38,9 +41,69 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const startY = useRef(0);
   const isPulling = useRef(false);
   
-  const initData = async () => {
+  // Helper to parse "1 - 0" into [1, 0]
+  const parseScore = (score: string) => {
+    const parts = score.split(/[\-\svs]+/).filter(p => !isNaN(parseInt(p)));
+    if (parts.length < 2) return [0, 0];
+    return [parseInt(parts[0]), parseInt(parts[1])];
+  };
+
+  // 🔔 Status Tracking for Notifications (Persisted)
+  const initData = async (isBackground = false) => {
     const remoteData = await fetchAppData();
     if (remoteData) {
+      // Check for notifications before updating state
+      if (remoteData.equipos) {
+        ['masculino' as const, 'femenino' as const].forEach(cat => {
+          const remoteMatches = remoteData.equipos[cat]?.matches;
+          if (remoteMatches && remoteMatches.length >= 2) {
+            const currentMatch = remoteMatches[1]; // Middle card
+            const currentStatus = currentMatch.status?.trim().toUpperCase() || "";
+            
+            // Read prev from localStorage for cross-session persistence
+            const storageKey = `last_status_${cat}`;
+            const scoreKey = `last_score_${cat}`;
+            const prevStatus = localStorage.getItem(storageKey);
+            const prevScore = localStorage.getItem(scoreKey);
+
+            const teamTitle = cat === 'masculino' ? "Sénior Masc." : "Sénior Fem.";
+
+            // 1. Check for Status Changes
+            if (prevStatus !== null && prevStatus !== currentStatus && currentStatus !== "") {
+              const msg = notificationService.getStatusMessage(currentStatus, currentMatch.home, currentMatch.away, currentMatch.score, prevStatus, teamTitle);
+              if (msg) {
+                notificationService.schedule(msg.title, msg.body);
+              }
+            }
+
+            // 2. Check for Goals (Score changes while in game)
+            if (prevScore !== null && prevScore !== currentMatch.score && currentStatus === "EN XOGO") {
+              const [prevHome, prevAway] = parseScore(prevScore);
+              const [currHome, currAway] = parseScore(currentMatch.score);
+              const isHomeCercedense = currentMatch.home.toUpperCase().includes("CERCEDENSE");
+
+              let goalType: "GOL_PROPIO" | "GOL_RIVAL" | null = null;
+
+              if (currHome > prevHome) {
+                goalType = isHomeCercedense ? "GOL_PROPIO" : "GOL_RIVAL";
+              } else if (currAway > prevAway) {
+                goalType = !isHomeCercedense ? "GOL_PROPIO" : "GOL_RIVAL";
+              }
+
+              if (goalType) {
+                const msg = notificationService.getStatusMessage(goalType, currentMatch.home, currentMatch.away, currentMatch.score, currentStatus, teamTitle);
+                if (msg) {
+                  notificationService.schedule(msg.title, msg.body);
+                }
+              }
+            }
+
+            localStorage.setItem(storageKey, currentStatus);
+            localStorage.setItem(scoreKey, currentMatch.score);
+          }
+        });
+      }
+
       // 🏗️ ELITE HUD DEEP MERGE: Protect the 3-card lifecycle (Past, Present, Future)
       const mergedData = { ...INITIAL_DATA, ...remoteData };
       
@@ -98,7 +161,30 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    initData();
+    // Initial load and permissions
+    const setup = async () => {
+      if (Capacitor.getPlatform() !== 'web') {
+        try {
+          // Initialize OneSignal (Cordova Plugin API)
+          (OneSignal as any).setAppId("791bfab7-3758-4426-b7ce-d2dba13d2f37");
+          (OneSignal as any).promptForPushNotificationsWithUserResponse((accepted: any) => {
+            console.log("User accepted notifications: " + accepted);
+          });
+        } catch (e) {
+          console.error("OneSignal init failed:", e);
+        }
+      }
+      await notificationService.requestPermissions();
+      await initData();
+    };
+    setup();
+
+    // 🕒 PERIODIC HUD SYNC: Poll for status changes every 60 seconds
+    const interval = setInterval(() => {
+      initData(true);
+    }, 60000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

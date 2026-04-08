@@ -4,9 +4,9 @@ Esta guía es tu manual definitivo para gestionar la aplicación. Todo el sistem
 
 ---
 
-## ☁️ 1. Estructura del JSON (app_data.json)
+## ☁️ 1. Archivo de Datos (public/app_data.json)
 
-El archivo de datos en GitHub Gist está organizado por **Páginas y Configuración Global** para un mantenimiento ultrarrápido.
+El archivo de datos reside en tu repositorio de GitHub. Se ha diseñado con una arquitectura **Elite HUD (Heads-Up Display)** que automatiza el diseño premium basándose en tus datos.
 
 ### 📋 Secciones Principales:
 
@@ -118,10 +118,28 @@ El sistema ahora permite mostrar **múltiples partidos** para una misma categor�
 
 ---
 
-## 📋 7. Consejos Pro 
+## 🔔 7. Notificaciones Push (Instantáneas)
+
+La aplicación cuenta con un **"Robot" (GitHub Action)** que vigila el archivo `app_data.json` por ti.
+
+### ⚡ ¿Cómo funcionan?
+1.  **Activación por Guardado**: En el momento exacto en que guardas un cambio en el archivo de GitHub, el robot se activa.
+2.  **Diferenciación de Goles**: Si cambias el marcador de un partido en "EN XOGO", la app detecta si es gol del Cercedense o del rival.
+3.  **Seguimiento de Cantera**: Si añades un resultado a la lista general o fijas una hora para un partido de cantera, el sistema envía un aviso a todos los usuarios.
+
+### 📝 Cómo enviar una notificación:
+1.  Entra en tu repositorio **AppCAC** en GitHub.
+2.  Navega hasta `public/app_data.json`.
+3.  Haz clic en el lápiz para **Editar**.
+4.  Realiza tus cambios y haz clic en **Commit changes** (el botón verde).
+5.  **¡Listo!** En pocos segundos, la notificación llegará a todos los móviles.
+
+---
+
+## 📋 8. Consejos Pro 
 1.  **Formato de Hora**: Usa siempre la "H" (ej: `12:00H`) para que el HUD la detecte.
 2.  **Imágenes**: Ruta `/images/nombre.webp`.
-3.  **Actualización**: Desliza hacia abajo en la pantalla de Inicio para forzar la sincronización con el Gist.
+3.  **Actualización**: Ya no necesitas deslizar para actualizar; al ser archivos del repositorio, la app siempre tiene la última versión al abrirse.
 
 ---
 > [!IMPORTANT]

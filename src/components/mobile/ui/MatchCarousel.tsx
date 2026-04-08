@@ -88,8 +88,7 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
         >
           {matches.map((match, i) => {
             const isActive = activeIndex === i;
-            const isRestDay = match.status?.trim().toUpperCase() === "DESCANSO" ||
-              match.home?.trim().toUpperCase() === "DESCANSO" ||
+            const isRestDay = match.home?.trim().toUpperCase() === "DESCANSO" ||
               match.away?.trim().toUpperCase() === "DESCANSO";
 
             const isHomeCercedense = match.home.toUpperCase().includes("CERCEDENSE");

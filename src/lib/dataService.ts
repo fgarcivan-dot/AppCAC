@@ -154,7 +154,7 @@ export interface AppData {
 }
 
 // Tu URL real de Gist configurada para actualizaciones en tiempo real
-const DEFAULT_GIST_URL = "https://gist.githubusercontent.com/fgarcivan-dot/377fdbc02765cffe49dbd86faa141dc4/raw/app_data.json";
+const DEFAULT_GIST_URL = "https://raw.githubusercontent.com/fgarcivan-dot/AppCAC/master/public/app_data.json";
 
 export async function fetchAppData(url: string = DEFAULT_GIST_URL): Promise<AppData | null> {
   try {

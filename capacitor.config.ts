@@ -9,6 +9,10 @@ const config: CapacitorConfig = {
       launchShowDuration: 0,
       launchAutoHide: false,
       backgroundColor: "#ffffff"
+    },
+    LocalNotifications: {
+      smallIcon: "ic_stat_logo",
+      iconColor: "#DA291C",
     }
   }
 };
