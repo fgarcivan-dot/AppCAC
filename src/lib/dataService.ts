@@ -153,25 +153,30 @@ export interface AppData {
   contacto: ContactoContent;
 }
 
+import axios from 'axios';
+
+// ... (existing interfaces)
+
 // URL de la API de GitHub para evitar la caché agresiva de raw.githubusercontent.com
 const DEFAULT_API_URL = "https://api.github.com/repos/fgarcivan-dot/AppCAC/contents/public/app_data.json?ref=master";
+// URL de rescate si la API falla
+const FALLBACK_URL = "https://raw.githubusercontent.com/fgarcivan-dot/AppCAC/master/public/app_data.json";
 
 export async function fetchAppData(url: string = DEFAULT_API_URL): Promise<AppData | null> {
   try {
-    // Add timestamp to prevent caching issues
     const cacheBuster = `&t=${new Date().getTime()}`;
-    const response = await fetch(url + cacheBuster, {
+    
+    // Intentamos primero con la API de GitHub (Sin Caché)
+    const response = await axios.get(url + cacheBuster, {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Cache-Control': 'no-cache'
-      }
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+      timeout: 10000 // 10 segundos de espera
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch from GitHub API: ${response.statusText}`);
-    }
-
-    const json = await response.json();
+    const json = response.data;
     
     // La API de GitHub devuelve el contenido en base64. 
     // Usamos TextDecoder para soportar correctamente caracteres con tildes (UTF-8).
@@ -186,9 +191,25 @@ export async function fetchAppData(url: string = DEFAULT_API_URL): Promise<AppDa
       return data as AppData;
     }
 
-    return json as AppData; // Fallback if it's already parsed
+    // Si por alguna razón la API devolviera el JSON ya parseado
+    if (json.config) return json as AppData;
+
   } catch (error) {
-    console.error("Error fetching app data:", error);
-    return null;
+    console.warn("GitHub API failed or rate limited, trying fallback URL...", error);
+    
+    // Segundo intento: URL directa (Fallback)
+    try {
+      const cacheBuster = `?t=${new Date().getTime()}`;
+      const fallbackResponse = await axios.get(FALLBACK_URL + cacheBuster, {
+        headers: { 'Cache-Control': 'no-cache' }
+      });
+      if (fallbackResponse.data && fallbackResponse.data.config) {
+        return fallbackResponse.data as AppData;
+      }
+    } catch (fallbackError) {
+      console.error("All data fetch attempts failed:", fallbackError);
+    }
   }
+  
+  return null;
 }
