@@ -63,39 +63,39 @@ export const INITIAL_DATA: AppData = {
       posicion: "3º",
       matches: [
         {
-          title: "ÚLTIMO RESULTADO",
-          date: "DOM 30 MAR, 17:00H",
-          home: "AD PORTOMAZO",
-          away: "CERCEDENSE",
-          score: "1-2",
-          venue: "O VAL",
-          status: "FIN"
+          "title": "ÚLTIMO RESULTADO",
+          "date": "DOM 30 MAR, 17:00H",
+          "home": "CARRAL 'B'",
+          "away": "CERCEDENSE",
+          "score": "0-2",
+          "venue": "MPAL BORJA RODRIGUEZ ANS",
+          "status": "FIN"
         },
         {
-          title: "ESTA XORNADA",
-          date: "DOM 06 ABR, 17:00H",
-          home: "CERCEDENSE",
-          away: "S.D.C TEIXEIRO",
-          score: "0-0",
-          venue: "O ROXO",
-          time: "17:00H",
-          status: "PRÓXIMO"
+          "title": "ESTA XORNADA",
+          "date": "DOM 06 ABR",
+          "home": "CERCEDENSE",
+          "away": "S.D.C TEIXEIRO",
+          "score": "7-1",
+          "venue": "O ROXO",
+          "time": "17:00H",
+          "status": "FIN"
         },
         {
-          title: "PRÓXIMO PARTIDO",
-          date: "DOM 13 ABR, 11:00H",
-          home: "S.D. O PINO",
-          away: "CERCEDENSE",
-          score: "0-0",
-          venue: "REBOREDO",
-          time: "11:00H",
-          status: "PRÓXIMO"
+          "title": "PRÓXIMO PARTIDO",
+          "date": "DOM 13 ABR, 11:00H",
+          "home": "CERCEDENSE",
+          "away": "S.D.C TEIXEIRO",
+          "score": "0-0",
+          "venue": "O ROXO",
+          "time": "12:00H",
+          "status": "PRÓXIMO"
         }
       ],
       standings: [
-        { pos: 1, team: "CLUB MEIRAMA", pts: 68, pj: 24 },
-        { pos: 2, team: "C.D. CONREXO", pts: 57, pj: 24 },
-        { pos: 3, team: "CERCEDENSE", pts: 53, pj: 24 },
+        { pos: 1, team: "VISANTOÑA C.F", pts: 58, pj: 24 },
+        { pos: 2, team: "S.D.C TEIXEIRO", pts: 58, pj: 24 },
+        { pos: 3, team: "CERCEDENSE", pts: 54, pj: 24 },
         { pos: 4, team: "BERGANTIÑOS \"B\"", pts: 51, pj: 24 },
         { pos: 5, team: "C.D. X. ARANGA", pts: 42, pj: 24 }
       ],

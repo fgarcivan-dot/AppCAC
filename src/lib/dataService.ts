@@ -173,9 +173,15 @@ export async function fetchAppData(url: string = DEFAULT_API_URL): Promise<AppDa
 
     const json = await response.json();
     
-    // La API de GitHub devuelve el contenido en base64
+    // La API de GitHub devuelve el contenido en base64. 
+    // Usamos TextDecoder para soportar correctamente caracteres con tildes (UTF-8).
     if (json.content) {
-      const decodedContent = atob(json.content.replace(/\n/g, ''));
+      const binaryString = atob(json.content.replace(/\n/g, ''));
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const decodedContent = new TextDecoder('utf-8').decode(bytes);
       const data = JSON.parse(decodedContent);
       return data as AppData;
     }
