@@ -167,21 +167,18 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const setup = async () => {
       if (Capacitor.getPlatform() !== 'web') {
         try {
-          // Robust initialization for Capacitor/Cordova
-          let OneSignalObj: any = (window as any).plugins?.OneSignal;
+          // Modern initialization for Capacitor 8 using OttoOneSignal
+          const { OttoOneSignal } = await import('capacitor-otto-onesignal');
           
-          if (!OneSignalObj) {
-            // Fallback to dynamic import
-            OneSignalObj = (await import('onesignal-cordova-plugin')).default;
-          }
+          const { initialized } = await OttoOneSignal.initialize({
+            appId: "791bfab7-3758-4426-b7ce-d2dba13d2f37"
+          });
 
-          if (OneSignalObj) {
-            OneSignalObj.setAppId("791bfab7-3758-4426-b7ce-d2dba13d2f37");
-            OneSignalObj.promptForPushNotificationsWithUserResponse((accepted: any) => {
-              console.log("User accepted notifications: " + accepted);
-            });
+          if (initialized) {
+            const { accepted } = await OttoOneSignal.requestPermission();
+            console.log("User accepted notifications: " + accepted);
           } else {
-            console.error("OneSignal plugin not found on window or via import");
+            console.error("OneSignal failed to initialize");
           }
         } catch (e) {
           console.error("OneSignal setup error:", e);

@@ -16,6 +16,7 @@
     "@capacitor/local-notifications": "^8.0.2",
     "@capacitor/splash-screen": "^8.0.1",
     "axios": "^1.14.0",
+    "capacitor-otto-onesignal": "^1.0.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.470.0",
@@ -32,7 +33,20 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
+    "patch-package": "^8.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "^0.8.12",
+    "tar": "^7.5.13",
+    "replace": {
+      "minimatch": "^3.1.5"
+    },
+    "rimraf@<4": {
+      "glob": {
+        "minimatch": "^3.1.5"
+      }
+    }
   }
 }

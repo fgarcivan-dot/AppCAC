@@ -1,0 +1,292 @@
+diff --git a/node_modules/@capacitor/local-notifications/android/.project b/node_modules/@capacitor/local-notifications/android/.project
+new file mode 100644
+index 0000000..51175b8
+--- /dev/null
++++ b/node_modules/@capacitor/local-notifications/android/.project
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>capacitor-local-notifications</name>
++	<comment>Project capacitor-local-notifications created by Buildship.</comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>org.eclipse.jdt.core.javabuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>org.eclipse.jdt.core.javanature</nature>
++		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
++	</natures>
++</projectDescription>
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/build.gradle b/node_modules/@capacitor/local-notifications/android/bin/build.gradle
+new file mode 100644
+index 0000000..79081a3
+--- /dev/null
++++ b/node_modules/@capacitor/local-notifications/android/bin/build.gradle
+@@ -0,0 +1,79 @@
++ext {
++    capacitorVersion = System.getenv('CAPACITOR_VERSION')
++    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
++    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.7.1'
++    androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.3.0'
++    androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.7.0'
++}
++
++buildscript {
++    repositories {
++        google()
++        mavenCentral()
++        maven {
++            url = "https://plugins.gradle.org/m2/"
++        }
++    }
++    dependencies {
++        classpath 'com.android.tools.build:gradle:8.13.0'
++        if (System.getenv("CAP_PLUGIN_PUBLISH") == "true") {
++            classpath 'io.github.gradle-nexus:publish-plugin:1.3.0'
++        }
++    }
++}
++
++apply plugin: 'com.android.library'
++if (System.getenv("CAP_PLUGIN_PUBLISH") == "true") {
++    apply plugin: 'io.github.gradle-nexus.publish-plugin'
++    apply from: file('../../scripts/android/publish-root.gradle')
++    apply from: file('../../scripts/android/publish-module.gradle')
++}
++
++android {
++    namespace = "com.capacitorjs.plugins.localnotifications"
++    compileSdk = project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 36
++    defaultConfig {
++        minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 24
++        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 36
++        versionCode 1
++        versionName "1.0"
++        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
++    }
++    buildTypes {
++        release {
++            minifyEnabled false
++            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
++        }
++    }
++    lintOptions {
++        abortOnError = false
++    }
++    compileOptions {
++        sourceCompatibility JavaVersion.VERSION_21
++        targetCompatibility JavaVersion.VERSION_21
++    }
++    publishing {
++        singleVariant("release")
++    }
++}
++
++repositories {
++    google()
++    mavenCentral()
++}
++
++
++dependencies {
++    implementation fileTree(dir: 'libs', include: ['*.jar'])
++
++    if (System.getenv("CAP_PLUGIN_PUBLISH") == "true") {
++        implementation "com.capacitorjs:core:$capacitorVersion"
++    } else {
++        implementation project(':capacitor-android')
++    }
++
++    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
++    testImplementation "junit:junit:$junitVersion"
++    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
++    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
++}
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/DateMatch.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/DateMatch.class
+new file mode 100644
+index 0000000..1705371
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/DateMatch.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotification.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotification.class
+new file mode 100644
+index 0000000..e8b9a62
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotification.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationAttachment.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationAttachment.class
+new file mode 100644
+index 0000000..2a70fc5
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationAttachment.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationManager.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationManager.class
+new file mode 100644
+index 0000000..ba61ea7
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationManager.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationRestoreReceiver.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationRestoreReceiver.class
+new file mode 100644
+index 0000000..c8ab1ae
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationRestoreReceiver.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationSchedule.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationSchedule.class
+new file mode 100644
+index 0000000..92fb6e8
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationSchedule.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationsPlugin.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationsPlugin.class
+new file mode 100644
+index 0000000..2a55f17
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/LocalNotificationsPlugin.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationAction.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationAction.class
+new file mode 100644
+index 0000000..29adbe3
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationAction.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationChannelManager.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationChannelManager.class
+new file mode 100644
+index 0000000..106d2d6
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationChannelManager.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationDismissReceiver.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationDismissReceiver.class
+new file mode 100644
+index 0000000..bc42126
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationDismissReceiver.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationStorage.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationStorage.class
+new file mode 100644
+index 0000000..d8ba2ca
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/NotificationStorage.class differ
+diff --git a/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/TimedNotificationPublisher.class b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/TimedNotificationPublisher.class
+new file mode 100644
+index 0000000..81bf82b
+Binary files /dev/null and b/node_modules/@capacitor/local-notifications/android/bin/src/main/java/com/capacitorjs/plugins/localnotifications/TimedNotificationPublisher.class differ
+diff --git a/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsHandler.swift b/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsHandler.swift
+index e0bf257..95a1912 100644
+--- a/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsHandler.swift
++++ b/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsHandler.swift
+@@ -89,7 +89,7 @@ public class LocalNotificationsHandler: NSObject, NotificationHandlerProtocol {
+             "body": request.content.body
+         ]
+ 
+-        if let userInfo = JSTypes.coerceDictionaryToJSObject(request.content.userInfo) {
++        if let userInfo = request.content.userInfo as? JSObject {
+             var extra = userInfo["cap_extra"] as? JSObject ?? userInfo
+ 
+             // check for any dates and convert them to strings
+diff --git a/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsPlugin.swift b/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsPlugin.swift
+index 463be9a..16be731 100644
+--- a/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsPlugin.swift
++++ b/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsPlugin.swift
+@@ -48,7 +48,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+     private let notificationDelegationHandler = LocalNotificationsHandler()
+ 
+     override public func load() {
+-        self.bridge?.notificationRouter.localNotificationHandler = self.notificationDelegationHandler
++        (self.bridge as AnyObject).notificationRouter?.localNotificationHandler = self.notificationDelegationHandler
+         self.notificationDelegationHandler.plugin = self
+         self.shouldStringifyDatesInCalls = false
+     }
+@@ -57,15 +57,15 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+      * Schedule a notification.
+      */
+     @objc func schedule(_ call: CAPPluginCall) {
+-        guard let notifications = call.getArray("notifications", JSObject.self) else {
+-            call.reject("Must provide notifications array as notifications option")
++        guard let notifications = call.options["notifications"] as? [JSObject] else {
++            call.resolve(["error": "Must provide notifications array as notifications option"])
+             return
+         }
+         var ids = [String]()
+ 
+         for notification in notifications {
+             guard let identifier = notification["id"] as? Int else {
+-                call.reject("Notification missing identifier")
++                call.resolve(["error": "Notification missing identifier"])
+                 return
+             }
+ 
+@@ -76,7 +76,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+                 content = try makeNotificationContent(notification)
+             } catch {
+                 CAPLog.print(error.localizedDescription)
+-                call.reject("Unable to make notification", nil, error)
++                call.resolve(["error": "Unable to make notification"])
+                 return
+             }
+ 
+@@ -87,7 +87,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+                     try trigger = handleScheduledNotification(call, schedule)
+                 }
+             } catch {
+-                call.reject("Unable to create notification, trigger failed", nil, error)
++                call.resolve(["error": "Unable to create notification, trigger failed"])
+                 return
+             }
+ 
+@@ -100,7 +100,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+             center.add(request) { (error: Error?) in
+                 if let theError = error {
+                     CAPLog.print(theError.localizedDescription)
+-                    call.reject(theError.localizedDescription)
++                    call.resolve(["error": theError.localizedDescription])
+                 }
+             }
+ 
+@@ -123,7 +123,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+     @objc override public func requestPermissions(_ call: CAPPluginCall) {
+         self.notificationDelegationHandler.requestPermissions { granted, error in
+             guard error == nil else {
+-                call.reject(error!.localizedDescription)
++                call.resolve(["error": error!.localizedDescription])
+                 return
+             }
+             call.resolve(["display": granted ? "granted" : "denied"])
+@@ -161,8 +161,8 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+      * Cancel notifications by id
+      */
+     @objc func cancel(_ call: CAPPluginCall) {
+-        guard let notifications = call.getArray("notifications", JSObject.self), notifications.count > 0 else {
+-            call.reject("Must supply notifications to cancel")
++        guard let notifications = call.options["notifications"] as? [JSObject], notifications.count > 0 else {
++            call.resolve(["error": "Must supply notifications to cancel"])
+             return
+         }
+ 
+@@ -201,7 +201,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+      * Register allowed action types that a notification may present.
+      */
+     @objc func registerActionTypes(_ call: CAPPluginCall) {
+-        guard let types = call.getArray("types", JSObject.self) else {
++        guard let types = call.options["types"] as? [JSObject] else {
+             return
+         }
+ 
+@@ -289,7 +289,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+             let dateInfo = Calendar.current.dateComponents(in: TimeZone.current, from: at)
+ 
+             if dateInfo.date! < Date() {
+-                call.reject("Scheduled time must be *after* current time")
++                call.resolve(["error": "Scheduled time must be *after* current time"])
+                 return nil
+             }
+ 
+@@ -552,7 +552,7 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+             return nil
+         }
+ 
+-        return bridge?.localURL(fromWebURL: webURL)
++        return webURL
+     }
+ 
+     /**
+@@ -595,8 +595,8 @@ public class LocalNotificationsPlugin: CAPPlugin, CAPBridgedPlugin {
+      * Remove specified notifications from Notification Center
+      */
+     @objc func removeDeliveredNotifications(_ call: CAPPluginCall) {
+-        guard let notifications = call.getArray("notifications", JSObject.self) else {
+-            call.reject("Must supply notifications to remove")
++        guard let notifications = call.options["notifications"] as? [JSObject] else {
++            call.resolve(["error": "Must supply notifications to remove"])
+             return
+         }
+ 

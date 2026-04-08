@@ -1,0 +1,112 @@
+diff --git a/node_modules/capacitor-otto-onesignal/ios/Sources/OttoOneSignalPlugin/OttoOneSignalPlugin.swift b/node_modules/capacitor-otto-onesignal/ios/Sources/OttoOneSignalPlugin/OttoOneSignalPlugin.swift
+index 298947c..1023ecd 100644
+--- a/node_modules/capacitor-otto-onesignal/ios/Sources/OttoOneSignalPlugin/OttoOneSignalPlugin.swift
++++ b/node_modules/capacitor-otto-onesignal/ios/Sources/OttoOneSignalPlugin/OttoOneSignalPlugin.swift
+@@ -33,23 +33,23 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+     }
+ 
+     @objc public func initialize(_ call: CAPPluginCall) {
+-        guard let appId = normalized(call.getString("appId")) else {
+-            call.reject("Missing required field: appId.")
++        guard let appId = normalized(call.options["appId"] as? String) else {
++            call.resolve(["error": "Missing required field: appId."])
+             return
+         }
+ 
+         configureConsent(
+-            consentRequired: call.getBool("consentRequired"),
+-            consentGiven: call.getBool("consentGiven")
++            consentRequired: call.options["consentRequired"] as? Bool,
++            consentGiven: call.options["consentGiven"] as? Bool
+         )
+-        applyLogLevel(call.getInt("logLevel"))
++        applyLogLevel(call.options["logLevel"] as? Int)
+         OneSignal.initialize(appId, withLaunchOptions: nil)
+         initialized = true
+         call.resolve(["initialized": true])
+     }
+ 
+     @objc public func requestPermission(_ call: CAPPluginCall) {
+-        let fallbackToSettings = call.getBool("fallbackToSettings") ?? false
++        let fallbackToSettings = call.options["fallbackToSettings"] as? Bool ?? false
+         OneSignal.Notifications.requestPermission({ accepted in
+             DispatchQueue.main.async {
+                 self.permissionStatePayload { payload in
+@@ -62,8 +62,8 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+     }
+ 
+     @objc public func login(_ call: CAPPluginCall) {
+-        guard let externalId = normalized(call.getString("externalId")) else {
+-            call.reject("Missing required field: externalId.")
++        guard let externalId = normalized(call.options["externalId"] as? String) else {
++            call.resolve(["error": "Missing required field: externalId."])
+             return
+         }
+ 
+@@ -78,10 +78,10 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+ 
+     @objc public func addTag(_ call: CAPPluginCall) {
+         guard
+-            let key = normalized(call.getString("key")),
+-            let value = normalized(call.getString("value"))
++            let key = normalized(call.options["key"] as? String),
++            let value = normalized(call.options["value"] as? String)
+         else {
+-            call.reject("Missing required fields: key and value.")
++            call.resolve(["error": "Missing required fields: key and value."])
+             return
+         }
+ 
+@@ -90,8 +90,8 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+     }
+ 
+     @objc public func addTags(_ call: CAPPluginCall) {
+-        guard let rawTags = call.getObject("tags"), !rawTags.isEmpty else {
+-            call.reject("Missing required field: tags.")
++        guard let rawTags = call.options["tags"] as? [String: Any], !rawTags.isEmpty else {
++            call.resolve(["error": "Missing required field: tags."])
+             return
+         }
+ 
+@@ -104,8 +104,8 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+     }
+ 
+     @objc public func removeTag(_ call: CAPPluginCall) {
+-        guard let key = normalized(call.getString("key")) else {
+-            call.reject("Missing required field: key.")
++        guard let key = normalized(call.options["key"] as? String) else {
++            call.resolve(["error": "Missing required field: key."])
+             return
+         }
+ 
+@@ -114,8 +114,8 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+     }
+ 
+     @objc public func removeTags(_ call: CAPPluginCall) {
+-        guard let keys = call.getArray("keys", String.self), !keys.isEmpty else {
+-            call.reject("Missing required field: keys.")
++        guard let keys = call.options["keys"] as? [String], !keys.isEmpty else {
++            call.resolve(["error": "Missing required field: keys."])
+             return
+         }
+ 
+@@ -159,15 +159,15 @@ public class OttoOneSignalPlugin: CAPPlugin, CAPBridgedPlugin {
+     }
+ 
+     private func autoInitializeFromConfig() {
+-        guard let appId = normalized(getConfig().getString("appId")) else {
++        guard let appId = normalized(getConfig().getConfigJSON()["appId"] as? String) else {
+             return
+         }
+ 
+         configureConsent(
+-            consentRequired: getConfig().getBoolean("consentRequired", false),
+-            consentGiven: getConfig().getBoolean("consentGiven", false)
++            consentRequired: getConfig().getConfigJSON()["consentRequired"] as? Bool ?? false,
++            consentGiven: getConfig().getConfigJSON()["consentGiven"] as? Bool ?? false
+         )
+-        applyLogLevel(getConfig().getInt("logLevel", -1))
++        applyLogLevel(getConfig().getConfigJSON()["logLevel"] as? Int ?? -1)
+         OneSignal.initialize(appId, withLaunchOptions: nil)
+         initialized = true
+     }

@@ -1,0 +1,149 @@
+diff --git a/node_modules/@capacitor/splash-screen/android/.project b/node_modules/@capacitor/splash-screen/android/.project
+new file mode 100644
+index 0000000..5194edd
+--- /dev/null
++++ b/node_modules/@capacitor/splash-screen/android/.project
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>capacitor-splash-screen</name>
++	<comment>Project capacitor-splash-screen created by Buildship.</comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>org.eclipse.jdt.core.javabuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>org.eclipse.jdt.core.javanature</nature>
++		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
++	</natures>
++</projectDescription>
+diff --git a/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashListener.class b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashListener.class
+new file mode 100644
+index 0000000..312b573
+Binary files /dev/null and b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashListener.class differ
+diff --git a/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreen.class b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreen.class
+new file mode 100644
+index 0000000..c67c7b0
+Binary files /dev/null and b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreen.class differ
+diff --git a/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenConfig.class b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenConfig.class
+new file mode 100644
+index 0000000..d284416
+Binary files /dev/null and b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenConfig.class differ
+diff --git a/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenPlugin.class b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenPlugin.class
+new file mode 100644
+index 0000000..122f7ec
+Binary files /dev/null and b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenPlugin.class differ
+diff --git a/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenSettings.class b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenSettings.class
+new file mode 100644
+index 0000000..ba181c2
+Binary files /dev/null and b/node_modules/@capacitor/splash-screen/android/bin/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreenSettings.class differ
+diff --git a/node_modules/@capacitor/splash-screen/android/bin/src/main/res/.gitkeep b/node_modules/@capacitor/splash-screen/android/bin/src/main/res/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/@capacitor/splash-screen/ios/Sources/SplashScreenPlugin/SplashScreenPlugin.swift b/node_modules/@capacitor/splash-screen/ios/Sources/SplashScreenPlugin/SplashScreenPlugin.swift
+index 535ff4b..4cbc3a1 100644
+--- a/node_modules/@capacitor/splash-screen/ios/Sources/SplashScreenPlugin/SplashScreenPlugin.swift
++++ b/node_modules/@capacitor/splash-screen/ios/Sources/SplashScreenPlugin/SplashScreenPlugin.swift
+@@ -12,7 +12,7 @@ public class SplashScreenPlugin: CAPPlugin, CAPBridgedPlugin {
+     private var splashScreen: SplashScreen?
+ 
+     override public func load() {
+-        if let view = bridge?.viewController?.view {
++        if let view = (bridge as AnyObject).viewController??.view {
+             splashScreen = SplashScreen(parentView: view, config: splashScreenConfig())
+             splashScreen?.showOnLaunch()
+         }
+@@ -27,7 +27,7 @@ public class SplashScreenPlugin: CAPPlugin, CAPBridgedPlugin {
+                             call.resolve()
+                         })
+         } else {
+-            call.reject("Unable to show Splash Screen")
++            call.resolve(["error": "Unable to show Splash Screen"])
+         }
+ 
+     }
+@@ -39,23 +39,23 @@ public class SplashScreenPlugin: CAPPlugin, CAPBridgedPlugin {
+             splash.hide(settings: settings)
+             call.resolve()
+         } else {
+-            call.reject("Unable to hide Splash Screen")
++            call.resolve(["error": "Unable to hide Splash Screen"])
+         }
+     }
+ 
+     private func splashScreenSettings(from call: CAPPluginCall) -> SplashScreenSettings {
+         var settings = SplashScreenSettings()
+ 
+-        if let showDuration = call.getInt("showDuration") {
++        if let showDuration = call.options["showDuration"] as? Int {
+             settings.showDuration = showDuration
+         }
+-        if let fadeInDuration = call.getInt("fadeInDuration") {
++        if let fadeInDuration = call.options["fadeInDuration"] as? Int {
+             settings.fadeInDuration = fadeInDuration
+         }
+-        if let fadeOutDuration = call.getInt("fadeOutDuration") {
++        if let fadeOutDuration = call.options["fadeOutDuration"] as? Int {
+             settings.fadeOutDuration = fadeOutDuration
+         }
+-        if let autoHide = call.getBool("autoHide") {
++        if let autoHide = call.options["autoHide"] as? Bool {
+             settings.autoHide = autoHide
+         }
+         return settings
+@@ -64,10 +64,10 @@ public class SplashScreenPlugin: CAPPlugin, CAPBridgedPlugin {
+     private func splashScreenConfig() -> SplashScreenConfig {
+         var config = SplashScreenConfig()
+ 
+-        if let backgroundColor = getConfig().getString("backgroundColor") {
+-            config.backgroundColor = UIColor.capacitor.color(fromHex: backgroundColor)
++        if let backgroundColor = getConfig().getConfigJSON()["backgroundColor"] as? String {
++            config.backgroundColor = UIColor.capacitor.color(argb: parseHexColor(backgroundColor))
+         }
+-        if let spinnerStyle = getConfig().getString("iosSpinnerStyle") {
++        if let spinnerStyle = getConfig().getConfigJSON()["iosSpinnerStyle"] as? String {
+             switch spinnerStyle.lowercased() {
+             case "small":
+                 config.spinnerStyle = .medium
+@@ -75,8 +75,8 @@ public class SplashScreenPlugin: CAPPlugin, CAPBridgedPlugin {
+                 config.spinnerStyle = .large
+             }
+         }
+-        if let spinnerColor = getConfig().getString("spinnerColor") {
+-            config.spinnerColor = UIColor.capacitor.color(fromHex: spinnerColor)
++        if let spinnerColor = getConfig().getConfigJSON()["spinnerColor"] as? String {
++            config.spinnerColor = UIColor.capacitor.color(argb: parseHexColor(spinnerColor))
+         }
+         config.showSpinner = getConfig().getBoolean("showSpinner", config.showSpinner)
+ 
+@@ -85,4 +85,20 @@ public class SplashScreenPlugin: CAPPlugin, CAPBridgedPlugin {
+         return config
+     }
+ 
++    private func parseHexColor(_ hex: String) -> UInt32 {
++        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
++        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
++
++        var rgb: UInt64 = 0
++        Scanner(string: hexSanitized).scanHexInt64(&rgb)
++
++        if hexSanitized.count == 6 {
++            return UInt32(rgb | 0xFF000000)
++        } else if hexSanitized.count == 8 {
++            // ARGB vs RGBA depends on bridge expectation, usually ARGB in iOS color calls
++            return UInt32(rgb)
++        }
++        return 0xFFFFFFFF
++    }
++
+ }

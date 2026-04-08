@@ -17,7 +17,7 @@ const config: CapacitorConfig = {
   },
   ios: {
     // @ts-ignore
-    useSwiftPackageManager: false
+    useSwiftPackageManager: true
   },
   experimental: {
     ios: {
