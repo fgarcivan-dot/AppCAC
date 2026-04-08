@@ -76,10 +76,10 @@ export const INITIAL_DATA: AppData = {
           "date": "DOM 06 ABR",
           "home": "CERCEDENSE",
           "away": "S.D.C TEIXEIRO",
-          "score": "7-1",
+          "score": "2-2",
           "venue": "O ROXO",
           "time": "17:00H",
-          "status": "FIN"
+          "status": "EN XOGO"
         },
         {
           "title": "PRÓXIMO PARTIDO",
