@@ -157,6 +157,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
           if (!OneSignalObj) {
             try {
               // Fallback to dynamic import
+              // @ts-ignore
               const OneSignalModule = await import('onesignal-cordova-plugin');
               OneSignalObj = OneSignalModule.default || OneSignalModule;
             } catch (e) {
