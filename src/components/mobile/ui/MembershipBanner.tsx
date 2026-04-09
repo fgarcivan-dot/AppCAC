@@ -21,8 +21,8 @@ export function MembershipBanner({ data }: MembershipBannerProps) {
         
         {/* 📝 External Editorial Title - Synced with InstaGrid style */}
         <div className="mb-10 flex flex-col items-center text-center">
-            <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.85] text-slate-950">
-                Faite <br /> <span className="text-primary italic">Socio</span>
+            <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.85] text-slate-950" style={{ fontFamily: 'Quakerhack' }}>
+                Faite <br /> <span className="text-primary">Socio</span>
             </h2>
         </div>
 
@@ -72,7 +72,7 @@ export function MembershipBanner({ data }: MembershipBannerProps) {
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30">
                                 Campaña de abonos 24/25
                             </span>
-                            <h3 className="text-4xl font-black uppercase text-white tracking-tighter">
+                            <h3 className="text-4xl font-black uppercase text-white tracking-tighter" style={{ fontFamily: 'Quakerhack' }}>
                                 Socio
                             </h3>
                         </div>

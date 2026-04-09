@@ -100,17 +100,6 @@ export default function Resultados() {
                 losses={resData.balanceMasculino.derrotas}
               />
 
-              {equipos?.masculino?.externalUrl && (
-                <a
-                  href={equipos.masculino.externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3.5 rounded-xl border text-[9px] font-black tracking-[0.3em] uppercase transition-all bg-slate-50 border-black/5 text-foreground opacity-40 hover:opacity-100 shadow-sm"
-                >
-                  <span>Enlace de Temporada</span>
-                  <ExternalLink size={12} className="opacity-40" />
-                </a>
-              )}
             </div>
 
             {/* Femenino */}
@@ -142,17 +131,6 @@ export default function Resultados() {
                 losses={resData.balanceFemenino.derrotas}
               />
 
-              {equipos?.femenino?.externalUrl && (
-                <a
-                  href={equipos.femenino.externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3.5 rounded-xl border text-[9px] font-black tracking-[0.3em] uppercase transition-all bg-slate-50 border-black/5 text-foreground opacity-40 hover:opacity-100 shadow-sm"
-                >
-                  <span>Enlace de Temporada</span>
-                  <ExternalLink size={12} className="opacity-40" />
-                </a>
-              )}
             </div>
           </motion.section>
         ) : (

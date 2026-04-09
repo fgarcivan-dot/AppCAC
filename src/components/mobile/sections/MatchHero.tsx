@@ -23,8 +23,8 @@ export function MatchHero() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic">
-            CERCEDENSE <span className="opacity-40 italic not-italic">vs</span> ORDES CF
+          <h2 className="text-4xl font-black tracking-tighter text-white uppercase">
+            CERCEDENSE <span className="opacity-40">vs</span> ORDES CF
           </h2>
         </div>
 

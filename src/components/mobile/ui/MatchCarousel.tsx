@@ -147,16 +147,15 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                                 <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                               )}
                               <span className={cn(
-                                "text-[8px] font-black tracking-widest uppercase transition-colors duration-1000",
-                                match.status === "EN XOGO" ? "text-primary" :
-                                   (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-foreground/40" :
-                                     (match.status === "FIN" || match.status === "FINALIZADO") ? (
-                                       match.result === "VITORIA" ? "text-primary" :
-                                         match.result === "EMPATE" ? "text-foreground/40" :
-                                           "text-primary" // DERROTA
-                                     ) :
-                                       "text-foreground"
-                              )}>
+                                  match.status === "EN XOGO" ? "text-primary" :
+                                    (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-foreground/40" :
+                                      (match.status === "FIN" || match.status === "FINALIZADO") ? (
+                                        match.result === "VITORIA" ? "text-emerald-600 font-black" :
+                                          match.result === "EMPATE" ? "text-foreground/40" :
+                                            "text-primary" // DERROTA
+                                      ) :
+                                        "text-foreground"
+                               )}>
                                 {((match.status === "FIN" || match.status === "FINALIZADO") && match.result)
                                   ? (match.result === "VITORIA" ? "VICTORIA" : match.result)
                                   : match.status}
@@ -173,7 +172,7 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                                 "h-5 w-1 rounded-full",
                                 isHomeCercedense ? "bg-primary" : "bg-black/5"
                                )} />
-                               <span className={`text-base sm:text-lg font-black uppercase tracking-tighter leading-tight ${isHomeCercedense ? "text-primary" : "text-foreground"}`}>
+                               <span className={`text-base sm:text-lg font-black uppercase tracking-tighter leading-tight ${!isHomeCercedense ? "text-primary" : "text-foreground"}`}>
                                  {match.home}
                                </span>
                              </div>

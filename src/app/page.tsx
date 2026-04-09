@@ -45,6 +45,7 @@ export default function Home() {
           className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
             activeTab === "masculino" ? 'text-white' : 'text-foreground opacity-40 hover:opacity-100'
           }`}
+          style={{ fontFamily: 'NeueMontreal' }}
         >
           Masculino
         </button>
@@ -53,6 +54,7 @@ export default function Home() {
           className={`relative z-10 flex-1 py-3 text-[10px] font-black tracking-widest uppercase transition-colors duration-1000 ${
             activeTab === "femenino" ? 'text-white' : 'text-foreground opacity-40 hover:opacity-100'
           }`}
+          style={{ fontFamily: 'NeueMontreal' }}
         >
           Femenino
         </button>
@@ -112,12 +114,12 @@ export default function Home() {
                 <div className="w-6 h-[1px] bg-primary" />
               </div>
               
-              <h2 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.2] tracking-tighter uppercase z-10 text-foreground">
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.2] tracking-tighter uppercase z-10 text-foreground" style={{ fontFamily: 'Quakerhack' }}>
                 <span className="block mb-4">
                   NON SOMOS SÓ UN CLUB.
                 </span>
                 <span className="block">
-                  <span className="text-primary">SOMOS FAMILIA.</span> SOMOS ESFORZO. <span className="text-primary">SOMOS CERCEDA.</span>
+                  <span className="text-primary tracking-tighter">SOMOS FAMILIA.</span> SOMOS ESFORZO. <span className="text-primary tracking-tighter">SOMOS CERCEDA.</span>
                 </span>
               </h2>
 
