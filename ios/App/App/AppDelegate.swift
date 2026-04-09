@@ -1,6 +1,5 @@
 import UIKit
 import Capacitor
-import OneSignalFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,9 +7,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // OneSignal initialization (v5 Native)
-        OneSignal.initialize("791bfab7-3758-4426-b7ce-d2dba13d2f37", withLaunchOptions: launchOptions)
-        
         return true
     }
 
