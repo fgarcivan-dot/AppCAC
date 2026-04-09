@@ -151,6 +151,8 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const setup = async () => {
       if (Capacitor.getPlatform() !== 'web') {
         try {
+          /* 
+          // Temporarily disabled OneSignal following build issues on iOS
           // Robust initialization for OneSignal SDK v5
           let OneSignalObj: any = (window as any).plugins?.OneSignal;
           
@@ -183,6 +185,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
           } else {
             console.error("OneSignal failed to initialize");
           }
+          */
         } catch (e) {
           console.error("OneSignal setup error:", e);
         }
