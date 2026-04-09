@@ -17,14 +17,7 @@ const config: CapacitorConfig = {
   },
   ios: {
     // @ts-ignore
-    useSwiftPackageManager: true
-  },
-  experimental: {
-    ios: {
-      spm: {
-        swiftToolsVersion: '5.9'
-      }
-    }
+    useSwiftPackageManager: false
   }
 };
 
