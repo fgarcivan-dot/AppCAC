@@ -27,7 +27,7 @@ export default function Resultados() {
     <div className="flex flex-col gap-8 p-6 pb-32 animate-in fade-in duration-700 min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="flex items-center justify-between">
-        <h1 className="text-4xl font-black tracking-tighter uppercase italic text-foreground">
+        <h1 className="text-4xl font-black tracking-tighter uppercase text-foreground">
           ÚLTIMA<br /><span className="text-primary tracking-norm">XORNADA</span>
         </h1>
         <div className="flex flex-col items-end text-right">

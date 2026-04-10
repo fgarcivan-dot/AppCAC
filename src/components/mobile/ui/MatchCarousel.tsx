@@ -150,8 +150,8 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                                   match.status === "EN XOGO" ? "text-primary" :
                                     (match.status === "DESCANSO" || match.status === "PAUSA") ? "text-foreground/40" :
                                       (match.status === "FIN" || match.status === "FINALIZADO") ? (
-                                        match.result === "VITORIA" ? "text-emerald-600 font-black" :
-                                          match.result === "EMPATE" ? "text-foreground/40" :
+                                        match.result === "VITORIA" ? "text-emerald-500 font-black" :
+                                          match.result === "EMPATE" ? "text-foreground font-black" :
                                             "text-primary" // DERROTA
                                       ) :
                                         "text-foreground"
