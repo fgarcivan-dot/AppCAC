@@ -23,11 +23,11 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
     if (uppercaseCat.includes("SENIOR")) return uppercaseCat.split(" ").pop() || "S";
     if (uppercaseCat.includes("ALEVÍN")) return "AL-" + (uppercaseCat.split(" ").pop() || "A");
     if (uppercaseCat.includes("BENXAMÍN")) return "BX-" + (uppercaseCat.split(" ").pop() || "A");
-    if (uppercaseCat.includes("PREBENXAMÍN")) return "PB";
+    if (uppercaseCat.includes("PREBENXAMÍN")) return "PBX";
     if (uppercaseCat.includes("BIBERÓN")) return "BB";
     if (uppercaseCat.includes("XUVENIL")) return "XU";
     if (uppercaseCat.includes("CADETE")) return "CD";
-    if (uppercaseCat.includes("INFANTIL")) return "IF";
+    if (uppercaseCat.includes("INFANTIL")) return "INF";
     return uppercaseCat.charAt(0);
   };
 
@@ -43,7 +43,7 @@ export function SeniorMatchCard({ home, away, date, time, category, venue, index
       className="relative w-full min-h-[210px] h-auto rounded-[2.2rem] overflow-hidden border transition-all duration-1000 bg-white border-black/5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] pb-6"
     >
       {/* 🔮 Background Watermark */}
-      <div className="absolute -right-4 -bottom-6 text-[140px] font-black italic select-none pointer-events-none transition-colors duration-1000 text-black/[0.07]">
+      <div className="absolute -right-4 -bottom-6 text-[140px] font-black select-none pointer-events-none transition-colors duration-1000 text-black/[0.07]">
         {watermarkText}
       </div>
 

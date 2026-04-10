@@ -108,13 +108,13 @@ export default function Home() {
               {/* Cinematic Background Light */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
               
-              <div className="text-[10px] font-black uppercase tracking-[0.6em] mb-10 flex items-center gap-6 text-foreground">
+              <div className="text-[10px] font-black uppercase tracking-[0.6em] mb-10 flex items-center gap-6 text-foreground" style={{ fontFamily: 'NeueMontreal' }}>
                 <div className="w-6 h-[1px] bg-primary" />
                 <span>O NOSO ADN</span>
                 <div className="w-6 h-[1px] bg-primary" />
               </div>
               
-              <h2 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.2] tracking-tighter uppercase z-10 text-foreground" style={{ fontFamily: 'Quakerhack' }}>
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.2] tracking-tighter uppercase z-10 text-foreground" style={{ fontFamily: 'NeueMontreal' }}>
                 <span className="block mb-4">
                   NON SOMOS SÓ UN CLUB.
                 </span>
@@ -123,9 +123,9 @@ export default function Home() {
                 </span>
               </h2>
 
-              <p className="mt-10 text-[9px] font-black tracking-widest uppercase italic text-foreground opacity-30">
-                 CERCEDA, DESDE 1923
-              </p>
+              <h2 className="text-8xl font-black select-none pointer-events-none text-foreground opacity-[0.03] leading-none mb-4 uppercase">
+              CERCEDA<br />DENDE 2021
+            </h2>
             </div>
 
             <EscolasSection data={escuelas} />
