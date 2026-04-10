@@ -172,7 +172,7 @@ export function MatchCarousel({ matches, refreshKey = 0 }: MatchCarouselProps) {
                                 "h-5 w-1 rounded-full",
                                 isHomeCercedense ? "bg-primary" : "bg-black/5"
                                )} />
-                               <span className={`text-base sm:text-lg font-black uppercase tracking-tighter leading-tight ${!isHomeCercedense ? "text-primary" : "text-foreground"}`}>
+                               <span className={`text-base sm:text-lg font-black uppercase tracking-tighter leading-tight ${isHomeCercedense ? "text-primary" : "text-foreground"}`}>
                                  {match.home}
                                </span>
                              </div>

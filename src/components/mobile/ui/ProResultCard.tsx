@@ -38,6 +38,7 @@ export function ProResultCard({ home, away, score, date, venue, category, result
   const isHomeCercedense = home.toUpperCase().includes("CERCEDENSE");
   const isRestDay = home.toUpperCase().includes("DESCANSO") || away.toUpperCase().includes("DESCANSO");
   const isPreMatch = !status || status?.toUpperCase() === "PRÓXIMO";
+  const isChildrenCategory = ["ALEVÍN", "BENXAMÍN", "PREBENXAMÍN", "BIBERÓN"].some(c => category.toUpperCase().includes(c));
 
   // 🚦 Result Styling - Precision HUD
   const getResultConfig = () => {
@@ -172,7 +173,10 @@ export function ProResultCard({ home, away, score, date, venue, category, result
             </div>
 
             {/* Score Box */}
-            <div className="flex flex-col items-center justify-center px-4 h-[45px] min-w-[75px] rounded-xl transition-all duration-1000 shrink-0 bg-primary shadow-lg shadow-primary/20">
+            <div className={cn(
+                "flex flex-col items-center justify-center px-4 h-[45px] min-w-[75px] rounded-xl transition-all duration-1000 shrink-0 bg-primary shadow-lg shadow-primary/20",
+                isChildrenCategory && !isPreMatch && "opacity-0 invisible" // Hide for children's scores
+            )}>
               <span className={cn(
                 "font-black tabular-nums tracking-tighter leading-none transition-colors duration-1000 text-white",
                 isPreMatch ? "text-lg" : "text-2xl"
