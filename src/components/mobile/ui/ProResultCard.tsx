@@ -26,11 +26,11 @@ export function ProResultCard({ home, away, score, date, venue, category, result
     if (uppercaseCat.includes("SENIOR")) return uppercaseCat.split(" ").pop() || "S";
     if (uppercaseCat.includes("ALEVÍN")) return "AL-" + (uppercaseCat.split(" ").pop() || "A");
     if (uppercaseCat.includes("BENXAMÍN")) return "BX-" + (uppercaseCat.split(" ").pop() || "A");
-    if (uppercaseCat.includes("PREBENXAMÍN")) return "PB";
+    if (uppercaseCat.includes("PREBENXAMÍN")) return "PBX";
     if (uppercaseCat.includes("BIBERÓN")) return "BB";
     if (uppercaseCat.includes("XUVENIL")) return "XU";
     if (uppercaseCat.includes("CADETE")) return "CD";
-    if (uppercaseCat.includes("INFANTIL")) return "IF";
+    if (uppercaseCat.includes("INFANTIL")) return "INF";
     return uppercaseCat.charAt(0);
   };
 

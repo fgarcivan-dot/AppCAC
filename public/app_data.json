@@ -158,7 +158,7 @@
     "lista": [
       { "id": 1, "home": "CERCEDENSE", "away": "ORDES CF", "score": "2 - 1", "date": "MAR 30", "venue": "CAMPO O ROXO", "category": "SENIOR MASCULINO", "result": "VITORIA", "status": "FIN" },
       { "id": 2, "home": "BETANZOS CF", "away": "CERCEDENSE", "score": "0 - 3", "date": "MAR 30", "venue": "CAMPO DEP. BETANZOS", "category": "SENIOR FEMININO", "result": "VITORIA", "status": "FIN" },
-      { "id": 3, "home": "CERCEDENSE", "away": "SD FISTERRA", "score": "4 - 4", "date": "MAR 29", "venue": "CAMPO O ROXO", "category": "WFUVENIL", "result": "EMPATE", "status": "FIN" },
+      { "id": 3, "home": "CERCEDENSE", "away": "SD FISTERRA", "score": "4 - 4", "date": "MAR 29", "venue": "CAMPO O ROXO", "category": "XUVENIL", "result": "EMPATE", "status": "FIN" },
       { "id": 4, "home": "DESCANSO", "away": "CERCEDENSE", "score": "DESCANSA", "date": "MAR 29", "venue": "O ROXO", "category": "CADETE", "result": "EMPATE", "status": "FIN" },
       { "id": 5, "home": "CERCEDENSE", "away": "VICTORIA CF", "score": "1 - 3", "date": "MAR 29", "venue": "CAMPO O ROXO", "category": "INFANTIL", "result": "DERROTA", "status": "FIN" },
       { "id": 6, "home": "BOIRO CF", "away": "CERCEDENSE", "score": "1 - 2", "date": "MAR 31", "venue": "CAMPO MUNICIPAL BOIRO", "category": "ALEVÍN A", "result": "VITORIA", "status": "FIN" },
