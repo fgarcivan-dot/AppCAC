@@ -123,9 +123,9 @@ export default function Home() {
                 </span>
               </h2>
 
-              <h2 className="text-8xl font-black select-none pointer-events-none text-foreground opacity-[0.03] leading-none mb-4 uppercase">
-              CERCEDA<br />DENDE 2021
-            </h2>
+              <p className="mt-10 text-[9px] font-black tracking-widest uppercase text-foreground opacity-30" style={{ fontFamily: 'NeueMontreal' }}>
+                 CERCEDA, DENDE 2021
+              </p>
             </div>
 
             <EscolasSection data={escuelas} />
