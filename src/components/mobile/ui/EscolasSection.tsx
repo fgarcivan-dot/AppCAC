@@ -42,9 +42,9 @@ export function EscolasSection({ data }: EscolasSectionProps) {
         
         {/* Main Title - App Standard Typography */}
         <div className="flex flex-col items-center">
-          <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.95] text-slate-950">
+          <h2 className="text-4xl font-black tracking-tighter uppercase leading-[0.85] text-slate-950">
             ESCOLAS DE <br />
-            <span className="text-primary italic block mt-1 tracking-normal">FÚTBOL</span>
+            <span className="text-primary tracking-norm block mt-1">FÚTBOL</span>
           </h2>
           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mt-4">
             CONCELLO DE CERCEDA

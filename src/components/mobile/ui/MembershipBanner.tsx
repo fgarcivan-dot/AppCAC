@@ -21,7 +21,7 @@ export function MembershipBanner({ data }: MembershipBannerProps) {
         
         {/* 📝 External Editorial Title - Synced with InstaGrid style */}
         <div className="mb-10 flex flex-col items-center text-center">
-            <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.85] text-slate-950" style={{ fontFamily: 'Quakerhack' }}>
+            <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.85] text-slate-950" style={{ fontFamily: 'NeueMontreal' }}>
                 Faite <br /> <span className="text-primary">Socio</span>
             </h2>
         </div>

@@ -39,9 +39,8 @@ export function InstaGrid({ data }: InstaGridProps) {
           <Instagram size={18} className="text-primary opacity-60" />
           <span className="text-[9px] font-black uppercase tracking-[0.5em] text-foreground opacity-30">SOCIAL FEED</span>
         </div>
-        <h2 className="text-5xl font-black tracking-tighter uppercase leading-[0.85] text-foreground">
-          A NOSA<br />
-          <span className="text-primary italic">XENTE</span>
+        <h2 className="text-4xl font-black tracking-tighter uppercase leading-[0.85] text-slate-950">
+          A NOSA <br /> <span className="text-primary tracking-norm">XENTE</span>
         </h2>
         <p className="mt-6 text-[10px] font-black tracking-[0.3em] uppercase text-foreground opacity-60">
           {data?.description || "Momentos de paixón. Xogadores, afección e canteira unidos por un mesmo sentimento."}

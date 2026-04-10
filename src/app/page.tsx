@@ -73,11 +73,11 @@ export default function Home() {
           >
             {/* Header / Info */}
             <div className="flex items-center justify-between px-2">
-              <span className="text-[10px] font-black tracking-[0.4em] uppercase text-foreground opacity-30">
+              <span className="text-[10px] font-black tracking-[0.4em] uppercase text-foreground opacity-30" style={{ fontFamily: 'NeueMontreal' }}>
                 {activeTab === "masculino" ? "SÉNIOR MASC." : "SÉNIOR FEM."}
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary">
+                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary" style={{ fontFamily: 'NeueMontreal' }}>
                   {currentData.posicion}
                 </span>
               </div>
