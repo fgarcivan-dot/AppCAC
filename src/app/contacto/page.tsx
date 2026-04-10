@@ -30,7 +30,7 @@ export default function Contacto() {
       <header className="p-8 pb-4 flex items-center justify-between">
         <h1 className="text-4xl font-black tracking-tighter uppercase text-slate-950 leading-[0.9]">
             CONTACTO<br />
-            <span className="text-primary tracking-normal italic">DO CLUB</span>
+            <span className="text-primary tracking-normal">DO CLUB</span>
         </h1>
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary shadow-2xl shadow-primary/20">
           <Shield size={24} className="text-white" />

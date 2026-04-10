@@ -33,7 +33,7 @@ export default function Partidos() {
     <div className="flex flex-col gap-8 p-6 animate-in fade-in duration-700 bg-background text-foreground">
       {/* Header */}
       <header className="flex items-center justify-between">
-        <h1 className="text-4xl font-black tracking-tighter uppercase italic text-foreground">
+        <h1 className="text-4xl font-black tracking-tighter uppercase text-foreground">
           PRÓXIMOS<br /><span className="text-primary tracking-norm">PARTIDOS</span>
         </h1>
         <div className="flex flex-col items-end text-right">
