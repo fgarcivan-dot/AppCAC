@@ -1,6 +1,6 @@
 import { AppData } from "./dataService";
 
-export const INITIAL_DATA: AppData = {
+export const initialAppData: AppData = {
   "config": {
     "temporada": "TEMP. 24/25",
     "mesResultados": "MARZO 2025",
@@ -78,7 +78,7 @@ export const INITIAL_DATA: AppData = {
           "away": "S.D.C TEIXEIRO",
           "score": "0-0",
           "venue": "O ROXO",
-          "time": "17:00H",
+          "time": "18:00H",
           "status": "PRÓXIMO"
         },
         {
