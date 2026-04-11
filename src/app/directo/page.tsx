@@ -30,7 +30,7 @@ export default function Directo() {
             src={`https://www.youtube.com/embed/${content.videoId}?autoplay=1&rel=0`}
             title="Sindicación CAC Directo"
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
             allowFullScreen
           ></iframe>
         </section>
