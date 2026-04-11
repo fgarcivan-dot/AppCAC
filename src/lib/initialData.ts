@@ -1,6 +1,6 @@
 import { AppData } from "./dataService";
 
-export const initialAppData: AppData = {
+export const INITIAL_DATA: AppData = {
   "config": {
     "temporada": "TEMP. 24/25",
     "mesResultados": "MARZO 2025",

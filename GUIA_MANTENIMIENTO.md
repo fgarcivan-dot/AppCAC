@@ -132,15 +132,32 @@ La aplicación cuenta con un **"Robot" (GitHub Action)** que vigila el archivo `
 1.  Entra en tu repositorio **AppCAC** en GitHub.
 2.  Navega hasta `public/app_data.json`.
 3.  Haz clic en el lápiz para **Editar**.
-4.  Realiza tus cambios y haz clic en **Commit changes** (el botón verde).
+4.  Realiza tus cambios (ej: poner un marcador o activar un directo) y haz clic en **Commit changes**.
 5.  **¡Listo!** En pocos segundos, la notificación llegará a todos los móviles.
 
 ---
 
-## 📋 8. Consejos Pro 
+## 📺 8. Retransmisión en Directo (YouTube HUD)
+
+La App incluye un reproductor de vídeo inmersivo que se activa solo cuando el club está emitiendo.
+
+### 🎬 Cómo activar un directo:
+1.  **Localiza el ID del vídeo**: En cualquier link de YouTube (ej: `youtube.com/watch?v=ABC123XYZ`), el ID son las letras finales (`ABC123XYZ`).
+2.  **Edita el JSON**:
+    *   `isLive`: Cámbialo a **`true`**.
+    *   `videoId`: Pega el ID del vídeo.
+3.  **Resultado**: La App enviará automáticamente una notificación de **"¡ESTAMOS EN DIRECTO!"** y el botón de la web será reemplazado por un reproductor de vídeo a pantalla completa que empieza a reproducirse solo.
+
+### 💡 Consejos del Directo:
+*   **Pantalla Completa**: El reproductor permite expandir el vídeo a toda la pantalla del móvil pulsando el icono de YouTube.
+*   **Fin del directo**: Cuando termine el partido, vuelve a poner `isLive` en **`false`** para que la App vuelva a mostrar la info del próximo encuentro.
+
+---
+
+## 📋 9. Consejos Pro 
 1.  **Formato de Hora**: Usa siempre la "H" (ej: `12:00H`) para que el HUD la detecte.
-2.  **Imágenes**: Ruta `/images/nombre.webp`.
-3.  **Actualización**: Ya no necesitas deslizar para actualizar; al ser archivos del repositorio, la app siempre tiene la última versión al abrirse.
+2.  **Imágenes**: Ruta `/images/nombre.webp` o enlaces directos a postimg.cc.
+3.  **Actualización Remota**: Ya no necesitas deslizar para actualizar; al abrir la app o ir a una sección, el sistema ya pide los datos a GitHub automáticamente.
 
 ---
 > [!IMPORTANT]
