@@ -187,13 +187,13 @@
     ]
   },
   "directo": {
-    "isLive": false,
+    "isLive": true,
     "statusText": "PRÓXIMA RETRANSMISIÓN",
     "description": "Sigue en directo o partido do Senior Masculino dende o Campo O Roxo.",
     "youtubeUrl": "https://www.youtube.com/@ClubAtléticoCercedense",
     "nextEventTitle": "CERCEDENSE vs TEIXEIRO",
     "nextEventDate": "DOMINGO 06 ABRIL, 17:00H",
-    "videoId": ""
+    "videoId": "yjM1uUUjZ5t7bKtU"
   },
   "contacto": {
     "address": "Campo O Roxo, Cerceda, 15185 A Coruña",
