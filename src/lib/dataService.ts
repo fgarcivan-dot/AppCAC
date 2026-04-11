@@ -69,6 +69,7 @@ export interface DirectoContent {
   youtubeUrl: string;
   nextEventTitle: string;
   nextEventDate: string;
+  videoId?: string;
 }
 
 export interface ContactoContent {

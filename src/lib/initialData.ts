@@ -194,7 +194,8 @@ export const INITIAL_DATA: AppData = {
     "description": "Sigue en directo o partido do Senior Masculino dende o Campo O Roxo.",
     "youtubeUrl": "https://www.youtube.com/@ClubAtléticoCercedense",
     "nextEventTitle": "CERCEDENSE vs TEIXEIRO",
-    "nextEventDate": "DOMINGO 06 ABRIL, 17:00H"
+    "nextEventDate": "DOMINGO 06 ABRIL, 17:00H",
+    "videoId": ""
   },
   "contacto": {
     "address": "Campo O Roxo, Cerceda, 15185 A Coruña",
