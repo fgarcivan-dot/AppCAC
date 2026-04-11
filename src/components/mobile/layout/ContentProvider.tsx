@@ -50,8 +50,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   // 🔔 Status Tracking for Notifications (Persisted)
   const initData = async (isBackground = false) => {
     console.log(`[DEBUG_CAC] Sincronización ${isBackground ? 'en segundo plano' : 'inicial'} iniciada...`);
-    // const remoteData = await fetchAppData();
-    const remoteData: any = null; // Forza o uso dos datos locais 24/25
+    const remoteData = await fetchAppData();
     if (remoteData) {
       console.log("[DEBUG_CAC] Datos remotos recibidos, procesando mezcla...");
       // Check for notifications before updating state
