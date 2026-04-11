@@ -192,7 +192,7 @@ export const INITIAL_DATA: AppData = {
     "isLive": false,
     "statusText": "PRÓXIMA RETRANSMISIÓN",
     "description": "Sigue en directo o partido do Senior Masculino dende o Campo O Roxo.",
-    "youtubeUrl": "https://youtube.com/live/exemplo",
+    "youtubeUrl": "https://www.youtube.com/@ClubAtléticoCercedense",
     "nextEventTitle": "CERCEDENSE vs TEIXEIRO",
     "nextEventDate": "DOMINGO 06 ABRIL, 17:00H"
   },
