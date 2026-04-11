@@ -74,6 +74,12 @@ export const notificationService = {
         body: `Marcador actual: ${home} ${score} ${away}`
       };
     }
+    if (s === 'LIVE_START') {
+      return {
+        title: `🔴📺 ¡ESTAMOS EN DIRECTO!`,
+        body: `Sigue o vídeo en vivo dende a nosa sección de Retransmisión.`
+      };
+    }
     return null;
   }
 };

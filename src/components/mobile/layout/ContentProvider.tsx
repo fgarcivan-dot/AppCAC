@@ -107,6 +107,25 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
           }
         });
       }
+      
+      // 3. Check for Live Stream Start
+      if (remoteData.directo) {
+        const isClient = typeof window !== 'undefined';
+        const liveKey = `last_live_state`;
+        const prevLive = isClient ? localStorage.getItem(liveKey) === 'true' : false;
+        const currentLive = remoteData.directo.isLive;
+
+        if (!prevLive && currentLive) {
+          const msg = notificationService.getStatusMessage('LIVE_START', "", "", "");
+          if (msg) {
+            notificationService.schedule(msg.title, msg.body);
+          }
+        }
+
+        if (isClient) {
+          localStorage.setItem(liveKey, currentLive.toString());
+        }
+      }
 
       // 🏗️ DIRECT SYNC: Use remote data as the definitive source of truth
       const mergedData = { ...INITIAL_DATA, ...remoteData };
