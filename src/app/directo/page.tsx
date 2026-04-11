@@ -24,10 +24,10 @@ export default function Directo() {
 
       {/* Main Status / Live Player */}
       {content.isLive && content.videoId ? (
-        <section className="relative w-full aspect-video rounded-[2rem] overflow-hidden border border-black/5 shadow-2xl shadow-primary/10 bg-black">
+        <section className="relative w-[calc(100%+3rem)] -mx-6 aspect-video bg-black shadow-2xl shadow-primary/20">
           <iframe
             className="w-full h-full"
-            src={`https://www.youtube.com/embed/${content.videoId}?autoplay=1&rel=0`}
+            src={`https://www.youtube.com/embed/${content.videoId}?autoplay=1&rel=0&enablejsapi=1`}
             title="Sindicación CAC Directo"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
